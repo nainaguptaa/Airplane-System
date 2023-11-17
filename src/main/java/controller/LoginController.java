@@ -1,7 +1,7 @@
-package main.controller;
+package main.java.controller;
 
-import main.model.User;
-import main.view.LoginView;
+import main.java.model.role.User;
+import main.java.view.LoginView;
 
 public class LoginController {
     private User model;

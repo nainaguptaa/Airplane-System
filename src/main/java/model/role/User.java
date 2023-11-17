@@ -1,4 +1,4 @@
-package main.model;
+package main.java.model.role;
 
 public class User {
     private String username;
