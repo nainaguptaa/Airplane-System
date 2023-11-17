@@ -41,6 +41,7 @@ CREATE TABLE IF NOT EXISTS seats (
 CREATE TABLE IF NOT EXISTS locations (
     location_id INT AUTO_INCREMENT PRIMARY KEY,
     city VARCHAR(100) NOT NULL,
+    state VARCHAR(100) NOT NULL,
     country VARCHAR(100) NOT NULL
 );
 -- Create 'airports' table
