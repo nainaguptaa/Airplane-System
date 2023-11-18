@@ -1,12 +1,15 @@
 package main.java.model.role;
 
 public class User {
+    //mayve add field for access level/role
     private String username;
     private String password;
+    private String email;
 
-    public User(String username, String password) {
+    public User(String username, String password, String email) {
         this.username = username;
         this.password = password;
+        this.email=email;
     }
 
     // Getters and Setters
@@ -25,4 +28,8 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public void setEmail(String email){this.email=email;}
+
+    public String getEmail(){return email;}
 }
