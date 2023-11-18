@@ -23,18 +23,18 @@ enum Direction {
 public class Address {
     private String street;
     private String city;
-    private String state;
+    private String division;
     private int code;
     private Direction direction;
     private String postalCode;
     private String country;
 
     // Constructor
-    public Address(int code, String street, Direction direction, String city, String state, String postalCode,
+    public Address(int code, String street, Direction direction, String city, String division, String postalCode,
             String country) {
         this.street = street;
         this.city = city;
-        this.state = state;
+        this.division = division;
         this.code = code;
         this.direction = direction;
         this.postalCode = postalCode;
@@ -74,12 +74,12 @@ public class Address {
         this.direction = direction;
     }
 
-    public String getState() {
-        return state;
+    public String getdivision() {
+        return division;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setdivision(String division) {
+        this.division = division;
     }
 
     public String getPostalCode() {
