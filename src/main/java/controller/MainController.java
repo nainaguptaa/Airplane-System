@@ -6,10 +6,11 @@ public class MainController {
     private EntryController entryController;
     private LoginController loginController;
     private UserController userController;
+    private FlightController flightController;
 
     private MainController() {
         this.db = Database.getInstance("jdbc:mysql://localhost:3306/airline", "root", "SagittariusA5290$");
-        this.switchToView("EntryView");
+        this.switchToView("FlightView");
 
     }
 
@@ -33,6 +34,10 @@ public class MainController {
 
             case "GuestView":
                 userController = new UserController(db, this);
+                break;
+
+            case "FlightView":
+                flightController = new FlightController(db, this);
                 break;
 
             default:

@@ -7,7 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class EntryController implements ActionListener {
-    private EntryView viewMain;
+    private EntryView entryView;
     private Database db;
     private MainController mainController;
 
@@ -16,26 +16,26 @@ public class EntryController implements ActionListener {
         this.db = db;
         this.mainController = mainController;
 
-        viewMain = new EntryView();
-        viewMain.setVisible(true);
+        entryView = new EntryView();
+        entryView.setVisible(true);
         addListeners();
     }
 
     public void addListeners() {
-        viewMain.addAdmin(this);
-        viewMain.addMember(this);
-        viewMain.addAgent(this);
-        viewMain.addGuest(this);
+        entryView.addAdmin(this);
+        entryView.addMember(this);
+        entryView.addAgent(this);
+        entryView.addGuest(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         String role = e.getActionCommand();
         if (role.equals("Guest")) {
-            viewMain.setVisible(false);
+            entryView.setVisible(false);
             mainController.switchToView("GuestView");
         } else {
-            viewMain.setVisible(false);
+            entryView.setVisible(false);
             mainController.switchToLoginView(role);
         }
     }
