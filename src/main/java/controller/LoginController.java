@@ -14,10 +14,30 @@ public class LoginController implements ActionListener{
     private LoginView loginView;
     private UserController uc;
 
-    public LoginController(User model, LoginView view, Database db) {
-        this.model = model;
-        this.view = view;
+    public LoginController(Database db, String role) {
+        this.model = new User();
+        model.setRole(getRoleNum(role));
+        this.view = new LoginView();
         this.db = db;
+        view.setVisible(true);
+        addListeners();
+    }
+
+    private int getRoleNum(String role) {
+        if (role.equals("Admin")) {
+            return 4;
+        } else if (role.equals("Agent")) {
+            return 3;
+        } else if (role.equals("Member")) {
+            return 2;
+        } else {
+            return 1;
+        }
+    }
+
+    private void addListeners(){
+        loginView.addLoginListener(this);
+        loginView.addRegisterListener(this);
     }
 
     public void setUsername(String username) {
@@ -32,13 +52,13 @@ public class LoginController implements ActionListener{
         model.setEmail(email);
     }
 
-    public boolean authenticate(String username, String password) {
-        String query = "SELECT * FROM user WHERE username = '" + username + "' AND password = '" + password + "'";
+    public boolean authenticate() {
+        String query = "SELECT * FROM user WHERE username = '" + model.getUsername() + "' AND password = '" + model.getPassword() + "' AND role <= " + model.getRole();
         return db.executeQuery(query) != null;
     }
 
     public void login() {
-        if (authenticate(model.getUsername(), model.getPassword())) {
+        if (authenticate()) {
             updateView();
             this.uc = new UserController(db);
             this.uc.setUser(model);
@@ -75,15 +95,14 @@ public class LoginController implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        System.out.println("Action: " + e.getActionCommand());
         setPassword(loginView.getPassword());
         setUsername(loginView.getUsername());
-        setEmail(loginView.getEmail()); //might not receive email from login view, will need to check
+        //setEmail(loginView.getEmail()); //might not receive email from login view, will need to check
         try{
             if (e.getActionCommand().equals("login")) {
                 login();
-            } else if (e.getActionCommand().equals("logout")) {
-                logout();
-            } else if (e.getActionCommand().equals("register")) { //probably will need to change this
+            }  else if (e.getActionCommand().equals("register")) { //probably will need to change this
                 register();
             }
         } catch(Exception ex){
