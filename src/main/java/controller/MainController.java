@@ -12,7 +12,7 @@ public class MainController implements ActionListener{
     private ViewMain viewMain;
 
     public MainController() {
-        this.db = Database.getInstance("jdbc:mysql://localhost:3306/airline", "root", "SagittariusA5290$");
+        this.db = Database.getInstance("jdbc:mysql://localhost:3306/airline", "root", "");
         this.flightController = new FlightController(db);
         System.out.println("Welcome to the Airline Reservation System");
         viewMain = new ViewMain();
