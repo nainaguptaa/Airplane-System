@@ -7,14 +7,16 @@ import java.awt.event.*;
 import javax.swing.Action;
 
 //Will need to add listener when login view is created
-public class LoginController implements ActionListener{
+public class LoginController implements ActionListener {
     private User model;
     private LoginView view;
     private Database db;
     private LoginView loginView;
-    private UserController uc;
+    private MainController mainController;
 
-    public LoginController(Database db, String role) {
+    public LoginController(Database db, MainController mc, String role) {
+        this.mainController = mc;
+
         this.model = new User();
         model.setRole(getRoleNum(role));
         this.view = new LoginView();
@@ -35,7 +37,7 @@ public class LoginController implements ActionListener{
         }
     }
 
-    private void addListeners(){
+    private void addListeners() {
         loginView.addLoginListener(this);
         loginView.addRegisterListener(this);
     }
@@ -53,15 +55,16 @@ public class LoginController implements ActionListener{
     }
 
     public boolean authenticate() {
-        String query = "SELECT * FROM user WHERE username = '" + model.getUsername() + "' AND password = '" + model.getPassword() + "' AND role <= " + model.getRole();
+        String query = "SELECT * FROM user WHERE username = '" + model.getUsername() + "' AND password = '"
+                + model.getPassword() + "' AND role <= " + model.getRole();
         return db.executeQuery(query) != null;
     }
 
     public void login() {
         if (authenticate()) {
             updateView();
-            this.uc = new UserController(db);
-            this.uc.setUser(model);
+            // this.uc = new UserController(db);
+            // this.uc.setUser(model);
         } else {
             System.out.println("Invalid username or password");
         }
@@ -80,15 +83,15 @@ public class LoginController implements ActionListener{
             System.out.println("User already exists");
         } else {
             // insert user into database
-            try{
+            try {
                 query = "INSERT INTO user (username, password, email) VALUES ('" + model.getUsername() + "', '"
                         + model.getPassword() + "', '" + model.getEmail() + "')";
                 db.executeUpdate(query);
-            } catch(Exception e){
+            } catch (Exception e) {
                 System.out.println("Error: " + e.getMessage());
             }
-            this.uc = new UserController(db);
-            this.uc.setUser(model);
+            // this.uc = new UserController(db);
+            // this.uc.setUser(model);
             System.out.println("User registered successfully");
         }
     }
@@ -98,14 +101,15 @@ public class LoginController implements ActionListener{
         System.out.println("Action: " + e.getActionCommand());
         setPassword(loginView.getPassword());
         setUsername(loginView.getUsername());
-        //setEmail(loginView.getEmail()); //might not receive email from login view, will need to check
-        try{
+        // setEmail(loginView.getEmail()); //might not receive email from login view,
+        // will need to check
+        try {
             if (e.getActionCommand().equals("login")) {
                 login();
-            }  else if (e.getActionCommand().equals("register")) { //probably will need to change this
+            } else if (e.getActionCommand().equals("register")) { // probably will need to change this
                 register();
             }
-        } catch(Exception ex){
+        } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
         }
     }
