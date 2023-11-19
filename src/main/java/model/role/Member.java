@@ -1,9 +1,11 @@
 package main.java.model.role;
 
+import java.util.Date;
+import main.java.model.util.CreditCard;
+
 import main.java.utils.Address;
 
 public class Member extends User {
-    private String prefEmail;
     private String name;
     private Address address;
 
@@ -16,10 +18,20 @@ public class Member extends User {
         // information is stored in the database right away.
     }
 
-    // getters and setters
-    public String getMemberEmail() {
-        return prefEmail;
+    public Member(String username, String password, String name, String email, int addrCode, String addrStreet,
+            String addrDirection, CreditCard card) {
+        super(username, password, email);
+        this.name = name;
+        this.addrCode = addrCode;
+        this.addrDirection = addrDirection;
+        this.addrStreet = addrStreet;
+        this.card = card;
+
+        // Add code in here so when a user registers and member object is created, the
+        // information is stored in the database right away.
     }
+
+    // getters and setters
 
     public String getMemberName() {
         return name;
@@ -31,10 +43,6 @@ public class Member extends User {
 
     public void setAddress(Address address) {
         this.address = address;
-    }
-
-    public void setMemberEmail(String newEmail) {
-        this.prefEmail = newEmail;
     }
 
     public void setMemberName(String newName) {
