@@ -1,11 +1,13 @@
 package main.java.model.role;
+import java.util.Date;
+import main.java.model.util.CreditCard;
 
 public class Member extends User {
-    private String prefEmail;
     private String name;
     private int addrCode;
     private String addrStreet;
     private String addrDirection; // Northwest, Southeast, etc.
+    private CreditCard card;
 
     /*
      * I feel like we should put all the address information into its own object
@@ -16,9 +18,9 @@ public class Member extends User {
      * "Address" class. The code will look cleaner.
      */
 
-    public Member(String username, String password, String name, int addrCode, String addrStreet,
+    public Member(String username, String password, String name, String email, int addrCode, String addrStreet,
             String addrDirection) {
-        super(username, password);
+        super(username, password, email);
         this.name = name;
         this.addrCode = addrCode;
         this.addrDirection = addrDirection;
@@ -28,10 +30,20 @@ public class Member extends User {
         // information is stored in the database right away.
     }
 
-    // getters and setters
-    public String getMemberEmail() {
-        return prefEmail;
+    public Member(String username, String password, String name, String email, int addrCode, String addrStreet,
+            String addrDirection, CreditCard card) {
+        super(username, password, email);
+        this.name = name;
+        this.addrCode = addrCode;
+        this.addrDirection = addrDirection;
+        this.addrStreet = addrStreet;
+        this.card = card;
+
+        // Add code in here so when a user registers and member object is created, the
+        // information is stored in the database right away.
     }
+
+    // getters and setters
 
     public String getMemberName() {
         return name;
@@ -48,11 +60,6 @@ public class Member extends User {
     public String getAddrDirection() {
         return addrDirection;
     }
-
-    public void setMemberEmail(String newEmail) {
-        this.prefEmail = newEmail;
-    }
-
     public void setMemberName(String newName) {
         this.name = newName;
     }
@@ -67,5 +74,13 @@ public class Member extends User {
 
     public void setAddrDirection(String newDirection) {
         this.addrDirection = newDirection;
+    }
+
+    public CreditCard getCard() {
+        return card;
+    }
+
+    public void setCard(CreditCard card) {
+        this.card = card;
     }
 }

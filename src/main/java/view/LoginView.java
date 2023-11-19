@@ -1,4 +1,4 @@
-package main.view;
+package main.java.view;
 
 // Setup Decorator Pattern
 public class LoginView {
