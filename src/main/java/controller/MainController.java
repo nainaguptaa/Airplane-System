@@ -1,6 +1,8 @@
 
 package main.java.controller;
 
+import main.java.model.role.User;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -10,6 +12,8 @@ public class MainController {
     private EntryController entryController;
     private LoginController loginController;
     private UserController userController;
+    private RegisterController registerController;
+    private User user;
     private FlightController flightController;
 
     private JFrame mainFrame;
@@ -22,6 +26,7 @@ public class MainController {
         mainFrame.setSize(800, 600); // Set a default size or pack after adding components
         mainFrame.setLayout(new BorderLayout());
 
+        this.user = new User();
         this.switchToView("EntryView");
         mainFrame.setVisible(true);
     }
@@ -31,6 +36,14 @@ public class MainController {
             instance = new MainController();
         }
         return instance;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public User getUser() {
+        return user;
     }
 
     public void switchToView(String viewName) {
@@ -50,6 +63,11 @@ public class MainController {
             case "LoginView":
                 loginController = new LoginController(db, this);
                 mainFrame.getContentPane().add(loginController.getView());
+                break;
+
+            case "RegisterView":
+                registerController = new RegisterController(db, this);
+                mainFrame.getContentPane().add(registerController.getView());
                 break;
 
             default:
