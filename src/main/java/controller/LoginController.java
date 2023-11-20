@@ -14,15 +14,18 @@ public class LoginController implements ActionListener {
     private LoginView loginView;
     private MainController mainController;
 
-    public LoginController(Database db, MainController mc, String role) {
+    public LoginController(Database db, MainController mc) {
         this.mainController = mc;
 
         this.model = new User();
-        model.setRole(getRoleNum(role));
+        // model.setRole(getRoleNum(role));
         this.view = new LoginView();
         this.db = db;
-        view.setVisible(true);
         addListeners();
+    }
+
+    public LoginView getView() {
+        return view;
     }
 
     private int getRoleNum(String role) {

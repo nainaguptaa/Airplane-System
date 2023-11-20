@@ -10,7 +10,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class FlightView extends JFrame {
+public class FlightView extends JPanel {
 
     private JTable flightTable;
     private JScrollPane scrollPane;
@@ -19,11 +19,10 @@ public class FlightView extends JFrame {
     private FlightViewModel flightViewModel[];
 
     public FlightView(FlightViewModel fvm[]) {
-        setTitle("Flights");
+        // setTitle("Flights");
         flightViewModel = fvm;
 
         setSize(600, 400);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
 
         JLabel lbl = new JLabel("Flights");

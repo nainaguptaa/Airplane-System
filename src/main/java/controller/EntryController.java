@@ -15,9 +15,7 @@ public class EntryController implements ActionListener {
         System.out.println("Welcome to the Airline Reservation System");
         this.db = db;
         this.mainController = mainController;
-
         entryView = new EntryView();
-        entryView.setVisible(true);
         addListeners();
     }
 
@@ -32,11 +30,15 @@ public class EntryController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String role = e.getActionCommand();
         if (role.equals("Guest")) {
-            entryView.setVisible(false);
+            // entryView.setVisible(false);
             mainController.switchToView("GuestView");
         } else {
-            entryView.setVisible(false);
-            mainController.switchToLoginView(role);
+            // entryView.setVisible(false);
+            mainController.switchToView("LoginView");
         }
+    }
+
+    public EntryView getView() {
+        return entryView;
     }
 }

@@ -17,8 +17,12 @@ public class FlightController implements ActionListener {
         this.mainController = mc;
 
         flightView = new FlightView(getFlightViewModels());
-        flightView.setVisible(true);
+        // flightView.setVisible(true);
 
+    }
+
+    public FlightView getView() {
+        return flightView;
     }
 
     public void addListeners() {

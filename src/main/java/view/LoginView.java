@@ -5,18 +5,17 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 // Setup Decorator Pattern
-public class LoginView extends JFrame{
-    //Text fields for username and password
+public class LoginView extends JPanel {
+    // Text fields for username and password
     private JTextField username;
     private JPasswordField password;
     private JButton loginBtn;
     private JButton registerBtn;
 
     public LoginView() {
-        setTitle("Login");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // setTitle("Login");
         setSize(450, 300);
-        getContentPane().setBackground(new Color(230, 230, 250));
+        setBackground(new Color(230, 230, 250));
 
         // Using BorderLayout for overall layout
         setLayout(new BorderLayout(10, 10));
@@ -63,19 +62,19 @@ public class LoginView extends JFrame{
         return buttonPanel;
     }
 
-    public String getUsername(){
+    public String getUsername() {
         return username.getText();
     }
 
-    public String getPassword(){
+    public String getPassword() {
         return password.getPassword().toString();
     }
 
-    public void addLoginListener(ActionListener al){
+    public void addLoginListener(ActionListener al) {
         loginBtn.addActionListener(al);
     }
 
-    public void addRegisterListener(ActionListener al){
+    public void addRegisterListener(ActionListener al) {
         registerBtn.addActionListener(al);
     }
 
