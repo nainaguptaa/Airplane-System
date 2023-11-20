@@ -2,6 +2,9 @@ package main.java.view;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+
+import main.java.viewModel.FlightViewModel;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
@@ -13,9 +16,12 @@ public class FlightView extends JFrame {
     private JScrollPane scrollPane;
     private DefaultTableModel tableModel;
     private ActionListener flightSelectionListener;
+    private FlightViewModel flightViewModel[];
 
-    public FlightView() {
+    public FlightView(FlightViewModel fvm[]) {
         setTitle("Flights");
+        flightViewModel = fvm;
+
         setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
@@ -25,7 +31,7 @@ public class FlightView extends JFrame {
         add(lbl);
 
         // Define column names
-        String[] columnNames = { "Time of Arrival", "Departure", "Price", "Destination" };
+        String[] columnNames = { "Flight Number", "Depature Time", "Arrival Time", "Price", "Depature", "Destination" };
 
         // Initialize the table model and set column names
         tableModel = new DefaultTableModel(columnNames, 0) {
@@ -61,9 +67,10 @@ public class FlightView extends JFrame {
     }
 
     private void loadFlights() {
-        // Example data loading
-        tableModel.addRow(new Object[] { "10:00", "New York", "$200", "London" });
-        tableModel.addRow(new Object[] { "12:00", "Tokyo", "$500", "Sydney" });
-        // In reality, this method should fetch data from the database
+        for (int i = 0; i < flightViewModel.length; i++) {
+            tableModel.addRow(new Object[] { flightViewModel[i].FlightNumber, flightViewModel[i].DepartureTime,
+                    flightViewModel[i].ArrivalTime, flightViewModel[i].Price,
+                    flightViewModel[i].Departure, flightViewModel[i].Destination });
+        }
     }
 }
