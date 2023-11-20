@@ -20,8 +20,11 @@ public class RegisterController implements ActionListener {
         this.model = mainController.getUser();
         this.view = new RegisterView();
         this.db = db;
-        view.setVisible(true);
         addListeners();
+    }
+
+    public RegisterView getView() {
+        return view;
     }
 
     private void addListeners() {
@@ -46,14 +49,15 @@ public class RegisterController implements ActionListener {
         String query = "SELECT * FROM users WHERE username = '" + model.getUsername() + "'";
         ResultSet rs = db.executeQuery(query);
 
-        //check if query was null or returned nothing
-        try{
+        // check if query was null or returned nothing
+        try {
             if (rs != null && rs.next()) {
-                System.out.println("User already exists"); //Maybe make this an exception
+                System.out.println("User already exists"); // Maybe make this an exception
             } else {
                 // insert user into database
                 try {
-                    query = "INSERT INTO users (username, password, email, role) VALUES ('" + model.getUsername() + "', '"
+                    query = "INSERT INTO users (username, password, email, role) VALUES ('" + model.getUsername()
+                            + "', '"
                             + model.getPassword() + "', '" + model.getEmail() + "', '" + model.getRole() + "')";
                     db.executeUpdate(query);
                 } catch (Exception e) {
@@ -63,8 +67,7 @@ public class RegisterController implements ActionListener {
                 // this.uc.setUser(model);
                 System.out.println("User registered successfully");
             }
-        }
-        catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
@@ -78,12 +81,11 @@ public class RegisterController implements ActionListener {
         try {
             if (e.getActionCommand().equals("Register")) { // probably will need to change this
                 register();
-                view.setVisible(false);
                 mainController.switchToView(null);
             }
             if (e.getActionCommand().equals("Cancel")) {
-                view.setVisible(false);
-                mainController.switchToView(null);;
+                mainController.switchToView(null);
+                ;
             }
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());

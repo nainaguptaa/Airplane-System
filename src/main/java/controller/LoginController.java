@@ -18,8 +18,11 @@ public class LoginController implements ActionListener {
         this.model = mainController.getUser();
         this.view = new LoginView();
         this.db = db;
-        view.setVisible(true);
         addListeners();
+    }
+
+    public LoginView getView() {
+        return view;
     }
 
     private void addListeners() {

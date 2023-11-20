@@ -7,7 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class EntryController implements ActionListener {
-    private EntryView viewMain;
+    private EntryView entryView;
     private Database db;
     private MainController mainController;
 
@@ -15,17 +15,15 @@ public class EntryController implements ActionListener {
         System.out.println("Welcome to the Airline Reservation System");
         this.db = db;
         this.mainController = mainController;
-
-        viewMain = new EntryView();
-        viewMain.setVisible(true);
+        entryView = new EntryView();
         addListeners();
     }
 
     public void addListeners() {
-        viewMain.addAdmin(this);
-        viewMain.addMember(this);
-        viewMain.addAgent(this);
-        viewMain.addGuest(this);
+        entryView.addAdmin(this);
+        entryView.addMember(this);
+        entryView.addAgent(this);
+        entryView.addGuest(this);
     }
 
     private int getRoleNum(String role) {
@@ -45,11 +43,13 @@ public class EntryController implements ActionListener {
         String role = e.getActionCommand();
         mainController.getUser().setRole(getRoleNum(role));
         if (role.equals("Guest")) {
-            viewMain.setVisible(false);
             mainController.switchToView("GuestView");
         } else {
-            viewMain.setVisible(false);
             mainController.switchToView("LoginView");
         }
+    }
+
+    public EntryView getView() {
+        return entryView;
     }
 }
