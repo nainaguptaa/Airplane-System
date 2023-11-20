@@ -17,6 +17,7 @@ public class MainController {
     private FlightController flightController;
 
     private JFrame mainFrame;
+    private JPanel navPanel;
 
     private MainController() {
         this.db = Database.getInstance("jdbc:mysql://localhost:3306/airline", "root", "SagittariusA5290$");
@@ -25,6 +26,12 @@ public class MainController {
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setSize(800, 600); // Set a default size or pack after adding components
         mainFrame.setLayout(new BorderLayout());
+
+        // Initialize navigation panel
+        initializeNavPanel();
+
+        // Add navigation panel to the main frame
+        mainFrame.add(navPanel, BorderLayout.WEST);
 
         this.user = new User();
         this.switchToView("EntryView");
@@ -46,8 +53,36 @@ public class MainController {
         return user;
     }
 
+    private void initializeNavPanel() {
+        navPanel = new JPanel();
+        navPanel.setLayout(new BoxLayout(navPanel, BoxLayout.Y_AXIS));
+        navPanel.setPreferredSize(new Dimension(150, mainFrame.getHeight())); // Set preferred width
+
+        // Create and add buttons
+        JButton btnEntryView = new JButton("Entry");
+        btnEntryView.setActionCommand("EntryView");
+        btnEntryView.addActionListener(e -> switchToView(e.getActionCommand()));
+
+        JButton btnFlightView = new JButton("Flights");
+        btnFlightView.setActionCommand("FlightView");
+        btnFlightView.addActionListener(e -> switchToView(e.getActionCommand()));
+
+        // ... Add other buttons for different views
+
+        navPanel.add(btnEntryView);
+        navPanel.add(btnFlightView);
+        // ... Add other buttons to the panel
+    }
+
     public void switchToView(String viewName) {
-        mainFrame.getContentPane().removeAll(); // Remove existing view components
+
+        Container contentPane = mainFrame.getContentPane();
+        BorderLayout layout = (BorderLayout) contentPane.getLayout();
+        Component centerComponent = layout.getLayoutComponent(BorderLayout.CENTER);
+
+        if (centerComponent != null) {
+            contentPane.remove(centerComponent);
+        }
 
         switch (viewName) {
             case "EntryView":
@@ -77,4 +112,5 @@ public class MainController {
         mainFrame.getContentPane().revalidate();
         mainFrame.getContentPane().repaint();
     }
+
 }
