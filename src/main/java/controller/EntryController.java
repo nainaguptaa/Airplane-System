@@ -30,10 +30,8 @@ public class EntryController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String role = e.getActionCommand();
         if (role.equals("Guest")) {
-            // entryView.setVisible(false);
             mainController.switchToView("GuestView");
         } else {
-            // entryView.setVisible(false);
             mainController.switchToView("LoginView");
         }
     }
