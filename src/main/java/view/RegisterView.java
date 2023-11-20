@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class RegisterView extends JFrame {
+public class RegisterView extends JPanel {
     private JTextField emailField;
     private JTextField usernameField;
     private JPasswordField passwordField;
@@ -12,10 +12,8 @@ public class RegisterView extends JFrame {
     private JButton cancelBtn;
 
     public RegisterView() {
-        setTitle("Registration");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(450, 350);
-        getContentPane().setBackground(new Color(230, 230, 250));
+        setBackground(new Color(230, 230, 250));
 
         // Using BorderLayout for overall layout
         setLayout(new BorderLayout(10, 10));
@@ -101,6 +99,5 @@ public class RegisterView extends JFrame {
     public void addCancelListener(ActionListener al) {
         cancelBtn.addActionListener(al);
     }
-
 
 }
