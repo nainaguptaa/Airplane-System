@@ -28,15 +28,28 @@ public class EntryController implements ActionListener {
         viewMain.addGuest(this);
     }
 
+    private int getRoleNum(String role) {
+        if (role.equals("Admin")) {
+            return 4;
+        } else if (role.equals("Agent")) {
+            return 3;
+        } else if (role.equals("Member")) {
+            return 2;
+        } else {
+            return 1;
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         String role = e.getActionCommand();
+        mainController.getUser().setRole(getRoleNum(role));
         if (role.equals("Guest")) {
             viewMain.setVisible(false);
             mainController.switchToView("GuestView");
         } else {
             viewMain.setVisible(false);
-            mainController.switchToLoginView(role);
+            mainController.switchToView("LoginView");
         }
     }
 }
