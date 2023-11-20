@@ -1,6 +1,7 @@
 
 package main.java.controller;
 
+import main.java.model.flight.Seat;
 import main.java.model.role.User;
 
 import javax.swing.*;
@@ -15,6 +16,7 @@ public class MainController {
     private RegisterController registerController;
     private User user;
     private FlightController flightController;
+    private SeatController seatController;
 
     private JFrame mainFrame;
     private JPanel navPanel;
@@ -103,6 +105,10 @@ public class MainController {
             case "RegisterView":
                 registerController = new RegisterController(db, this);
                 mainFrame.getContentPane().add(registerController.getView());
+                break;
+            case "SeatView":
+                seatController = new SeatController(db, this);
+                mainFrame.getContentPane().add(seatController.getView());
                 break;
 
             default:
