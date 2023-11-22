@@ -43,4 +43,40 @@ public class User {
     public void setRole(int role){this.role=role;}
 
     public int getRole(){return role;}
+
+    public static String roleToString(int role){
+        if(role==4){
+            return "Admin";
+        }
+        else if(role==3){
+            return "Agent";
+        }
+        else if(role==2){
+            return "Customer";
+        }
+        else if(role==1){
+            return "Guest";
+        }
+        else{
+            return "Invalid Role";
+        }
+    }
+
+    public static int roleToInt(String role){
+        if(role.equals("Admin")){
+            return 4;
+        }
+        else if(role.equals("Agent")){
+            return 3;
+        }
+        else if(role.equals("Member")){
+            return 2;
+        }
+        else if(role.equals("Guest")){
+            return 1;
+        }
+        else{
+            return 0;
+        }
+    }
 }

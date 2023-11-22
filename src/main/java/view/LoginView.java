@@ -6,11 +6,11 @@ import java.awt.event.ActionListener;
 
 // Setup Decorator Pattern
 public class LoginView extends JPanel {
-    // Text fields for username and password
     private JTextField username;
     private JPasswordField password;
     private JButton loginBtn;
     private JButton registerBtn;
+    private JLabel messageLabel; // Label to display messages
 
     public LoginView() {
         // setTitle("Login");
@@ -21,6 +21,7 @@ public class LoginView extends JPanel {
         setLayout(new BorderLayout(10, 10));
         add(createFormPanel(), BorderLayout.CENTER);
         add(createButtonPanel(), BorderLayout.SOUTH);
+        add(createMessagePanel(), BorderLayout.NORTH); // Add message panel at the top
     }
 
     private JPanel createFormPanel() {
@@ -62,19 +63,29 @@ public class LoginView extends JPanel {
         return buttonPanel;
     }
 
+    private JPanel createMessagePanel() {
+        JPanel messagePanel = new JPanel();
+        messageLabel = new JLabel(" ");
+        messagePanel.add(messageLabel);
+        return messagePanel;
+    }
+
     public String getUsername(){
         try {
             return username.getText();
         } catch (NullPointerException e) {
-            return "";
+            messageLabel.setText("Please fill in password field");
+            throw e;
         }
     }
 
-    public String getPassword(){
+    public String getPassword() {
         try {
-            return password.getPassword().toString();
+            System.out.println(password.getPassword());
+            return new String(password.getPassword());
         } catch (NullPointerException e) {
-            return "";
+            messageLabel.setText("Please fill in password field");
+            throw e;
         }
     }
 

@@ -4,7 +4,9 @@ import main.java.model.role.User;
 import main.java.view.LoginView;
 import java.awt.event.*;
 
+import javax.naming.spi.DirStateFactory.Result;
 import javax.swing.Action;
+import java.sql.ResultSet;
 
 //Will need to add listener when login view is created
 public class LoginController implements ActionListener {
@@ -45,7 +47,12 @@ public class LoginController implements ActionListener {
     public boolean authenticate() {
         String query = "SELECT * FROM users WHERE username = '" + model.getUsername() + "' AND password = '"
                 + model.getPassword() + "' AND role <= " + model.getRole();
-        return db.executeQuery(query) != null;
+        ResultSet rs = db.executeQuery(query);
+        try{
+            return rs.next();
+        } catch (Exception e){
+            return false;
+        }
     }
 
     public void login() {

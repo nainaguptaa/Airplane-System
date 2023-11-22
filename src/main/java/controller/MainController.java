@@ -59,6 +59,10 @@ public class MainController {
         navPanel.setPreferredSize(new Dimension(150, mainFrame.getHeight())); // Set preferred width
 
         // Create and add buttons
+        JButton btnUserView = new JButton("User Profile");
+        btnUserView.setActionCommand("UserView");
+        btnUserView.addActionListener(e -> switchToView(e.getActionCommand()));
+
         JButton btnEntryView = new JButton("Entry");
         btnEntryView.setActionCommand("EntryView");
         btnEntryView.addActionListener(e -> switchToView(e.getActionCommand()));
@@ -68,7 +72,7 @@ public class MainController {
         btnFlightView.addActionListener(e -> switchToView(e.getActionCommand()));
 
         // ... Add other buttons for different views
-
+        navPanel.add(btnUserView);
         navPanel.add(btnEntryView);
         navPanel.add(btnFlightView);
         // ... Add other buttons to the panel
@@ -103,6 +107,11 @@ public class MainController {
             case "RegisterView":
                 registerController = new RegisterController(db, this);
                 mainFrame.getContentPane().add(registerController.getView());
+                break;
+
+            case "UserView":
+                userController = new UserController(db, this);
+                mainFrame.getContentPane().add(userController.getView());
                 break;
 
             default:
