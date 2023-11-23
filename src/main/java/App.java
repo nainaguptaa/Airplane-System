@@ -3,6 +3,7 @@ package main.java;
 import javax.swing.UIManager;
 
 import main.java.controller.MainController;
+import main.java.utils.EmailSender;
 
 public class App {
 
