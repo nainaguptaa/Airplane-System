@@ -12,7 +12,6 @@ public class EntryController implements ActionListener {
     private MainController mainController;
 
     public EntryController(Database db, MainController mainController) {
-        System.out.println("Welcome to the Airline Reservation System");
         this.db = db;
         this.mainController = mainController;
         entryView = new EntryView();
