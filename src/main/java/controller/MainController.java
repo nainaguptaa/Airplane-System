@@ -16,6 +16,7 @@ public class MainController {
     private RegisterController registerController;
     private User user;
     private FlightController flightController;
+    private MembershipController membershipController;
 
     private JFrame mainFrame;
     private JPanel navPanel;
@@ -82,9 +83,19 @@ public class MainController {
                 buttonFont,
                 e -> switchToView(e.getActionCommand()));
 
+        JButton btnMembershipView = Buttons.createStyledButton(
+                "Membership",
+                "MembershipView",
+                buttonSize,
+                buttonColor,
+                buttonFont,
+                e -> switchToView(e.getActionCommand()));
+
         navPanel.add(btnEntryView);
         navPanel.add(Box.createRigidArea(spacerSize));
         navPanel.add(btnFlightView);
+        navPanel.add(Box.createRigidArea(spacerSize));
+        navPanel.add(btnMembershipView);
     }
 
     public void switchToView(String viewName) {
@@ -116,6 +127,11 @@ public class MainController {
             case "RegisterView":
                 registerController = new RegisterController(db, this);
                 mainFrame.getContentPane().add(registerController.getView());
+                break;
+
+            case "MembershipView":
+                membershipController = new MembershipController(db, this);
+                mainFrame.getContentPane().add(membershipController.getView());
                 break;
 
             default:
