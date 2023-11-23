@@ -61,13 +61,7 @@ public class MainController {
         navPanel.setPreferredSize(new Dimension(140, mainFrame.getHeight())); // Set preferred width
 
         // Create and add buttons
-        JButton btnUserView = new JButton("User Profile");
-        btnUserView.setActionCommand("UserView");
-        btnUserView.addActionListener(e -> switchToView(e.getActionCommand()));
 
-        JButton btnEntryView = new JButton("Entry");
-        btnEntryView.setActionCommand("EntryView");
-        btnEntryView.addActionListener(e -> switchToView(e.getActionCommand()));
         Dimension buttonSize = new Dimension(140, 40); // Uniform size for all buttons
         Dimension spacerSize = new Dimension(0, 10); // Spacer size for padding
 
@@ -76,7 +70,13 @@ public class MainController {
         Font buttonFont = new Font("Arial", Font.BOLD, 14);
 
         // ... Add other buttons for different views
-        navPanel.add(btnUserView);
+        JButton btnUserView = Buttons.createStyledButton(
+                "User Profile",
+                "UserView",
+                buttonSize,
+                buttonColor,
+                buttonFont,
+                e -> switchToView(e.getActionCommand()));
         JButton btnEntryView = Buttons.createStyledButton(
                 "Entry",
                 "EntryView",
