@@ -1,8 +1,8 @@
 
-package main.java.controller;
+package  controller;
 
-import main.java.model.role.User;
-import main.java.utils.Buttons;
+import  model.role.User;
+import  utils.Buttons;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,6 +17,7 @@ public class MainController {
     private User user;
     private FlightController flightController;
     private MembershipController membershipController;
+    private BookingsController bookingsController;
 
     private JFrame mainFrame;
     private JPanel navPanel;
@@ -103,6 +104,8 @@ public class MainController {
 
         navPanel.add(btnEntryView);
         navPanel.add(Box.createRigidArea(spacerSize));
+        navPanel.add(btnUserView);
+        navPanel.add(Box.createRigidArea(spacerSize));
         navPanel.add(btnFlightView);
         navPanel.add(Box.createRigidArea(spacerSize));
         navPanel.add(btnMembershipView);
@@ -142,9 +145,16 @@ public class MainController {
             case "UserView":
                 userController = new UserController(db, this);
                 mainFrame.getContentPane().add(userController.getView());
+                break;
+
             case "MembershipView":
                 membershipController = new MembershipController(db, this);
                 mainFrame.getContentPane().add(membershipController.getView());
+                break;
+
+            case "BookingsView":
+                bookingsController = new BookingsController(db, this);
+                mainFrame.getContentPane().add(bookingsController.getView());
                 break;
 
             default:

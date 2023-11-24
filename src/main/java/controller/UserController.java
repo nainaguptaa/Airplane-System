@@ -1,9 +1,10 @@
-package main.java.controller;
+package  controller;
 
-import main.java.model.role.*;
-import main.java.view.UserView;
+import  model.role.*;
+import  view.UserView;
+import java.awt.event.*;
 
-public class UserController {
+public class UserController implements ActionListener{
     private User user;
     private UserView userView;
     private Database db;
@@ -14,6 +15,19 @@ public class UserController {
         user = mc.getUser();
         this.db = db;
         userView = new UserView();
+        updateView();
+        addListeners();
+    }
+
+    private void addListeners() {
+        userView.addBookingsButtonListener(this);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getActionCommand().equals("BookingsView")) {
+            mainController.switchToView("BookingsView");
+        }
     }
 
     public void updateView() {
@@ -31,7 +45,6 @@ public class UserController {
     public void setUser(User user) {
         this.user = user;
     }
-
 
 
     // maybe add methods for different types of users (admin, member, etc.)

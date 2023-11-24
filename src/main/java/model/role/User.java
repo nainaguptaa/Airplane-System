@@ -1,4 +1,4 @@
-package main.java.model.role;
+package  model.role;
 
 public class User {
     //mayve add field for access level/role

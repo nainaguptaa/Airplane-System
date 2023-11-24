@@ -1,11 +1,11 @@
-package main.java.controller;
+package  controller;
 
 import javax.swing.Action;
 
-import main.java.view.EntryView;
+import  view.EntryView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import main.java.model.role.User;
+import  model.role.User;
 
 public class EntryController implements ActionListener {
     private EntryView entryView;

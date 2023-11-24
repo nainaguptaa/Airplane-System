@@ -1,7 +1,7 @@
-package main.java.controller;
+package  controller;
 
-import main.java.model.role.User;
-import main.java.view.RegisterView;
+import  model.role.User;
+import  view.RegisterView;
 import java.awt.event.*;
 
 import javax.swing.Action;

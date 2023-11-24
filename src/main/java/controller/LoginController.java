@@ -1,7 +1,7 @@
-package main.java.controller;
+package  controller;
 
-import main.java.model.role.User;
-import main.java.view.LoginView;
+import  model.role.User;
+import  view.LoginView;
 import java.awt.event.*;
 
 import javax.naming.spi.DirStateFactory.Result;
@@ -58,7 +58,7 @@ public class LoginController implements ActionListener {
     public void login() {
         if (authenticate()) {
             System.out.println("Login successful");
-            updateView();
+            mainController.switchToView("UserView");
             // this.uc = new UserController(db);
             // this.uc.setUser(model);
         } else {
@@ -72,23 +72,18 @@ public class LoginController implements ActionListener {
         updateView();
     }
 
-    public void register() {
-        // check if user already exists
-        String query = "SELECT * FROM user WHERE username = '" + model.getUsername() + "'";
-        if (db.executeQuery(query) != null) {
-            System.out.println("User already exists");
-        } else {
-            // insert user into database
-            try {
-                query = "INSERT INTO user (username, password, email) VALUES ('" + model.getUsername() + "', '"
-                        + model.getPassword() + "', '" + model.getEmail() + "')";
-                db.executeUpdate(query);
-            } catch (Exception e) {
-                System.out.println("Error: " + e.getMessage());
+    public void getAndSetUserInfo(){
+        String query = "SELECT * FROM users WHERE username = '" + model.getUsername() + "' AND password = '"
+                + model.getPassword() + "' AND role <= " + model.getRole();
+        ResultSet rs = db.executeQuery(query);
+        try{
+            if(rs.next()){
+                model.setUsername(rs.getString("username"));
+                model.setPassword(rs.getString("password"));
+                model.setEmail(rs.getString("email"));
             }
-            // this.uc = new UserController(db);
-            // this.uc.setUser(model);
-            System.out.println("User registered successfully");
+        } catch (Exception e){
+            System.out.println("Error: " + e.getMessage());
         }
     }
 
