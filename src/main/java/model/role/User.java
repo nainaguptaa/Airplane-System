@@ -5,6 +5,8 @@ public class User {
     private String username;
     private String password;
     private String email;
+
+    private int id;
     private int role;
 
     public User() {
