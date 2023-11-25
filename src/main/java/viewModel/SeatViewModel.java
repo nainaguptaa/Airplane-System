@@ -1,6 +1,6 @@
-package main.java.viewModel;
+package viewModel;
 
-import main.java.model.flight.SeatType;
+import model.flight.SeatType;
 
 public class SeatViewModel {
     private int seatID;

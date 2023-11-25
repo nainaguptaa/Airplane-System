@@ -1,6 +1,6 @@
 package main.java;
 
-import main.java.controller.MainController;
+import controller.MainController;
 
 public class App {
     public static void main(String[] args) {

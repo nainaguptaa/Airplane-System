@@ -1,8 +1,8 @@
-package main.java.controller;
+package controller;
 
 import javax.swing.Action;
 
-import main.java.view.EntryView;
+import view.EntryView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

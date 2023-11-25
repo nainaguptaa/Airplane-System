@@ -1,9 +1,9 @@
-package main.java.view;
+package view;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-import main.java.viewModel.FlightViewModel;
+import viewModel.FlightViewModel;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

@@ -1,6 +1,6 @@
-package main.java.controller;
+package controller;
 
-import main.java.model.role.*;
+import model.role.*;
 
 public class UserController {
     private User user;

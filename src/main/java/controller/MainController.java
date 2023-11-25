@@ -1,8 +1,8 @@
 
-package main.java.controller;
+package controller;
 
-import main.java.model.flight.Seat;
-import main.java.model.role.User;
+import model.flight.Seat;
+import model.role.User;
 
 import javax.swing.*;
 import java.awt.*;

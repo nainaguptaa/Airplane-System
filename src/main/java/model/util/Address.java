@@ -1,4 +1,4 @@
-package main.java.model.util;
+package model.util;
 
 enum Direction {
     NORTHWEST, NORTHEAST, SOUTHWEST, SOUTHEAST;

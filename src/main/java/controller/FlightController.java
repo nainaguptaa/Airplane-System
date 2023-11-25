@@ -1,7 +1,7 @@
-package main.java.controller;
+package controller;
 
-import main.java.view.FlightView;
-import main.java.viewModel.FlightViewModel;
+import view.FlightView;
+import viewModel.FlightViewModel;
 
 import java.awt.event.*;
 

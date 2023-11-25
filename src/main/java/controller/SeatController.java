@@ -1,8 +1,8 @@
-package main.java.controller;
+package controller;
 
-import main.java.model.flight.Seat;
-import main.java.view.SeatView;
-import main.java.viewModel.SeatViewModel;
+import model.flight.Seat;
+import view.SeatView;
+import viewModel.SeatViewModel;
 
 public class SeatController {
     // include method for adding/removing seats

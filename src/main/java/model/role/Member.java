@@ -1,9 +1,9 @@
-package main.java.model.role;
+package model.role;
 
 import java.util.Date;
-import main.java.model.util.CreditCard;
+import model.util.CreditCard;
 
-import main.java.model.util.Address;
+import model.util.Address;
 
 public class Member extends User {
     private String name;

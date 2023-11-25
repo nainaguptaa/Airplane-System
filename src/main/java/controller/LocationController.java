@@ -1,7 +1,7 @@
-package main.java.controller;
+package controller;
 
 public class LocationController {
-    //method for adding location
-    //method for removing location
-    
+    // method for adding location
+    // method for removing location
+
 }
