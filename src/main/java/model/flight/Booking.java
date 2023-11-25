@@ -1,20 +1,36 @@
-package main.java.model.flight;
+package model.flight;
+
+import java.sql.Time;
+import java.util.Date;
 
 public class Booking {
     private int bookingId;
-    private int userId;
+    private String username;
     private int flightId;
     private int seatId;
-    private int price;
-    private String bookingTime; //Make time object
+    private double price;
+    private Date bookingTime; //Make time object
+    private Boolean insurance;
 
-    public Booking(int bookingId, int userId, int flightId, int seatId, int price, String bookingTime) {
+    public Booking(int bookingId, int flightId, String username, int seatId,  Boolean insurance, double price, Date bookingTime) {
         this.bookingId = bookingId;
-        this.userId = userId;
+        this.username = username;
         this.flightId = flightId;
         this.seatId = seatId;
         this.price = price;
         this.bookingTime = bookingTime;
+        this.insurance = insurance;
+    }
+
+    public String[] getBookingData() {
+        String[] data = new String[6];
+        data[0] = Integer.toString(bookingId);
+        data[1] = Integer.toString(flightId);
+        data[2] = Integer.toString(seatId);
+        data[3] = insurance.toString();
+        data[4] = Double.toString(price);
+        data[5] = bookingTime.toString();
+        return data;
     }
 
     // Getters and Setters
@@ -23,8 +39,8 @@ public class Booking {
         return bookingId;
     }
 
-    public int getUserId() {
-        return userId;
+    public String getUsername() {
+        return username;
     }
 
     public int getFlightId() {
@@ -35,11 +51,11 @@ public class Booking {
         return seatId;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public String getBookingTime() {
+    public Date getBookingTime() {
         return bookingTime;
     }
 
@@ -47,8 +63,8 @@ public class Booking {
         this.bookingId = bookingId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public void setFlightId(int flightId) {
@@ -63,7 +79,15 @@ public class Booking {
         this.price = price;
     }
 
-    public void setBookingTime(String bookingTime) {
+    public void setBookingTime(Date bookingTime) {
         this.bookingTime = bookingTime;
+    }
+
+    public Boolean getInsurance() {
+        return insurance;
+    }
+
+    public void setInsurance(Boolean insurance) {
+        this.insurance = insurance;
     }
 }   

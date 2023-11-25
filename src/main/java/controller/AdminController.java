@@ -1,4 +1,4 @@
-package main.java.controller;
+package  controller;
 
 public class AdminController {
     //Include method for admin creating flight

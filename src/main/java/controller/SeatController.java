@@ -1,4 +1,4 @@
-package main.java.controller;
+package  controller;
 
 public class SeatController {
     //include method for adding/removing seats

@@ -1,4 +1,4 @@
-package main.java.model.flight;
+package  model.flight;
 
 public class Location {
     private int locationId;

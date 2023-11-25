@@ -29,8 +29,7 @@ DROP TABLE IF EXISTS users;
 
 -- Create 'users' table
 CREATE TABLE users (
-    user_id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50) NOT NULL,
+    username VARCHAR(50) PRIMARY KEY,
     password VARCHAR(255) NOT NULL,
     email VARCHAR(100),
     role INT NOT NULL,
@@ -88,19 +87,15 @@ CREATE TABLE flights (
 -- Create 'bookings' table
 CREATE TABLE bookings (
     booking_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
+    username VARCHAR(50) NOT NULL,
     flight_id INT NOT NULL,
-    booking_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    status VARCHAR(50) NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (flight_id) REFERENCES flights(flight_id)
-);
-
--- Create 'tickets' table
-CREATE TABLE tickets (
-    ticket_id INT AUTO_INCREMENT PRIMARY KEY,
-    booking_id INT NOT NULL,
     seat_id INT NOT NULL,
-    FOREIGN KEY (booking_id) REFERENCES bookings(booking_id),
+    booking_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    insurance BOOLEAN DEFAULT FALSE,
+    price DECIMAL(10, 2) NOT NULL,
+    status VARCHAR(50) NOT NULL,
+    FOREIGN KEY (username) REFERENCES users(username),
+    FOREIGN KEY (flight_id) REFERENCES flights(flight_id),
     FOREIGN KEY (seat_id) REFERENCES seats(seat_id)
 );
+

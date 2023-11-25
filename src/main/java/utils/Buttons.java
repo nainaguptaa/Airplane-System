@@ -1,4 +1,4 @@
-package main.java.utils;
+package  utils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,4 +22,21 @@ public class Buttons {
         button.setFocusPainted(false);
         return button;
     }
+
+        public static JButton createStyledButton(String text, String actionCommand, Dimension size, Color color,
+            Font font) {
+        JButton button = new JButton(text);
+        button.setActionCommand(actionCommand);
+        button.setPreferredSize(size);
+        button.setMaximumSize(size);
+        button.setMinimumSize(size);
+        button.setBackground(color);
+        button.setForeground(Color.WHITE);
+        button.setFont(font);
+        button.setBorderPainted(false);
+        button.setFocusPainted(false);
+        return button;
+    }
+    
+
 }

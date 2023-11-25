@@ -1,7 +1,7 @@
-package main.java.controller;
+package  controller;
 
-import main.java.model.role.User;
-import main.java.view.RegisterView;
+import  model.role.User;
+import  view.RegisterView;
 import java.awt.event.*;
 
 import javax.swing.Action;
@@ -51,21 +51,24 @@ public class RegisterController implements ActionListener {
 
         // check if query was null or returned nothing
         try {
-            if (rs != null && rs.next()) {
-                System.out.println("User already exists"); // Maybe make this an exception
-            } else {
-                // insert user into database
-                try {
-                    query = "INSERT INTO users (username, password, email, role) VALUES ('" + model.getUsername()
-                            + "', '"
-                            + model.getPassword() + "', '" + model.getEmail() + "', '" + model.getRole() + "')";
-                    db.executeUpdate(query);
-                } catch (Exception e) {
-                    System.out.println("Error: " + e.getMessage());
+            if (rs != null) {
+                if(rs.next()){
+                    System.out.println("User already exists"); // Maybe make this an exception
+                } else {
+                    // insert user into database
+                    try {
+                        query = "INSERT INTO users (username, password, email, role) VALUES ('" + model.getUsername()
+                                + "', '"
+                                + model.getPassword() + "', '" + model.getEmail() + "', '" + 2 + "')";
+                        System.out.println(query);
+                        db.executeUpdate(query);
+                    } catch (Exception e) {
+                        System.out.println("Error: " + e.getMessage());
+                    }
+                    // this.uc = new UserController(db);
+                    // this.uc.setUser(model);
+                    System.out.println("User registered successfully");
                 }
-                // this.uc = new UserController(db);
-                // this.uc.setUser(model);
-                System.out.println("User registered successfully");
             }
         } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
@@ -74,21 +77,19 @@ public class RegisterController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("Action: " + e.getActionCommand());
         setPassword(view.getPassword());
         setUsername(view.getUsername());
         setEmail(view.getEmail());
         try {
             if (e.getActionCommand().equals("Register")) { // probably will need to change this
                 register();
-                mainController.switchToView(null);
+                mainController.switchToView("UserView");
             }
             if (e.getActionCommand().equals("Cancel")) {
-                mainController.switchToView(null);
-                ;
+                mainController.switchToView("UserView");
             }
         } catch (Exception ex) {
-            System.out.println("Error: " + ex.getMessage());
+            System.out.println("here");
         }
     }
 }
