@@ -7,7 +7,6 @@ public class FlightViewModel {
     public String ArrivalTime;
     public int Price;
     public String FlightNumber;
-
     public int FlightId;
 
     public FlightViewModel(int FlightId, String Destination, String Departure, String DepartureTime, String ArrivalTime, int Price,

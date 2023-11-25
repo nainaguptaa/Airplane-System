@@ -33,7 +33,7 @@ public class MainController {
         mainFrame.setLayout(new BorderLayout());
 
         this.user = new User();
-        this.switchToView("EntryView");
+        this.switchToView("FlightView");
         mainFrame.setVisible(true);
     }
 
@@ -273,6 +273,12 @@ public class MainController {
         }
 
         switch (viewName) {
+            case "InfoView":
+                InfoController infoController = new InfoController(db, this);
+                infoController.setArgs(args);
+                mainFrame.getContentPane().add(infoController.getView());
+                break;
+
             case "SeatMapView":
                 break;
 
