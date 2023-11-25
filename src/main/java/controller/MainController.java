@@ -106,7 +106,7 @@ public class MainController {
 
         JButton btnManageFlightView = Buttons.createStyledButton(
                 "Manage Flights",
-                "ManageFlightView", //create manage flight view for admin
+                "ManageFlightsView", //create manage flight view for admin
                 buttonSize,
                 buttonColor,
                 buttonFont,
@@ -308,9 +308,14 @@ public class MainController {
                 mainFrame.getContentPane().add(bookingsController.getView());
                 break;
 
-            case "ManageFlightView":
+            case "ManageFlightsView":
                 manageFlightsController = new ManageFlightsController(db, this);
                 mainFrame.getContentPane().add(manageFlightsController.getView());
+                break;
+
+            case "ManageFlightView":
+                manageFlightsController = new ManageFlightsController(db, this);
+                mainFrame.getContentPane().add(manageFlightsController.getMFView());
                 break;
 
             default:

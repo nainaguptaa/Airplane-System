@@ -10,6 +10,7 @@ public class LoginView extends JPanel {
     private JPasswordField password;
     private JButton loginBtn;
     private JButton registerBtn;
+    private JButton backBtn;
     private JLabel messageLabel; // Label to display messages
 
     public LoginView() {
@@ -60,6 +61,10 @@ public class LoginView extends JPanel {
         registerBtn = new JButton("Register");
         buttonPanel.add(registerBtn);
 
+        // Back Button
+        backBtn = new JButton("Back");
+        buttonPanel.add(backBtn);
+
         return buttonPanel;
     }
 
@@ -95,6 +100,10 @@ public class LoginView extends JPanel {
 
     public void addRegisterListener(ActionListener al) {
         registerBtn.addActionListener(al);
+    }
+
+    public void addBackListener(ActionListener al) {
+        backBtn.addActionListener(al);
     }
 
     public void display() {

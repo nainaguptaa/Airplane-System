@@ -3,15 +3,26 @@ package  model.flight;
 public class Flight {
     private int flightId;
     private int aircraftId;
-    private int originId;
-    private int destinationId;
+    private String originId;
+    private String destinationId;
     private String departureTime; // make time object in utils
     private String arrivalTime;
-    private int price;
+    private double price;
     private int availableSeats; // make seats an observer strategy, update available seats whenever a seat is
                                 // taken
 
-    public Flight(int flightId, int aircraftId, int originId, int destinationId, String departureTime,
+    public Flight() {
+        this.flightId = 0;
+        this.aircraftId = 0;
+        this.originId = "";
+        this.destinationId = "";
+        this.departureTime = "";
+        this.arrivalTime = "";
+        this.price = 0;
+        this.availableSeats = 0;
+    }
+
+    public Flight(int flightId, int aircraftId, String originId, String destinationId, String departureTime,
             String arrivalTime, int price, int availableSeats) {
         this.flightId = flightId;
         this.aircraftId = aircraftId;
@@ -32,11 +43,11 @@ public class Flight {
         return aircraftId;
     }
 
-    public int getOriginId() {
+    public String getOriginId() {
         return originId;
     }
 
-    public int getDestinationId() {
+    public String getDestinationId() {
         return destinationId;
     }
 
@@ -48,7 +59,7 @@ public class Flight {
         return arrivalTime;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
@@ -64,11 +75,11 @@ public class Flight {
         this.aircraftId = aircraftId;
     }
 
-    public void setOriginId(int originId) {
+    public void setOriginId(String originId) {
         this.originId = originId;
     }
 
-    public void setDestinationId(int destinationId) {
+    public void setDestinationId(String destinationId) {
         this.destinationId = destinationId;
     }
 
@@ -80,7 +91,7 @@ public class Flight {
         this.arrivalTime = arrivalTime;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

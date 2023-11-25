@@ -1,7 +1,7 @@
-package  controller;
+package controller;
 
-import  model.role.User;
-import  view.LoginView;
+import model.role.User;
+import view.LoginView;
 import java.awt.event.*;
 
 import javax.naming.spi.DirStateFactory.Result;
@@ -30,6 +30,7 @@ public class LoginController implements ActionListener {
     private void addListeners() {
         view.addLoginListener(this);
         view.addRegisterListener(this);
+        view.addBackListener(this);
     }
 
     public void setUsername(String username) {
@@ -48,9 +49,9 @@ public class LoginController implements ActionListener {
         String query = "SELECT * FROM users WHERE username = '" + model.getUsername() + "' AND password = '"
                 + model.getPassword() + "' AND role >= " + model.getRole();
         ResultSet rs = db.executeQuery(query);
-        try{
+        try {
             return rs.next();
-        } catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
     }
@@ -74,18 +75,18 @@ public class LoginController implements ActionListener {
         updateView();
     }
 
-    public void getAndSetUserInfo(){
+    public void getAndSetUserInfo() {
         String query = "SELECT * FROM users WHERE username = '" + model.getUsername() + "' AND password = '"
                 + model.getPassword() + "' AND role >= " + model.getRole();
         ResultSet rs = db.executeQuery(query);
-        try{
-            if(rs.next()){
+        try {
+            if (rs.next()) {
                 model.setUsername(rs.getString("username"));
                 model.setPassword(rs.getString("password"));
                 model.setEmail(rs.getString("email"));
                 model.setMember(rs.getBoolean("member"));
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
@@ -93,8 +94,6 @@ public class LoginController implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println("Action: " + e.getActionCommand());
-        // setEmail(loginView.getEmail()); //might not receive email from login view,
-        // will need to check
         try {
             if (e.getActionCommand().equals("Login")) {
                 setPassword(view.getPassword());
@@ -102,6 +101,8 @@ public class LoginController implements ActionListener {
                 login();
             } else if (e.getActionCommand().equals("Register")) { // probably will need to change this
                 mainController.switchToView("RegisterView");
+            } else if (e.getActionCommand().equals("Back")) {
+                mainController.switchToView("EntryView");
             }
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());

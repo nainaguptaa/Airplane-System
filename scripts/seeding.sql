@@ -8,18 +8,11 @@ INSERT INTO users (username, password, email, role, member) VALUES
 ('admin1', 'password1', 'admin1@email.com', 4, TRUE);
 
 -- Insert data into 'locations'
-INSERT INTO locations (city, state, country) VALUES
-('New York', 'NY', 'USA'),
-('Los Angeles', 'CA', 'USA'),
-('London', 'N/A', 'UK'),
-('Sydney', 'NSW', 'Australia');
-
--- Insert data into 'airports'
-INSERT INTO airports (location_id, name, code) VALUES
-(1, 'JFK International Airport', 'JFK'),
-(2, 'Los Angeles International Airport', 'LAX'),
-(3, 'Heathrow Airport', 'LHR'),
-(4, 'Sydney Airport', 'SYD');
+INSERT INTO locations (city, state, country, code) VALUES
+('New York', 'NY', 'USA', 'JFK'),
+('Los Angeles', 'CA', 'USA', 'LAX'),
+('London', 'N/A', 'UK', 'LHR'),
+('Sydney', 'NSW', 'Australia', 'SYD');
 
 -- Insert data into 'aircrafts'
 INSERT INTO aircrafts (model, capacity) VALUES
@@ -36,8 +29,8 @@ INSERT INTO seats (aircraft_id, seat_number, class) VALUES
 
 -- Insert data into 'flights'
 INSERT INTO flights (aircraft_id, departure_time, arrival_time, departure_airport_id, arrival_airport_id, price) VALUES
-(1, '2023-12-01 08:00:00', '2023-12-01 12:00:00', 1, 2, 300.00),
-(2, '2023-12-02 09:00:00', '2023-12-02 11:00:00', 3, 4, 450.00);
+(1, '2023-12-01 08:00:00', '2023-12-01 12:00:00', 'JFK', 'LAX', 300.00),
+(2, '2023-12-02 09:00:00', '2023-12-02 11:00:00', 'SYD', 'LHR', 450.00);
 
 -- Insert data into 'bookings'
 INSERT INTO bookings (username, flight_id, seat_id, booking_date, insurance, price, status) VALUES

@@ -19,7 +19,7 @@ public class BookingsView extends JPanel {
         setLayout(new BorderLayout());
 
         // Column Names
-        String[] columnNames = { "Booking ID, Flight ID", "Seat ID", "Insurance", "Price", "Booking Time" };
+        String[] columnNames = { "Booking ID", "Flight ID", "Seat ID", "Insurance", "Price", "Booking Time" };
 
         // Table Model
         model = new DefaultTableModel(convertToArray(bookingsData), columnNames);
