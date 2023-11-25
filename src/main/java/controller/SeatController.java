@@ -18,11 +18,17 @@ public class SeatController {
         this.db = db;
         this.mc = mc;
 
-        seatView = new SeatView(getSeatViewModels());
+        // seatView = new SeatView(getSeatViewModels());
     }
 
     public SeatViewModel[] getSeatViewModels() {
-        // Write SQL query to get all seats and seat info
+        /*
+         * Write a SQL query to retrieve all seat data and store the necessary data into
+         * an array
+         * This array is then to be passed into seat view so that it can use the array
+         * to check what seats
+         * are already taken and which seats are available.
+         */
 
         SeatViewModel svm[] = new SeatViewModel[3];
 
