@@ -263,7 +263,26 @@ public class MainController {
         navPanel.add(btnPassengerListView);
     }
 
-    public void switchToViewWithArgs(String viewName, Map<String, Object> args) {}
+    public void switchToViewWithArgs(String viewName, Map<String, Object> args) {
+        Container contentPane = mainFrame.getContentPane();
+        BorderLayout layout = (BorderLayout) contentPane.getLayout();
+        Component centerComponent = layout.getLayoutComponent(BorderLayout.CENTER);
+
+        if (centerComponent != null) {
+            contentPane.remove(centerComponent);
+        }
+
+        switch (viewName) {
+            case "SeatMapView":
+                break;
+
+            default:
+                break;
+        }
+
+        mainFrame.getContentPane().revalidate();
+        mainFrame.getContentPane().repaint();
+    }
 
 
 
