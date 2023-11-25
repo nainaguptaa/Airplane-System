@@ -30,12 +30,6 @@ public class MainController {
         mainFrame.setSize(800, 600); // Set a default size or pack after adding components
         mainFrame.setLayout(new BorderLayout());
 
-        // Initialize navigation panel
-        initializeNavPanel();
-
-        // Add navigation panel to the main frame
-        mainFrame.add(navPanel, BorderLayout.WEST);
-
         this.user = new User();
         this.switchToView("EntryView");
         mainFrame.setVisible(true);
@@ -56,11 +50,42 @@ public class MainController {
         return user;
     }
 
+    public void createNavPanel() {
+        initializeNavPanel();
+        mainFrame.add(navPanel, BorderLayout.WEST);
+    }
+
+    public void removeNavPanel() {
+        try{
+            mainFrame.remove(navPanel);
+        } catch (Exception e){
+        }
+    }
+
     private void initializeNavPanel() {
         navPanel = new JPanel();
         navPanel.setLayout(new BoxLayout(navPanel, BoxLayout.Y_AXIS));
         navPanel.setPreferredSize(new Dimension(140, mainFrame.getHeight())); // Set preferred width
 
+        switch (user.getRole()) {
+            case 4:
+                createAdminNavButtons();
+                break;
+            case 3:
+                createAgentNavButtons();
+                break;
+            case 2:
+                createMemberNavButtons();
+                break;
+            case 1:
+                createGuestNavButtons();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void createAdminNavButtons(){
         // Create and add buttons
 
         Dimension buttonSize = new Dimension(140, 40); // Uniform size for all buttons
@@ -70,7 +95,6 @@ public class MainController {
         Color buttonColor = new Color(100, 181, 246); // Example color
         Font buttonFont = new Font("Arial", Font.BOLD, 14);
 
-        // ... Add other buttons for different views
         JButton btnUserView = Buttons.createStyledButton(
                 "User Profile",
                 "UserView",
@@ -78,9 +102,74 @@ public class MainController {
                 buttonColor,
                 buttonFont,
                 e -> switchToView(e.getActionCommand()));
-        JButton btnEntryView = Buttons.createStyledButton(
-                "Entry",
-                "EntryView",
+
+        JButton btnManageFlightView = Buttons.createStyledButton(
+                "Manage Flights",
+                "ManageFlightView", //create manage flight view for admin
+                buttonSize,
+                buttonColor,
+                buttonFont,
+                e -> switchToView(e.getActionCommand()));
+        
+        JButton btnManagePromoView = Buttons.createStyledButton(
+                "Manage Promotions",
+                "ManagePromoView", //create manage promo view for admin
+                buttonSize,
+                buttonColor,
+                buttonFont,
+                e -> switchToView(e.getActionCommand()));
+        
+        JButton btnManageAircraftView = Buttons.createStyledButton(
+                "Manage Aircrafts",
+                "ManageAircraftView", //create manage aircraft view for admin
+                buttonSize,
+                buttonColor,
+                buttonFont,
+                e -> switchToView(e.getActionCommand()));
+
+        JButton btnManageCrewsView = Buttons.createStyledButton(
+                "Manage Crews",
+                "ManageCrewsView", //create manage crews view for admin
+                buttonSize,
+                buttonColor,
+                buttonFont,
+                e -> switchToView(e.getActionCommand()));
+
+        JButton btnAllUsersView = Buttons.createStyledButton(
+                "All Users",
+                "AllUsersView", //create all users view for admin
+                buttonSize,
+                buttonColor,
+                buttonFont,
+                e -> switchToView(e.getActionCommand()));
+
+        navPanel.add(btnUserView);
+        navPanel.add(Box.createRigidArea(spacerSize));
+        navPanel.add(btnManageFlightView);
+        navPanel.add(Box.createRigidArea(spacerSize));
+        navPanel.add(btnManagePromoView);
+        navPanel.add(Box.createRigidArea(spacerSize));
+        navPanel.add(btnManageAircraftView);
+        navPanel.add(Box.createRigidArea(spacerSize));
+        navPanel.add(btnManageCrewsView);
+        navPanel.add(Box.createRigidArea(spacerSize));
+        navPanel.add(btnAllUsersView);
+    }
+
+    private void createMemberNavButtons(){
+        
+        // Create and add buttons
+
+        Dimension buttonSize = new Dimension(140, 40); // Uniform size for all buttons
+        Dimension spacerSize = new Dimension(0, 10); // Spacer size for padding
+
+        // Styling options
+        Color buttonColor = new Color(100, 181, 246); // Example color
+        Font buttonFont = new Font("Arial", Font.BOLD, 14);
+        // ... Add other buttons for different views
+        JButton btnUserView = Buttons.createStyledButton(
+                "User Profile",
+                "UserView",
                 buttonSize,
                 buttonColor,
                 buttonFont,
@@ -102,13 +191,74 @@ public class MainController {
                 buttonFont,
                 e -> switchToView(e.getActionCommand()));
 
-        navPanel.add(btnEntryView);
-        navPanel.add(Box.createRigidArea(spacerSize));
         navPanel.add(btnUserView);
         navPanel.add(Box.createRigidArea(spacerSize));
         navPanel.add(btnFlightView);
         navPanel.add(Box.createRigidArea(spacerSize));
         navPanel.add(btnMembershipView);
+    }
+
+    private void createGuestNavButtons(){
+            // Create and add buttons
+
+        Dimension buttonSize = new Dimension(140, 40); // Uniform size for all buttons
+        Dimension spacerSize = new Dimension(0, 10); // Spacer size for padding
+
+        // Styling options
+        Color buttonColor = new Color(100, 181, 246); // Example color
+        Font buttonFont = new Font("Arial", Font.BOLD, 14);
+
+        JButton btnEntryView = Buttons.createStyledButton(
+                "Entry",
+                "EntryView",
+                buttonSize,
+                buttonColor,
+                buttonFont,
+                e -> switchToView(e.getActionCommand()));
+
+        JButton btnFlightView = Buttons.createStyledButton(
+                "Flights",
+                "FlightView",
+                buttonSize,
+                buttonColor,
+                buttonFont,
+                e -> switchToView(e.getActionCommand()));
+
+        navPanel.add(btnEntryView);
+        navPanel.add(Box.createRigidArea(spacerSize));
+        navPanel.add(btnFlightView);
+
+    }
+
+    private void createAgentNavButtons(){
+        // Create and add buttons
+
+        Dimension buttonSize = new Dimension(140, 40); // Uniform size for all buttons
+        Dimension spacerSize = new Dimension(0, 10); // Spacer size for padding
+
+        // Styling options
+        Color buttonColor = new Color(100, 181, 246); // Example color
+        Font buttonFont = new Font("Arial", Font.BOLD, 14);
+
+        JButton btnUserView = Buttons.createStyledButton(
+                "User Profile",
+                "UserView",
+                buttonSize,
+                buttonColor,
+                buttonFont,
+                e -> switchToView(e.getActionCommand()));
+        
+        JButton btnPassengerListView = Buttons.createStyledButton(
+                "Passenger List",
+                "PassengerListView", //create passenger list view for agent
+                buttonSize,
+                buttonColor,
+                buttonFont,
+                e -> switchToView(e.getActionCommand()));
+        
+        navPanel.add(btnUserView);
+        navPanel.add(Box.createRigidArea(spacerSize));
+        navPanel.add(btnPassengerListView);
     }
 
     public void switchToView(String viewName) {

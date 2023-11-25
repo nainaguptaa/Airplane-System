@@ -14,6 +14,7 @@ public class EntryView extends JPanel {
      * Default constructor for main view
      */
     public EntryView() {
+        
         setBackground(new Color(230, 230, 250));
         // setTitle("Main Menu");
         setLayout(null);
@@ -39,6 +40,8 @@ public class EntryView extends JPanel {
         JLabel exitLbl = new JLabel("Or click X to exit");
         exitLbl.setBounds(154, 213, 126, 20);
         add(exitLbl);
+
+        
     }
 
     /**

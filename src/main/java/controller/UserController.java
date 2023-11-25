@@ -21,12 +21,19 @@ public class UserController implements ActionListener{
 
     private void addListeners() {
         userView.addBookingsButtonListener(this);
+        userView.addLogoutButtonListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        System.out.println(e.getActionCommand());
         if (e.getActionCommand().equals("BookingsView")) {
             mainController.switchToView("BookingsView");
+        }
+        else if (e.getActionCommand().equals("Logout")) {
+            mainController.switchToView("EntryView");
+            mainController.setUser(new User());
+            mainController.removeNavPanel();
         }
     }
 

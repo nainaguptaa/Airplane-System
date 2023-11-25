@@ -89,7 +89,17 @@ public class BookingsController implements ActionListener{
                 view.updateButtons();
             }
         } else if (e.getActionCommand().equals("Manage")) {
-            // Book
+            // Manage
+            int id = view.getSelectedBooking();
+            Booking selectedBooking = null;
+            // Get booking based on id
+            for (int i = 0; i < bookings.size(); i++) {
+                if (bookings.get(i).getBookingId() == id) {
+                    selectedBooking = bookings.get(i);
+                    break;
+                }
+            }
+            mainController.switchToView("BookingView");
         }
     }
 

@@ -58,7 +58,9 @@ public class LoginController implements ActionListener {
     public void login() {
         if (authenticate()) {
             System.out.println("Login successful");
+            getAndSetUserInfo();
             mainController.switchToView("UserView");
+            mainController.createNavPanel();
             // this.uc = new UserController(db);
             // this.uc.setUser(model);
         } else {

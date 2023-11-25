@@ -11,6 +11,7 @@ public class UserView extends JPanel {
     private JLabel emailLabel;
     private JLabel roleLabel;
     private JButton bookingsButton;
+    private JButton logoutButton;
 
     public UserView() {
         setBackground(new Color(240, 248, 255));
@@ -35,7 +36,16 @@ public class UserView extends JPanel {
             new Dimension(180, 40),
             new Color(100, 181, 246),
             new Font("Arial", Font.BOLD, 14));
+        
+        logoutButton = Buttons.createStyledButton(
+            "Logout",
+            "Logout",
+            new Dimension(180, 40),
+            new Color(100, 181, 246),
+            new Font("Arial", Font.BOLD, 14));    
+        
         add(bookingsButton, gbc);
+        add(logoutButton, gbc);
     }
 
     private JPanel createHeaderPanel() {
@@ -75,6 +85,10 @@ public class UserView extends JPanel {
 
     public void addBookingsButtonListener(ActionListener al) {
         bookingsButton.addActionListener(al);
+    }
+
+    public void addLogoutButtonListener(ActionListener al) {
+        logoutButton.addActionListener(al);
     }
 
     public void updateView(User data) {
