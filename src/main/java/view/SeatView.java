@@ -1,6 +1,9 @@
 package view;
 
 import javax.swing.*;
+
+import viewModel.SeatViewModel;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -8,6 +11,7 @@ import java.awt.event.MouseEvent;
 public class SeatView extends JPanel {
 
     private static final Dimension BUTTON_SIZE = new Dimension(40, 40); // Smaller button size
+    private SeatViewModel seatViewModel[];
 
     public SeatView() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS)); // Using BoxLayout for vertical stacking
@@ -17,6 +21,18 @@ public class SeatView extends JPanel {
         add(createBusinessClassSection());
         add(Box.createVerticalStrut(10)); // Spacer between sections
         add(createEconomyClassSection());
+    }
+
+    public SeatView(SeatViewModel svm[]) {
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS)); // Using BoxLayout for vertical stacking
+        setPreferredSize(new Dimension(500, 400)); // Smaller panel size
+
+        // Add different class sections
+        add(createBusinessClassSection());
+        add(Box.createVerticalStrut(10)); // Spacer between sections
+        add(createEconomyClassSection());
+
+        this.seatViewModel = svm;
     }
 
     private JPanel createBusinessClassSection() {

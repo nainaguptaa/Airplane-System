@@ -1,4 +1,3 @@
-package main.java;
 
 import controller.MainController;
 

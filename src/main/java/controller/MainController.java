@@ -108,7 +108,7 @@ public class MainController {
                 break;
             case "SeatView":
                 seatController = new SeatController(db, this);
-                mainFrame.getContentPane().add(seatController.getView());
+                mainFrame.getContentPane().add(seatController.getSeatView());
                 break;
 
             default:
