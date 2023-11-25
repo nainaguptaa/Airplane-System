@@ -5,6 +5,7 @@ import javax.swing.Action;
 import view.EntryView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Map;
 
 public class EntryController implements ActionListener {
     private EntryView entryView;

@@ -6,6 +6,7 @@ import utils.Buttons;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Map;
 
 public class MainController {
     private Database db;
@@ -97,6 +98,10 @@ public class MainController {
         navPanel.add(Box.createRigidArea(spacerSize));
         navPanel.add(btnMembershipView);
     }
+
+    public void switchToViewWithArgs(String viewName, Map<String, Object> args) {}
+
+
 
     public void switchToView(String viewName) {
 
