@@ -1,15 +1,18 @@
 package model.flight;
 
+import java.sql.Time;
+import java.util.Date;
+
 public class Booking {
     private int bookingId;
     private String username;
     private int flightId;
     private int seatId;
     private double price;
-    private String bookingTime; //Make time object
-    private String insurance;
+    private Date bookingTime; //Make time object
+    private Boolean insurance;
 
-    public Booking(int bookingId, int flightId, String username, int seatId,  String insurance, double price, String bookingTime) {
+    public Booking(int bookingId, int flightId, String username, int seatId,  Boolean insurance, double price, Date bookingTime) {
         this.bookingId = bookingId;
         this.username = username;
         this.flightId = flightId;
@@ -20,12 +23,13 @@ public class Booking {
     }
 
     public String[] getBookingData() {
-        String[] data = new String[5];
-        data[0] = "Flight ID: " + flightId;
-        data[1] = "Seat ID: " + seatId;
-        data[2] = "Insurance: " + insurance;
-        data[3] = "Price: " + price;
-        data[4] = "Booking Time: " + bookingTime;
+        String[] data = new String[6];
+        data[0] = Integer.toString(bookingId);
+        data[1] = Integer.toString(flightId);
+        data[2] = Integer.toString(seatId);
+        data[3] = insurance.toString();
+        data[4] = Double.toString(price);
+        data[5] = bookingTime.toString();
         return data;
     }
 
@@ -51,7 +55,7 @@ public class Booking {
         return price;
     }
 
-    public String getBookingTime() {
+    public Date getBookingTime() {
         return bookingTime;
     }
 
@@ -75,15 +79,15 @@ public class Booking {
         this.price = price;
     }
 
-    public void setBookingTime(String bookingTime) {
+    public void setBookingTime(Date bookingTime) {
         this.bookingTime = bookingTime;
     }
 
-    public String getInsurance() {
+    public Boolean getInsurance() {
         return insurance;
     }
 
-    public void setInsurance(String insurance) {
+    public void setInsurance(Boolean insurance) {
         this.insurance = insurance;
     }
 }   

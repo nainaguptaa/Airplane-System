@@ -11,24 +11,18 @@ import java.util.ArrayList;
 
 public class BookingsView extends JPanel {
     private JTable bookingsTable;
+    private DefaultTableModel model;
     private JButton manageButton;
     private JButton cancelButton;
 
-    public BookingsView() {
+    public BookingsView(ArrayList<String[]> bookingsData) {
         setLayout(new BorderLayout());
 
         // Column Names
-        String[] columnNames = {"Booking ID", "Date", "Status"}; // Modify as needed
-
-        // Sample Data
-        String[][] data = {
-            {"001", "2023-11-23", "Confirmed"},
-            {"002", "2023-11-24", "Pending"},
-            // Add more bookings data
-        };
+        String[] columnNames = { "Booking ID, Flight ID", "Seat ID", "Insurance", "Price", "Booking Time" };
 
         // Table Model
-        DefaultTableModel model = new DefaultTableModel(data, columnNames);
+        model = new DefaultTableModel(convertToArray(bookingsData), columnNames);
         bookingsTable = new JTable(model);
 
         // Scroll Pane
@@ -39,16 +33,11 @@ public class BookingsView extends JPanel {
         JPanel bottomPanel = new JPanel();
         manageButton = new JButton("Manage");
         cancelButton = new JButton("Cancel");
-        // Add listeners and functionality to buttons
         bottomPanel.add(manageButton);
         bottomPanel.add(cancelButton);
         add(bottomPanel, BorderLayout.SOUTH);
-    }
 
-    private void updateButtons() {
-        // boolean isSelected = !bookingsList.isSelectionEmpty();
-        // manageButton.setEnabled(isSelected);
-        // cancelButton.setEnabled(isSelected);
+        updateButtons(); // Set initial state of buttons
     }
 
     public void addManageButtonListener(ActionListener actionListener) {
@@ -59,8 +48,32 @@ public class BookingsView extends JPanel {
         cancelButton.addActionListener(actionListener);
     }
 
-    // Method to update the bookings list
-    // public void setBookingsListData(String[][] bookingsData) { // Replace String[] with your bookings data type
-    //     bookingsTable.set
-    // }
+    public void addTableListener(ListSelectionListener listSelectionListener) {
+        bookingsTable.getSelectionModel().addListSelectionListener(listSelectionListener);
+    }
+
+    public void updateTable(ArrayList<String[]> bookingsData) {
+        String[][] data = convertToArray(bookingsData);
+        model.setDataVector(data, new String[] { "Flight ID", "Seat ID", "Insurance", "Price", "Booking Time" });
+        model.fireTableDataChanged(); // Notify the model that its data has changed
+    }
+
+    private String[][] convertToArray(ArrayList<String[]> bookingsData) {
+        String[][] data = new String[bookingsData.size()][5];
+        for (int i = 0; i < bookingsData.size(); i++) {
+            data[i] = bookingsData.get(i);
+        }
+        return data;
+    }
+
+    public void updateButtons() {
+        boolean isSelected = bookingsTable.getSelectedRow() != -1;
+        manageButton.setEnabled(isSelected);
+        cancelButton.setEnabled(isSelected);
+    }
+
+    public int getSelectedBooking() {
+        //return booking ID
+        return Integer.parseInt((String) bookingsTable.getValueAt(bookingsTable.getSelectedRow(), 0));
+    }
 }
