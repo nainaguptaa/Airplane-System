@@ -9,7 +9,7 @@ public class ManageFlightsView extends JPanel {
     private JButton addFlightButton;
     private JButton removeFlightButton;
     private JButton changeFlightButton;
-    private JTextField flightIDTextField;
+    private JComboBox<String> flightIDComboBox; // Changed to JComboBox
 
     public ManageFlightsView() {
         setLayout(new GridBagLayout());
@@ -33,12 +33,13 @@ public class ManageFlightsView extends JPanel {
         JPanel manageFlightsPanel = new JPanel();
         manageFlightsPanel.setLayout(new BoxLayout(manageFlightsPanel, BoxLayout.Y_AXIS));
         
-        // Flight ID Text Field
+        // Flight ID ComboBox
         JPanel flightIDPanel = new JPanel();
         flightIDPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-        flightIDTextField = new JTextField(10);
+        flightIDComboBox = new JComboBox<>(); // Initialize the JComboBox
+        flightIDComboBox.setPreferredSize(new Dimension(200, 25)); // Set size
         flightIDPanel.add(new JLabel("Flight ID: "));
-        flightIDPanel.add(flightIDTextField);
+        flightIDPanel.add(flightIDComboBox);
         manageFlightsPanel.add(flightIDPanel);
 
         JPanel buttonPanel = new JPanel();
@@ -47,7 +48,7 @@ public class ManageFlightsView extends JPanel {
         removeFlightButton = createStyledButton("Remove Flight");
         changeFlightButton = createStyledButton("Change Flight");
         buttonPanel.add(removeFlightButton);
-        buttonPanel.add(Box.createRigidArea(new Dimension(10, 0))); // Adjusted spacing between buttons
+        buttonPanel.add(Box.createRigidArea(new Dimension(10, 0)));
         buttonPanel.add(changeFlightButton);
         manageFlightsPanel.add(buttonPanel);
 
@@ -76,11 +77,11 @@ public class ManageFlightsView extends JPanel {
     }
 
     public String getFlightID() {
-        try{
-            return flightIDTextField.getText();
-        } catch (NullPointerException e) {
-            return null;
-        }
+        return (String) flightIDComboBox.getSelectedItem();
+    }
+
+    public void addFlightDropdownItem(String flightID) {
+        flightIDComboBox.addItem(flightID);
     }
 }
 

@@ -314,7 +314,6 @@ public class MainController {
                 break;
 
             case "ManageFlightView":
-                manageFlightsController = new ManageFlightsController(db, this);
                 mainFrame.getContentPane().add(manageFlightsController.getMFView());
                 break;
 

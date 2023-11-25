@@ -1,12 +1,17 @@
 package  model.flight;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
 public class Flight {
     private int flightId;
     private int aircraftId;
     private String originId;
     private String destinationId;
-    private String departureTime; // make time object in utils
-    private String arrivalTime;
+    private Date departureTime; // make time object in utils
+    private Date arrivalTime;
     private double price;
     private int availableSeats; // make seats an observer strategy, update available seats whenever a seat is
                                 // taken
@@ -16,14 +21,14 @@ public class Flight {
         this.aircraftId = 0;
         this.originId = "";
         this.destinationId = "";
-        this.departureTime = "";
-        this.arrivalTime = "";
+        this.departureTime = null;
+        this.arrivalTime = null;
         this.price = 0;
         this.availableSeats = 0;
     }
 
-    public Flight(int flightId, int aircraftId, String originId, String destinationId, String departureTime,
-            String arrivalTime, int price, int availableSeats) {
+    public Flight(int flightId, int aircraftId, String originId, String destinationId, Date departureTime,
+            Date arrivalTime, int price, int availableSeats) {
         this.flightId = flightId;
         this.aircraftId = aircraftId;
         this.originId = originId;
@@ -51,13 +56,32 @@ public class Flight {
         return destinationId;
     }
 
-    public String getDepartureTime() {
+    public Date getDepartureTime() {
         return departureTime;
     }
 
-    public String getArrivalTime() {
+    public Date getArrivalTime() {
         return arrivalTime;
     }
+
+    public String getDepartureString() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return formatter.format(departureTime);
+    }
+
+    public String getArrivalString() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return formatter.format(arrivalTime);
+    }
+
+    public LocalDateTime getDepartureLocalDateTime() {
+        return LocalDateTime.ofInstant(departureTime.toInstant(), ZoneId.systemDefault());
+    }
+
+    public LocalDateTime getArrivalLocalDateTime() {
+        return LocalDateTime.ofInstant(arrivalTime.toInstant(), ZoneId.systemDefault());
+    }
+    
 
     public double getPrice() {
         return price;
@@ -83,11 +107,11 @@ public class Flight {
         this.destinationId = destinationId;
     }
 
-    public void setDepartureTime(String departureTime) {
+    public void setDepartureTime(Date departureTime) {
         this.departureTime = departureTime;
     }
 
-    public void setArrivalTime(String arrivalTime) {
+    public void setArrivalTime(Date arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
 
