@@ -1,6 +1,6 @@
-package main.java.controller;
+package controller;
 
 public class AgentController {
-    //include method for browsing passengers in a flight
+    // include method for browsing passengers in a flight
 
 }

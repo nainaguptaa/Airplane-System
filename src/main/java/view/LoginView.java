@@ -1,4 +1,4 @@
-package main.java.view;
+package view;
 
 import javax.swing.*;
 import java.awt.*;
@@ -62,7 +62,7 @@ public class LoginView extends JPanel {
         return buttonPanel;
     }
 
-    public String getUsername(){
+    public String getUsername() {
         try {
             return username.getText();
         } catch (NullPointerException e) {
@@ -70,7 +70,7 @@ public class LoginView extends JPanel {
         }
     }
 
-    public String getPassword(){
+    public String getPassword() {
         try {
             return password.getPassword().toString();
         } catch (NullPointerException e) {

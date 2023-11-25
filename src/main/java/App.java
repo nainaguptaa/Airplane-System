@@ -1,8 +1,6 @@
-package main.java;
-
 import javax.swing.UIManager;
 
-import main.java.controller.MainController;
+import controller.MainController;
 
 public class App {
 

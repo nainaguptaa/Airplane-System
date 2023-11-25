@@ -1,8 +1,8 @@
 
-package main.java.controller;
+package controller;
 
-import main.java.model.role.User;
-import main.java.utils.Buttons;
+import model.role.User;
+import utils.Buttons;
 
 import javax.swing.*;
 import java.awt.*;

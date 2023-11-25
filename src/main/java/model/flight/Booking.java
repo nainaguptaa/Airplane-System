@@ -1,4 +1,4 @@
-package main.java.model.flight;
+package model.flight;
 
 public class Booking {
     private int bookingId;
@@ -6,7 +6,7 @@ public class Booking {
     private int flightId;
     private int seatId;
     private int price;
-    private String bookingTime; //Make time object
+    private String bookingTime; // Make time object
 
     public Booking(int bookingId, int userId, int flightId, int seatId, int price, String bookingTime) {
         this.bookingId = bookingId;
@@ -66,4 +66,4 @@ public class Booking {
     public void setBookingTime(String bookingTime) {
         this.bookingTime = bookingTime;
     }
-}   
+}

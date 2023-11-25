@@ -1,6 +1,6 @@
-package main.java.controller;
+package controller;
 
-import main.java.view.MembershipView;
+import view.MembershipView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

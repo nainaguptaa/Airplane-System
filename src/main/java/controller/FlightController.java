@@ -1,7 +1,7 @@
-package main.java.controller;
+package controller;
 
-import main.java.view.FlightView;
-import main.java.viewModel.FlightViewModel;
+import view.FlightView;
+import viewModel.FlightViewModel;
 
 import java.awt.event.*;
 
@@ -17,15 +17,11 @@ public class FlightController implements ActionListener {
         this.mainController = mc;
 
         flightView = new FlightView(getFlightViewModels());
-        // flightView.setVisible(true);
-
+        flightView.addFlightSelectionListener(this);
     }
 
     public FlightView getView() {
         return flightView;
-    }
-
-    public void addListeners() {
     }
 
     public FlightViewModel[] getFlightViewModels() {
@@ -45,12 +41,11 @@ public class FlightController implements ActionListener {
 
         return fvm;
     }
-    // include method for returning flights based on search criteria
 
     @Override
     public void actionPerformed(ActionEvent e) {
         String selectedRow = e.getActionCommand();
-        System.out.println("Selected row: " + selectedRow);
+        mainController.switchToView("EnterInformationView");
     }
     // Include method for admin creating flight
 

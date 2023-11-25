@@ -1,9 +1,9 @@
-package main.java.view;
+package view;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-import main.java.viewModel.FlightViewModel;
+import viewModel.FlightViewModel;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -50,7 +50,7 @@ public class FlightView extends JPanel {
                     int row = flightTable.getSelectedRow();
                     if (flightSelectionListener != null) {
                         flightSelectionListener.actionPerformed(
-                                new ActionEvent(this, ActionEvent.ACTION_PERFORMED, String.valueOf(row)));
+                                new ActionEvent(flightTable, ActionEvent.ACTION_PERFORMED, String.valueOf(row)));
                     }
                 }
             }
