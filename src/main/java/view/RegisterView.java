@@ -68,7 +68,7 @@ public class RegisterView extends JPanel {
         return buttonPanel;
     }
 
-    public String getEmail() {
+    public String getEmail() { //need to check if email is valid
         try {
             return emailField.getText();
         } catch (NullPointerException e) {
@@ -86,7 +86,7 @@ public class RegisterView extends JPanel {
 
     public String getPassword() {
         try {
-            return passwordField.getPassword().toString();
+            return new String(passwordField.getPassword());
         } catch (NullPointerException e) {
             return "";
         }

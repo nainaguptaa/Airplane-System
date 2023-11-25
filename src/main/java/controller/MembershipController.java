@@ -3,15 +3,18 @@ package controller;
 import view.MembershipView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import  model.role.User;
 
 public class MembershipController {
 
     private MembershipView view;
     private Database db;
     private MainController mainController;
+    private User model;
 
     public MembershipController(Database db, MainController mc) {
         this.mainController = mc;
+        this.model = mainController.getUser();
         this.view = new MembershipView();
         this.db = db;
 
@@ -20,8 +23,8 @@ public class MembershipController {
 
     private void initialize() {
         // // Check if the user is a premium member
-        // boolean isPremiumMember = membershipModel.isPremiumMember();
-        // membershipView.setMembershipStatus(isPremiumMember);
+        // boolean isPremiumMember = model.getMember();
+        // view.setMembershipStatus(isPremiumMember);
 
         // if (isPremiumMember) {
         // // Load and display promotions

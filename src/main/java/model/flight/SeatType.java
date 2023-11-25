@@ -1,8 +1,8 @@
-package model.flight;
+package  model.flight;
 
 public enum SeatType {
-    ORDINARY,
-    COMFORT,
+    ORDINARY, 
+    COMFORT, 
     BUSINESS;
 
     @Override
@@ -11,7 +11,7 @@ public enum SeatType {
     }
 
     public static SeatType fromString(String str) {
-        try {
+        try{
             return SeatType.valueOf(str.toUpperCase());
         } catch (IllegalArgumentException e) {
             return null;

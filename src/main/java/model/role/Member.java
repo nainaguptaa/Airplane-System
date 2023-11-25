@@ -1,5 +1,4 @@
 package model.role;
-
 import java.util.Date;
 import model.util.CreditCard;
 
