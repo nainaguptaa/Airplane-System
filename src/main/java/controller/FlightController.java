@@ -88,8 +88,12 @@ public class FlightController implements ActionListener {
         HashMap<String, Object> args = new HashMap<>();
         FlightViewModel flight = flightViewModel[Integer.parseInt(selectedRow)];
         // Create a new booking object and pass it to the next view
-        Booking booking = new Booking(0, mainController.getUser()., flight.FlightId, 0, flight.Price, null);
+        Booking booking = new Booking(0, flight.FlightId, mainController.getUser().getUsername(), 0, false, flight.Price, null);
         args.put("booking", booking);
         mainController.switchToViewWithArgs("SeatMapView", args);
+    }
+
+    public FlightView getView() {
+        return flightView;
     }
 }
