@@ -7,6 +7,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +22,7 @@ public class SeatView extends JPanel {
     private static final Color COLOR_ORDINARY = Color.GREEN;
 
     private SeatButton selectedSeatButton = null;
+    private JButton continueButton;
 
     private List<Seat> seats = new ArrayList<>();
 
@@ -28,6 +31,26 @@ public class SeatView extends JPanel {
         add(createLegendPanel(), BorderLayout.NORTH); // Legend panel
         JPanel seatMapPanel = createSeatMapPanel();
         add(seatMapPanel, BorderLayout.CENTER);
+        add(createContinueButton(), BorderLayout.SOUTH); // Add the continue button
+    }
+
+    private JPanel createContinueButton() {
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        continueButton = new JButton("Continue");
+        continueButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (selectedSeatButton == null) {
+                    JOptionPane.showMessageDialog(SeatView.this, "You must choose a seat.");
+                } else {
+                    // Proceed with the next step
+                    // For example: JOptionPane.showMessageDialog(SeatView.this, "Seat selected: " +
+                    // selectedSeatButton.seat.getSeatId());
+                }
+            }
+        });
+        buttonPanel.add(continueButton);
+        return buttonPanel;
     }
 
     private JPanel createSeatMapPanel() {

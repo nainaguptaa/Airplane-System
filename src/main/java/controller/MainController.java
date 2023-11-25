@@ -1,6 +1,7 @@
 
 package controller;
 
+import model.flight.Booking;
 import model.flight.Seat;
 import model.role.User;
 import model.role.User;
@@ -8,6 +9,7 @@ import utils.Buttons;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.print.Book;
 
 public class MainController {
     private Database db;
@@ -17,6 +19,7 @@ public class MainController {
     private UserController userController;
     private RegisterController registerController;
     private User user;
+    private Booking userBooking;
     private FlightController flightController;
 
     private SeatController seatController;
@@ -134,7 +137,7 @@ public class MainController {
                 mainFrame.getContentPane().add(registerController.getView());
                 break;
             case "SeatView":
-                seatController = new SeatController(db, this);
+                seatController = new SeatController(db, this, userBooking);
                 mainFrame.getContentPane().add(seatController.getSeatView());
                 break;
 
