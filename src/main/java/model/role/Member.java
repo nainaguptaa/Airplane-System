@@ -2,7 +2,6 @@ package model.role;
 
 import java.util.Date;
 import model.util.CreditCard;
-
 import model.util.Address;
 
 public class Member extends User {

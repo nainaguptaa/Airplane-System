@@ -5,6 +5,7 @@ import javax.swing.Action;
 import view.EntryView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import model.role.User;
 
 public class EntryController implements ActionListener {
     private EntryView entryView;
@@ -14,6 +15,7 @@ public class EntryController implements ActionListener {
     public EntryController(Database db, MainController mainController) {
         this.db = db;
         this.mainController = mainController;
+        mainController.removeNavPanel();
         entryView = new EntryView();
         addListeners();
     }
@@ -25,24 +27,13 @@ public class EntryController implements ActionListener {
         entryView.addGuest(this);
     }
 
-    private int getRoleNum(String role) {
-        if (role.equals("Admin")) {
-            return 4;
-        } else if (role.equals("Agent")) {
-            return 3;
-        } else if (role.equals("Member")) {
-            return 2;
-        } else {
-            return 1;
-        }
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         String role = e.getActionCommand();
-        mainController.getUser().setRole(getRoleNum(role));
+        mainController.getUser().setRole(User.roleToInt(role));
         if (role.equals("Guest")) {
-            mainController.switchToView("GuestView");
+            mainController.switchToView("FlightView");
+            mainController.createNavPanel();
         } else {
             mainController.switchToView("LoginView");
         }

@@ -73,6 +73,11 @@ CREATE TABLE bookings (
     price DECIMAL(10, 2) NOT NULL,
     status VARCHAR(50) NOT NULL,
     FOREIGN KEY (username) REFERENCES users(username),
+<<<<<<< HEAD
     FOREIGN KEY (flight_id) REFERENCES flights(flight_id) ON DELETE CASCADE,
+=======
+    FOREIGN KEY (flight_id) REFERENCES flights(flight_id),
+>>>>>>> main
     FOREIGN KEY (seat_id) REFERENCES seats(seat_id)
 );
+

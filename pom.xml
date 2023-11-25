@@ -22,7 +22,7 @@
                         <configuration>
                             <archive>
                                 <manifest>
-                                    <mainClass>App</mainClass>                                    <!-- replace with your main class -->
+                                    <mainClass> App</mainClass>                                    <!-- replace with your main class -->
                                 </manifest>
                             </archive>
                             <descriptorRefs>
@@ -51,7 +51,11 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
+<<<<<<< HEAD
                             <mainClass>App</mainClass>                            <!-- Replace with your main class -->
+=======
+                            <mainClass> App</mainClass>                            <!-- Replace with your main class -->
+>>>>>>> main
                         </manifest>
                     </archive>
                 </configuration>
@@ -63,6 +67,13 @@
     </build>
 
     <dependencies>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.23</version>
+        </dependency>
+
         <dependency>
             <groupId>com.sun.mail</groupId>
             <artifactId>javax.mail</artifactId>
