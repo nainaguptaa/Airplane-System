@@ -13,7 +13,7 @@ public class UserView extends JPanel {
     private JButton bookingsButton;
     private JButton logoutButton;
 
-    public UserView() {
+    public UserView(int role) {
         setBackground(new Color(240, 248, 255));
         setLayout(new GridBagLayout());  // Updated to GridBagLayout for centering
 
@@ -28,7 +28,6 @@ public class UserView extends JPanel {
 
         // Spacing
         add(Box.createRigidArea(new Dimension(0, 20)), gbc);
-
         // Bookings Button
         bookingsButton = Buttons.createStyledButton(
             "Go To Bookings",
@@ -36,6 +35,9 @@ public class UserView extends JPanel {
             new Dimension(180, 40),
             new Color(100, 181, 246),
             new Font("Arial", Font.BOLD, 14));
+        if (role == 2){
+            add(bookingsButton, gbc);
+        }
         
         logoutButton = Buttons.createStyledButton(
             "Logout",
@@ -44,7 +46,6 @@ public class UserView extends JPanel {
             new Color(100, 181, 246),
             new Font("Arial", Font.BOLD, 14));    
         
-        add(bookingsButton, gbc);
         add(logoutButton, gbc);
     }
 

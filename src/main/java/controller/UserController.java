@@ -14,7 +14,7 @@ public class UserController implements ActionListener{
         this.mainController = mc;
         user = mc.getUser();
         this.db = db;
-        userView = new UserView();
+        userView = new UserView(user.getRole());
         updateView();
         addListeners();
     }

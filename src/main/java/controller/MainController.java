@@ -18,6 +18,7 @@ public class MainController {
     private FlightController flightController;
     private MembershipController membershipController;
     private BookingsController bookingsController;
+    private ManageFlightsController manageFlightsController;
 
     private JFrame mainFrame;
     private JPanel navPanel;
@@ -305,6 +306,11 @@ public class MainController {
             case "BookingsView":
                 bookingsController = new BookingsController(db, this);
                 mainFrame.getContentPane().add(bookingsController.getView());
+                break;
+
+            case "ManageFlightView":
+                manageFlightsController = new ManageFlightsController(db, this);
+                mainFrame.getContentPane().add(manageFlightsController.getView());
                 break;
 
             default:

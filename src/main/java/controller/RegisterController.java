@@ -59,7 +59,7 @@ public class RegisterController implements ActionListener {
                     try {
                         query = "INSERT INTO users (username, password, email, role) VALUES ('" + model.getUsername()
                                 + "', '"
-                                + model.getPassword() + "', '" + model.getEmail() + "', '" + model.getRole() + "')";
+                                + model.getPassword() + "', '" + model.getEmail() + "', '" + 2 + "')";
                         System.out.println(query);
                         db.executeUpdate(query);
                     } catch (Exception e) {

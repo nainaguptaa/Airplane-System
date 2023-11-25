@@ -6,6 +6,7 @@ public class User {
     private String password;
     private String email;
     private int role;
+    private Boolean member;
 
     public User(){
         this.username = "";
@@ -17,6 +18,7 @@ public class User {
         this.username = username;
         this.password = password;
         this.email=email;
+        this.member = false;
     }
 
     // Getters and Setters
@@ -43,6 +45,10 @@ public class User {
     public void setRole(int role){this.role=role;}
 
     public int getRole(){return role;}
+
+    public void setMember(Boolean member){this.member=member;}
+
+    public Boolean getMember(){return member;}
 
     public static String roleToString(int role){
         if(role==4){

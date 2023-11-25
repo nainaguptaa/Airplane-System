@@ -46,7 +46,7 @@ public class LoginController implements ActionListener {
 
     public boolean authenticate() {
         String query = "SELECT * FROM users WHERE username = '" + model.getUsername() + "' AND password = '"
-                + model.getPassword() + "' AND role <= " + model.getRole();
+                + model.getPassword() + "' AND role >= " + model.getRole();
         ResultSet rs = db.executeQuery(query);
         try{
             return rs.next();
@@ -76,13 +76,14 @@ public class LoginController implements ActionListener {
 
     public void getAndSetUserInfo(){
         String query = "SELECT * FROM users WHERE username = '" + model.getUsername() + "' AND password = '"
-                + model.getPassword() + "' AND role <= " + model.getRole();
+                + model.getPassword() + "' AND role >= " + model.getRole();
         ResultSet rs = db.executeQuery(query);
         try{
             if(rs.next()){
                 model.setUsername(rs.getString("username"));
                 model.setPassword(rs.getString("password"));
                 model.setEmail(rs.getString("email"));
+                model.setMember(rs.getBoolean("member"));
             }
         } catch (Exception e){
             System.out.println("Error: " + e.getMessage());
