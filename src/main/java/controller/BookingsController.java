@@ -28,7 +28,6 @@ public class BookingsController implements ActionListener{
 
 
     private void addListeners() {
-        view.addManageButtonListener(this);
         view.addCancelButtonListener(this);
         view.addTableListener(e -> view.updateButtons());
     }

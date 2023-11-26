@@ -12,7 +12,6 @@ import java.util.ArrayList;
 public class BookingsView extends JPanel {
     private JTable bookingsTable;
     private DefaultTableModel model;
-    private JButton manageButton;
     private JButton cancelButton;
 
     public BookingsView(ArrayList<String[]> bookingsData) {
@@ -31,17 +30,11 @@ public class BookingsView extends JPanel {
 
         // Bottom Panel with Buttons
         JPanel bottomPanel = new JPanel();
-        manageButton = new JButton("Manage");
         cancelButton = new JButton("Cancel");
-        bottomPanel.add(manageButton);
         bottomPanel.add(cancelButton);
         add(bottomPanel, BorderLayout.SOUTH);
 
         updateButtons(); // Set initial state of buttons
-    }
-
-    public void addManageButtonListener(ActionListener actionListener) {
-        manageButton.addActionListener(actionListener);
     }
 
     public void addCancelButtonListener(ActionListener actionListener) {
@@ -68,7 +61,6 @@ public class BookingsView extends JPanel {
 
     public void updateButtons() {
         boolean isSelected = bookingsTable.getSelectedRow() != -1;
-        manageButton.setEnabled(isSelected);
         cancelButton.setEnabled(isSelected);
     }
 
