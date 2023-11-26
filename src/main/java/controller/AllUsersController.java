@@ -23,7 +23,7 @@ public class AllUsersController{
     }
 
     private void getUsers() {
-        String query = "SELECT username, email, role FROM users WHERE member = TRUE";
+        String query = "SELECT username, email, role FROM users";
 
         ResultSet rs = db.executeQuery(query);
         try{
