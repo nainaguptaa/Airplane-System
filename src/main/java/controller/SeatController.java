@@ -1,9 +1,11 @@
 package controller;
 
 import model.flight.Booking;
-import model.flight.Seat;
+import model.flight.SeatType;
 import view.SeatView;
 import viewModel.SeatViewModel;
+
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class SeatController {
@@ -22,32 +24,55 @@ public class SeatController {
         this.mc = mc;
         this.booking = userBooking;
 
-        // seatView = new SeatView(getSeatViewModels());
+        seatView = new SeatView(getSeatViewModels());
+        seatView.display(seatView);
     }
 
     public ArrayList<SeatViewModel> getSeatViewModels() {
-        /*
-         * Write a SQL query to retrieve all seat data and store the necessary data into
-         * an array
-         * This array is then to be passed into seat view so that it can use the array
-         * to check what seats
-         * are already taken and which seats are available.
-         * 
-         * For the query, use the booking passed into seat controller to retrieve the
-         * corresponding flight id
-         * then using the flight id search through the flights sql table to retrieve the
-         * aircraft id,
-         * then using the aircraft id grab all relevant entries in the seat table and
-         * put them into an array
-         * of seats, and then pass this array of seats to seatview for creating the
-         * seats.
-         */
-        String query = "SELECT aircraft_id FROM flights WHERE flight_id = '" + booking.getFlightId() + "';";
+
+        // Potentially change format of seat insertion in database (A0, B0, C0, D0, E0,
+        // F0, A1, B1 , C1,etc.) to sort rows in order from top to bottom
+        int aircraftId = getAircraftID(booking);
+
+        if (aircraftId == -1) {
+            return seatViewModels;
+        }
+
+        String query = "SELECT seat_number, available, class FROM seats WHERE aircraft_id = '" + aircraftId + "';";
+        try (ResultSet rs = db.executeQuery(query);) {
+            while (rs.next()) {
+                String seatNumber = rs.getString("seat_number");
+                Boolean isAvailable = rs.getBoolean("available");
+                String type = rs.getString("class");
+
+                SeatType seatType = SeatType.fromString(type);
+
+                SeatViewModel seat = new SeatViewModel(seatNumber, seatType, isAvailable);
+                seatViewModels.add(seat);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return seatViewModels;
     }
 
-    public SeatView getSeatView() {
+    public int getAircraftID(Booking booking) {
+        int aircraftId = 0;
+        String query = "SELECT aircraft_id FROM flights WHERE flight_id = '" + booking.getFlightId() + "';";
+        ResultSet rs = db.executeQuery(query);
+        try {
+            if (rs.next()) {
+                aircraftId = rs.getInt("aircraft_id");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+        return aircraftId;
+    }
+
+    public SeatView getView() {
         return seatView;
     }
 }

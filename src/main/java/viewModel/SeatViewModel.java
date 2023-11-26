@@ -4,14 +4,24 @@ import model.flight.SeatType;
 
 public class SeatViewModel {
     private String seatID;
-    private SeatType seatType;
     private boolean isAvailable;
-    private int seatPrice;
+    private SeatType seatType;
 
-    public SeatViewModel(String seatID, SeatType seatType, boolean isAvailable, int seatPrice) {
+    public SeatViewModel(String seatID, SeatType type, boolean isAvailable) {
         this.seatID = seatID;
-        this.seatType = seatType;
         this.isAvailable = isAvailable;
-        this.seatPrice = seatPrice;
+        this.seatType = type;
+    }
+
+    public String getSeatID() {
+        return seatID;
+    }
+
+    public boolean getAvailability() {
+        return isAvailable;
+    }
+
+    public SeatType getSeatType() {
+        return seatType;
     }
 }

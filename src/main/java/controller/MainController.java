@@ -6,7 +6,6 @@ import model.flight.Seat;
 import utils.Buttons;
 
 import model.role.User;
-import utils.Buttons;
 
 import javax.swing.*;
 import java.awt.*;
@@ -303,7 +302,7 @@ public class MainController {
                 break;
             case "SeatView":
                 seatController = new SeatController(db, this, userBooking);
-                mainFrame.getContentPane().add(seatController.getSeatView());
+                mainFrame.getContentPane().add(seatController.getView());
                 break;
 
             case "UserView":

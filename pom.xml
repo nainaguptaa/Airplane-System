@@ -51,11 +51,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-<<<<<<< HEAD
-                            <mainClass>App</mainClass>                            <!-- Replace with your main class -->
-=======
                             <mainClass> App</mainClass>                            <!-- Replace with your main class -->
->>>>>>> main
                         </manifest>
                     </archive>
                 </configuration>
