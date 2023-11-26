@@ -27,18 +27,6 @@ public class SeatView extends JPanel {
         setLayout(new BorderLayout());
         add(createLegendPanel(), BorderLayout.NORTH); // Legend panel
         add(createSeatMapPanel(), BorderLayout.CENTER); // Seat map panel
-
-        JFrame frame = new JFrame("Seat View");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(new GridBagLayout()); // Use GridBagLayout to center the SeatView
-
-        // Constraints for the SeatView panel
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.weightx = 1;
-        gbc.weighty = 1;
-        gbc.fill = GridBagConstraints.NONE; // Do not resize the SeatView panel
     }
 
     public SeatView() {

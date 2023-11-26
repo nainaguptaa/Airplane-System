@@ -9,8 +9,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class SeatController {
-    // include method for adding/removing seats
-    // include method for updating seat availability
 
     private Database db;
     private MainController mc;
