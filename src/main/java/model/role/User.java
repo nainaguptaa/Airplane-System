@@ -7,11 +7,19 @@ public class User {
     private String email;
     private int role;
     private Boolean member;
+    private String firstName;
+    private String lastName;
+    private String address;
 
     public User() {
         this.username = "";
         this.password = "";
         this.email = "";
+        this.role = 1;
+        this.member = false;
+        this.firstName = "";
+        this.lastName = "";
+
     }
 
     public User(String username, String password, String email) {
@@ -52,6 +60,18 @@ public class User {
 
     public int getRole() {return role;}
 
+    public void setFirstName(String firstName){this.firstName=firstName;}
+
+    public String getFirstName(){return firstName;}
+
+    public void setLastName(String lastName){this.lastName=lastName;}
+
+    public String getLastName(){return lastName;}
+
+    public void setAddress(String address){this.address=address;}
+
+    public String getAddress(){return address;}
+
     public void setMember(Boolean member){this.member=member;}
 
     public Boolean getMember(){return member;}
@@ -64,7 +84,7 @@ public class User {
             return "Agent";
         }
         else if(role==2){
-            return "Customer";
+            return "User";
         }
         else if(role==1){
             return "Guest";
@@ -81,7 +101,7 @@ public class User {
         else if(role.equals("Agent")){
             return 3;
         }
-        else if(role.equals("Member")){
+        else if(role.equals("User")){
             return 2;
         }
         else if(role.equals("Guest")){
