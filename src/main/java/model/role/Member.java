@@ -2,6 +2,7 @@ package model.role;
 
 import java.util.Date;
 import model.util.CreditCard;
+import model.util.Address;
 
 public class Member extends User {
     private String name;
@@ -29,10 +30,6 @@ public class Member extends User {
 
     public void setAddress(Address address) {
         this.address = address;
-    }
-
-    public String getAddrDirection() {
-        return addrDirection;
     }
 
     public void setMemberName(String newName) {

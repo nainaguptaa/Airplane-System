@@ -3,6 +3,7 @@ package controller;
 
 import model.role.User;
 import utils.Buttons;
+import model.flight.Booking;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,7 +34,7 @@ public class MainController {
     private JPanel navPanel;
 
     private MainController() {
-        this.db = Database.getInstance("jdbc:mysql://localhost:3306/airline", "root", "SagittariusA5290$");
+        this.db = Database.getInstance("jdbc:mysql://localhost:3306/airline", "root", "Venezuela071$");
 
         mainFrame = new JFrame("Airline Management System");
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -278,6 +279,8 @@ public class MainController {
                 break;
 
             case "SeatMapView":
+                seatController = new SeatController(db, this, args);
+                mainFrame.getContentPane().add(seatController.getView());
                 break;
 
             case "CrewView":
@@ -324,9 +327,9 @@ public class MainController {
                 mainFrame.getContentPane().add(registerController.getView());
                 break;
             case "SeatView":
-                seatController = new SeatController(db, this, userBooking);
-                mainFrame.getContentPane().add(seatController.getView());
-                break;
+                // seatController = new SeatController(db, this, userBooking);
+                // mainFrame.getContentPane().add(seatController.getView());
+                // break;
 
             case "UserView":
                 userController = new UserController(db, this);

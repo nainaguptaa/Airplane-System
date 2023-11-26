@@ -10,7 +10,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class SeatView extends JPanel {
-    private static final int ROW_COUNT = 11;
+    private static final int ROW_COUNT = 32;
     private static final int COLUMN_COUNT = 6;
     private static final Color COLOR_SELECTED = Color.GRAY;
     private static final Color COLOR_HOVER = Color.GRAY;
@@ -27,13 +27,20 @@ public class SeatView extends JPanel {
         setLayout(new BorderLayout());
         add(createLegendPanel(), BorderLayout.NORTH); // Legend panel
         add(createSeatMapPanel(), BorderLayout.CENTER); // Seat map panel
-    }
 
-    public SeatView() {
-        setLayout(new BorderLayout());
-        add(createLegendPanel(), BorderLayout.NORTH); // Legend panel
-        JPanel seatMapPanel = createSeatMapPanel();
-        add(seatMapPanel, BorderLayout.CENTER);
+        setLayout(new GridBagLayout()); // Use GridBagLayout to center the SeatView
+
+        // Constraints for the SeatView panel
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 1;
+        gbc.weighty = 1;
+        gbc.fill = GridBagConstraints.NONE; // Do not resize the SeatView panel
+
+        add(this, gbc); // Add SeatView panel to the frame with constraints
+        setSize(new Dimension(500, 700)); // Set the window size
+        setVisible(true);
     }
 
     private JPanel createSeatMapPanel() {

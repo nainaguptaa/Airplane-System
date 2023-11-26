@@ -7,6 +7,7 @@ import viewModel.SeatViewModel;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class SeatController {
 
@@ -17,10 +18,16 @@ public class SeatController {
 
     private SeatView seatView;
 
-    public SeatController(Database db, MainController mc, Booking userBooking) {
+    public SeatController(Database db, MainController mc, Map<String, Object> args) {
         this.db = db;
         this.mc = mc;
-        this.booking = userBooking;
+        try {
+            this.booking = (Booking) args.get("booking");
+            // Use the retrievedBooking object as needed
+        } catch (ClassCastException e) {
+            // Handle the case where the object is not of type Booking
+            System.err.println("The object retrieved from 'args' is not a Booking");
+        }
 
         seatView = new SeatView(getSeatViewModels());
         seatView.display(seatView);
