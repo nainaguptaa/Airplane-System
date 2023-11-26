@@ -7,6 +7,9 @@ import java.awt.event.ActionListener;
 public class RegisterView extends JPanel {
     private JTextField emailField;
     private JTextField usernameField;
+    private JTextField firstNameField;
+    private JTextField lastNameField;
+    private JTextField addressField;
     private JPasswordField passwordField;
     private JButton registerBtn;
     private JButton cancelBtn;
@@ -43,9 +46,33 @@ public class RegisterView extends JPanel {
         gbc.gridx = 1;
         formPanel.add(usernameField, gbc);
 
-        // Password
+        // First Name
         gbc.gridx = 0;
         gbc.gridy = 2;
+        formPanel.add(new JLabel("First Name:"), gbc);
+        firstNameField = new JTextField(10);
+        gbc.gridx = 1;
+        formPanel.add(firstNameField, gbc);
+
+        // Last Name
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        formPanel.add(new JLabel("Last Name:"), gbc);
+        lastNameField = new JTextField(10);
+        gbc.gridx = 1;
+        formPanel.add(lastNameField, gbc);
+
+        // Address
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        formPanel.add(new JLabel("Address:"), gbc);
+        addressField = new JTextField(10);
+        gbc.gridx = 1;
+        formPanel.add(addressField, gbc);
+
+        // Password
+        gbc.gridx = 0;
+        gbc.gridy = 5;
         formPanel.add(new JLabel("Password:"), gbc);
         passwordField = new JPasswordField(10);
         gbc.gridx = 1;
@@ -72,7 +99,7 @@ public class RegisterView extends JPanel {
         try {
             return emailField.getText();
         } catch (NullPointerException e) {
-            return "";
+            return null;
         }
     }
 
@@ -80,7 +107,7 @@ public class RegisterView extends JPanel {
         try {
             return usernameField.getText();
         } catch (NullPointerException e) {
-            return "";
+            return null;
         }
     }
 
@@ -88,7 +115,31 @@ public class RegisterView extends JPanel {
         try {
             return new String(passwordField.getPassword());
         } catch (NullPointerException e) {
-            return "";
+            return null;
+        }
+    }
+
+    public String getFirstName() {
+        try {
+            return firstNameField.getText();
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
+    public String getLastName() {
+        try {
+            return lastNameField.getText();
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
+    public String getAddress() {
+        try {
+            return addressField.getText();
+        } catch (NullPointerException e) {
+            return null;
         }
     }
 
@@ -98,6 +149,14 @@ public class RegisterView extends JPanel {
 
     public void addCancelListener(ActionListener al) {
         cancelBtn.addActionListener(al);
+    }
+
+    public void addError(String error) {
+        JOptionPane.showMessageDialog(this, error, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void addSuccess(String success) {
+        JOptionPane.showMessageDialog(this, success, "Success", JOptionPane.INFORMATION_MESSAGE);
     }
 
 }

@@ -85,6 +85,9 @@ public class LoginController implements ActionListener {
                 model.setPassword(rs.getString("password"));
                 model.setEmail(rs.getString("email"));
                 model.setMember(rs.getBoolean("member"));
+                model.setFirstName(rs.getString("first_name"));
+                model.setLastName(rs.getString("last_name"));
+                model.setAddress(rs.getString("address"));
             }
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());

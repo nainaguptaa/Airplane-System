@@ -25,7 +25,7 @@ public class EntryView extends JPanel {
         Admin.setActionCommand("Admin");
         Member.setBounds(242, 57, 115, 56);
         add(Member);
-        Member.setActionCommand("Member");
+        Member.setActionCommand("User");
         Agent.setBounds(66, 141, 115, 56);
         add(Agent);
         Agent.setActionCommand("Agent");

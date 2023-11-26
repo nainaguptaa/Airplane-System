@@ -2,10 +2,10 @@
 USE airline;
 
 -- Insert data into 'users'
-INSERT INTO users (username, password, email, role, member) VALUES
-('user1', 'password1', 'user1@email.com', 2, TRUE),
-('user2', 'password2', 'user2@email.com', 3, FALSE),
-('admin1', 'password1', 'admin1@email.com', 4, TRUE);
+INSERT INTO users (username, password, first_name, last_name, address, email, role, member) VALUES
+('user1', 'password1', 'user', 'one', '123 main st.', 'user1@email.com', 2, TRUE),
+('user2', 'password2', 'user', 'two', '345 main st.', 'user2@email.com', 3, FALSE),
+('admin1', 'password1', 'admin', 'one', '214 main st.', 'admin1@email.com', 4, TRUE);
 
 -- Insert data into 'locations'
 INSERT INTO locations (city, state, country, code) VALUES

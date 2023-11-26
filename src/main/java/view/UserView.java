@@ -10,6 +10,9 @@ public class UserView extends JPanel {
     private JLabel usernameLabel;
     private JLabel emailLabel;
     private JLabel roleLabel;
+    private JLabel firstNameLabel;
+    private JLabel lastNameLabel;
+    private JLabel addressLabel;
     private JButton bookingsButton;
     private JButton logoutButton;
 
@@ -59,6 +62,21 @@ public class UserView extends JPanel {
         usernameLabel.setFont(new Font("Arial", Font.PLAIN, 16));
         headerPanel.add(usernameLabel);
 
+        // First Name
+        firstNameLabel = new JLabel("First Name: ");
+        firstNameLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+        headerPanel.add(firstNameLabel);
+
+        // Last Name
+        lastNameLabel = new JLabel("Last Name: ");
+        lastNameLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+        headerPanel.add(lastNameLabel);
+
+        // Address
+        addressLabel = new JLabel("Address: ");
+        addressLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+        headerPanel.add(addressLabel);
+
         // Email
         emailLabel = new JLabel("Email: ");
         emailLabel.setFont(new Font("Arial", Font.PLAIN, 16));
@@ -84,6 +102,18 @@ public class UserView extends JPanel {
         roleLabel.setText("Role: " + role);
     }
 
+    public void setFirstName(String firstName) {
+        firstNameLabel.setText("First Name: " + firstName);
+    }
+
+    public void setLastName(String lastName) {
+        lastNameLabel.setText("Last Name: " + lastName);
+    }
+
+    public void setAddress(String address) {
+        addressLabel.setText("Address: " + address);
+    }
+
     public void addBookingsButtonListener(ActionListener al) {
         bookingsButton.addActionListener(al);
     }
@@ -96,5 +126,8 @@ public class UserView extends JPanel {
         setUsername(data.getUsername());
         setEmail(data.getEmail());
         setRole(User.roleToString(data.getRole()));
+        setFirstName(data.getFirstName());
+        setLastName(data.getLastName());
+        setAddress(data.getAddress());
     }
 }
