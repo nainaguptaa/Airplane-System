@@ -28,11 +28,18 @@ INSERT INTO aircrafts (model, capacity) VALUES
 ('Boeing 787', 240);
 
 -- Insert data into 'seats'
-INSERT INTO seats (aircraft_id, seat_number, class) VALUES
-(1, '1A', 'First'),
-(1, '1B', 'First'),
-(2, '10A', 'Economy'),
-(2, '10B', 'Economy');
+INSERT INTO seats (seat_id, aircraft_id, class) VALUES
+("A0", 1, 'Business Class'), ("B0", 1, 'Business Class'), ("C0", 1, 'Business Class'), ("D0", 1, 'Business Class'), ("E0", 1, 'Business Class'), ("F0", 1, 'Business Class'),
+("A1", 1, 'Business Class'), ("B1", 1, 'Business Class'), ("C1", 1, 'Business Class'), ("D1", 1, 'Business Class'), ("E1", 1, 'Business Class'), ("F1", 1, 'Business Class'),
+("A2", 1, 'Comfort'), ("B2", 1, 'Comfort'), ("C2", 1, 'Comfort'), ("D2", 1, 'Comfort'), ("E2", 1, 'Comfort'), ("F2", 1, 'Comfort'),
+("A3", 1, 'Comfort'), ("B3", 1, 'Comfort'), ("C3", 1, 'Comfort'), ("D3", 1, 'Comfort'), ("E3", 1, 'Comfort'), ("F3", 1, 'Comfort'),
+("A4", 1, 'Comfort'), ("B4", 1, 'Comfort'), ("C4", 1, 'Comfort'), ("D4", 1, 'Comfort'), ("E4", 1, 'Comfort'), ("F4", 1, 'Comfort'),
+("A5", 1, 'Ordinary'), ("B5", 1, 'Ordinary'), ("C5", 1, 'Ordinary'), ("D5", 1, 'Ordinary'), ("E5", 1, 'Ordinary'), ("F5", 1, 'Ordinary'),
+("A6", 1, 'Ordinary'), ("B6", 1, 'Ordinary'), ("C6", 1, 'Ordinary'), ("D6", 1, 'Ordinary'), ("E6", 1, 'Ordinary'), ("F6", 1, 'Ordinary'),
+("A7", 1, 'Ordinary'), ("B7", 1, 'Ordinary'), ("C7", 1, 'Ordinary'), ("D7", 1, 'Ordinary'), ("E7", 1, 'Ordinary'), ("F7", 1, 'Ordinary'),
+("A8", 1, 'Ordinary'), ("B8", 1, 'Ordinary'), ("C8", 1, 'Ordinary'), ("D8", 1, 'Ordinary'), ("E8", 1, 'Ordinary'), ("F8", 1, 'Ordinary'),
+("A9", 1, 'Ordinary'), ("B9", 1, 'Ordinary'), ("C9", 1, 'Ordinary'), ("D9", 1, 'Ordinary'), ("E9", 1, 'Ordinary'), ("F9", 1, 'Ordinary'),
+("A10", 1, 'Ordinary'), ("B10", 1, 'Ordinary'), ("C10", 1, 'Ordinary'), ("D10", 1, 'Ordinary'), ("E10", 1, 'Ordinary'), ("F10", 1, 'Ordinary');
 
 -- Insert data into 'flights'
 INSERT INTO flights (aircraft_id, departure_time, arrival_time, departure_airport_id, arrival_airport_id, price) VALUES

@@ -15,7 +15,7 @@ public class SeatViewModel {
 
     public String getSeatID() {
         return seatID;
-    }
+    } 
 
     public boolean getAvailability() {
         return isAvailable;
