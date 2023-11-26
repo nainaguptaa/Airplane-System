@@ -1,8 +1,6 @@
-
-
 import javax.swing.UIManager;
 
-import  controller.MainController;
+import controller.MainController;
 
 public class App {
 

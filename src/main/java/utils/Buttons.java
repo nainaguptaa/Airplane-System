@@ -1,4 +1,4 @@
-package  utils;
+package utils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,6 +37,6 @@ public class Buttons {
         button.setFocusPainted(false);
         return button;
     }
-    
+
 
 }

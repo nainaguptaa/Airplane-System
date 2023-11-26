@@ -1,11 +1,12 @@
 
-package  controller;
+package controller;
 
-import  model.role.User;
-import  utils.Buttons;
+import model.role.User;
+import utils.Buttons;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Map;
 
 public class MainController {
     private Database db;
@@ -33,7 +34,7 @@ public class MainController {
         mainFrame.setLayout(new BorderLayout());
 
         this.user = new User();
-        this.switchToView("EntryView");
+        this.switchToView("FlightView");
         mainFrame.setVisible(true);
     }
 
@@ -112,7 +113,7 @@ public class MainController {
                 buttonColor,
                 buttonFont,
                 e -> switchToView(e.getActionCommand()));
-        
+
         JButton btnManagePromoView = Buttons.createStyledButton(
                 "Manage Promotions",
                 "ManagePromoView", //create manage promo view for admin
@@ -120,7 +121,7 @@ public class MainController {
                 buttonColor,
                 buttonFont,
                 e -> switchToView(e.getActionCommand()));
-        
+
         JButton btnManageAircraftView = Buttons.createStyledButton(
                 "Manage Aircrafts",
                 "ManageAircraftsView", //create manage aircraft view for admin
@@ -159,7 +160,7 @@ public class MainController {
     }
 
     private void createMemberNavButtons(){
-        
+
         // Create and add buttons
 
         Dimension buttonSize = new Dimension(140, 40); // Uniform size for all buttons
@@ -249,7 +250,7 @@ public class MainController {
                 buttonColor,
                 buttonFont,
                 e -> switchToView(e.getActionCommand()));
-        
+
         JButton btnPassengerListView = Buttons.createStyledButton(
                 "Passenger List",
                 "PassengerListView", //create passenger list view for agent
@@ -257,11 +258,40 @@ public class MainController {
                 buttonColor,
                 buttonFont,
                 e -> switchToView(e.getActionCommand()));
-        
+
         navPanel.add(btnUserView);
         navPanel.add(Box.createRigidArea(spacerSize));
         navPanel.add(btnPassengerListView);
     }
+
+    public void switchToViewWithArgs(String viewName, Map<String, Object> args) {
+        Container contentPane = mainFrame.getContentPane();
+        BorderLayout layout = (BorderLayout) contentPane.getLayout();
+        Component centerComponent = layout.getLayoutComponent(BorderLayout.CENTER);
+
+        if (centerComponent != null) {
+            contentPane.remove(centerComponent);
+        }
+
+        switch (viewName) {
+            case "InfoView":
+                InfoController infoController = new InfoController(db, this);
+                infoController.setArgs(args);
+                mainFrame.getContentPane().add(infoController.getView());
+                break;
+
+            case "SeatMapView":
+                break;
+
+            default:
+                break;
+        }
+
+        mainFrame.getContentPane().revalidate();
+        mainFrame.getContentPane().repaint();
+    }
+
+
 
     public void switchToView(String viewName) {
 

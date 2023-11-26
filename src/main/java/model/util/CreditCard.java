@@ -1,4 +1,4 @@
-package  model.util;
+package model.util;
 
 public class CreditCard {
     private int cardNumber;

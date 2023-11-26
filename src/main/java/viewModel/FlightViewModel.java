@@ -1,15 +1,17 @@
-package  viewModel;
+package viewModel;
 
 public class FlightViewModel {
     public String Destination;
     public String Departure;
     public String DepartureTime;
     public String ArrivalTime;
-    public String Price;
+    public int Price;
     public String FlightNumber;
+    public int FlightId;
 
-    public FlightViewModel(String Destination, String Departure, String DepartureTime, String ArrivalTime, String Price,
+    public FlightViewModel(int FlightId, String Destination, String Departure, String DepartureTime, String ArrivalTime, int Price,
             String FlightNumber) {
+        this.FlightId = FlightId;
         this.Destination = Destination;
         this.Departure = Departure;
         this.DepartureTime = DepartureTime;

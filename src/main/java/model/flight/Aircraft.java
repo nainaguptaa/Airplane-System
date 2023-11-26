@@ -1,4 +1,4 @@
-package  model.flight;
+package model.flight;
 
 import java.util.ArrayList;
 

@@ -90,4 +90,4 @@ public class Booking {
     public void setInsurance(Boolean insurance) {
         this.insurance = insurance;
     }
-}   
+}
