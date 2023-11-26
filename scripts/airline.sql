@@ -91,3 +91,9 @@ CREATE TABLE crew (
     FOREIGN KEY (username) REFERENCES users(username),
     FOREIGN KEY (flight_id) REFERENCES flights(flight_id) ON DELETE CASCADE
 );
+-- Create 'promotion' table
+CREATE TABLE promotion (
+    promotion_id INT AUTO_INCREMENT PRIMARY KEY,
+    discount DECIMAL(3, 2) NOT NULL, -- Stores values from 0.00 to 1.00, representing 0% to 100%
+    price_for_discount DECIMAL(10, 2) NOT NULL
+);

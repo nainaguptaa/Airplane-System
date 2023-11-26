@@ -25,6 +25,8 @@ public class MainController {
     private CrewController crewController;
     private AllUsersController allUsersController;
 
+    private AdminPromotionController adminPromotionController;
+
     private JFrame mainFrame;
     private JPanel navPanel;
 
@@ -37,7 +39,7 @@ public class MainController {
         mainFrame.setLayout(new BorderLayout());
 
         this.user = new User();
-        this.switchToView("EntryView");
+        this.switchToView("AdminPromotionView");
         mainFrame.setVisible(true);
     }
 
@@ -267,12 +269,6 @@ public class MainController {
         }
 
         switch (viewName) {
-            case "InfoView":
-                InfoController infoController = new InfoController(db, this);
-                infoController.setArgs(args);
-                mainFrame.getContentPane().add(infoController.getView());
-                break;
-
             case "SeatMapView":
                 break;
             
@@ -363,6 +359,11 @@ public class MainController {
             case "AllUsersView":
                 allUsersController = new AllUsersController(db, this);
                 mainFrame.getContentPane().add(allUsersController.getView());
+                break;
+
+            case "AdminPromotionView":
+                adminPromotionController = new AdminPromotionController(db, this);
+                mainFrame.getContentPane().add(adminFlightController.getView());
                 break;
 
             default:

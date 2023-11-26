@@ -1,6 +1,7 @@
 package controller;
 
 import model.flight.Booking;
+import utils.Views;
 import view.FlightView;
 import viewModel.FlightViewModel;
 
@@ -15,7 +16,7 @@ import java.util.Map;
 public class FlightController implements ActionListener {
     private Database db;
     private MainController mainController;
-    private FlightViewModel flightViewModel[];
+    private FlightViewModel[] flightViewModel;
 
     private FlightView flightView;
 
@@ -98,7 +99,7 @@ public class FlightController implements ActionListener {
         args.put("booking", booking);
 
         if (username == null) {
-            mainController.switchToViewWithArgs("InfoView", args);
+            mainController.switchToView("LoginView");
         } else {
             mainController.switchToViewWithArgs("SeatMapView", args);
         }
