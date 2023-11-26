@@ -18,6 +18,10 @@ DROP TABLE IF EXISTS airports;
 DROP TABLE IF EXISTS locations;
 -- Drop 'users' table if it exists
 DROP TABLE IF EXISTS users;
+-- Drop 'aircraftTypes' table if it exists
+DROP TABLE IF EXISTS aircraftTypes;
+-- Drop 'crew' table if it exists
+DROP TABLE IF EXISTS crew;
 -- Now recreate the tables in the correct order
 -- Create 'users' table
 CREATE TABLE users (
@@ -35,11 +39,16 @@ CREATE TABLE locations (
     state VARCHAR(100) NOT NULL,
     country VARCHAR(100) NOT NULL
 );
+-- Create 'aircraftTypes' table
+CREATE TABLE aircraftTypes (
+    model VARCHAR(100) PRIMARY KEY,
+    capacity INT NOT NULL
+);
 -- Create 'aircrafts' table
 CREATE TABLE aircrafts (
     aircraft_id INT AUTO_INCREMENT PRIMARY KEY,
     model VARCHAR(100) NOT NULL,
-    capacity INT NOT NULL
+    FOREIGN KEY (model) REFERENCES aircraftTypes(model) ON DELETE CASCADE
 );
 -- Create 'seats' table
 CREATE TABLE seats (
@@ -47,7 +56,6 @@ CREATE TABLE seats (
     aircraft_id INT NOT NULL,
     seat_number VARCHAR(10) NOT NULL,
     class VARCHAR(50) NOT NULL,
-    available BOOLEAN DEFAULT TRUE,
     FOREIGN KEY (aircraft_id) REFERENCES aircrafts(aircraft_id) ON DELETE CASCADE
 );
 -- Create 'flights' table
@@ -74,7 +82,14 @@ CREATE TABLE bookings (
     price DECIMAL(10, 2) NOT NULL,
     status VARCHAR(50) NOT NULL,
     FOREIGN KEY (username) REFERENCES users(username),
-    FOREIGN KEY (flight_id) REFERENCES flights(flight_id),
+    FOREIGN KEY (flight_id) REFERENCES flights(flight_id) ON DELETE CASCADE,
     FOREIGN KEY (seat_id) REFERENCES seats(seat_id)
 );
-
+-- Create 'crew' table
+CREATE TABLE crew (
+    crew_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    flight_id INT NOT NULL,
+    FOREIGN KEY (username) REFERENCES users(username),
+    FOREIGN KEY (flight_id) REFERENCES flights(flight_id) ON DELETE CASCADE
+);

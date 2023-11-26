@@ -6,6 +6,7 @@ import view.EntryView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import model.role.User;
+import java.util.Map;
 
 public class EntryController implements ActionListener {
     private EntryView entryView;

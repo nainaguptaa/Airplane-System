@@ -164,9 +164,9 @@ public class SeatView extends JPanel {
             // Placeholder prices for seat types
             switch (type) {
                 case BUSINESS:
-                    return 100.0f;
-                case COMFORT:
                     return 50.0f;
+                case COMFORT:
+                    return 35.0f;
                 case ORDINARY:
                     return 20.0f;
                 default:

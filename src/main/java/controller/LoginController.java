@@ -30,6 +30,7 @@ public class LoginController implements ActionListener {
     private void addListeners() {
         view.addLoginListener(this);
         view.addRegisterListener(this);
+        view.addBackListener(this);
     }
 
     public void setUsername(String username) {
@@ -93,8 +94,6 @@ public class LoginController implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println("Action: " + e.getActionCommand());
-        // setEmail(loginView.getEmail()); //might not receive email from login view,
-        // will need to check
         try {
             if (e.getActionCommand().equals("Login")) {
                 setPassword(view.getPassword());
@@ -102,6 +101,8 @@ public class LoginController implements ActionListener {
                 login();
             } else if (e.getActionCommand().equals("Register")) { // probably will need to change this
                 mainController.switchToView("RegisterView");
+            } else if (e.getActionCommand().equals("Back")) {
+                mainController.switchToView("EntryView");
             }
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
