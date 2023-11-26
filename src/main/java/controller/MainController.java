@@ -23,6 +23,7 @@ public class MainController {
     private ManageAircraftsController manageAircraftsController;
     private AdminFlightController adminFlightController;
     private CrewController crewController;
+    private AllUsersController allUsersController;
 
     private JFrame mainFrame;
     private JPanel navPanel;
@@ -116,14 +117,6 @@ public class MainController {
                 buttonFont,
                 e -> switchToView(e.getActionCommand()));
 
-        JButton btnManagePromoView = Buttons.createStyledButton(
-                "Manage Promotions",
-                "ManagePromoView", //create manage promo view for admin
-                buttonSize,
-                buttonColor,
-                buttonFont,
-                e -> switchToView(e.getActionCommand()));
-
         JButton btnManageAircraftView = Buttons.createStyledButton(
                 "Manage Aircrafts",
                 "ManageAircraftsView", //create manage aircraft view for admin
@@ -151,8 +144,6 @@ public class MainController {
         navPanel.add(btnUserView);
         navPanel.add(Box.createRigidArea(spacerSize));
         navPanel.add(btnManageFlightView);
-        navPanel.add(Box.createRigidArea(spacerSize));
-        navPanel.add(btnManagePromoView);
         navPanel.add(Box.createRigidArea(spacerSize));
         navPanel.add(btnManageAircraftView);
         navPanel.add(Box.createRigidArea(spacerSize));
@@ -367,6 +358,11 @@ public class MainController {
             case "AdminFlightView":
                 adminFlightController = new AdminFlightController(db, this);
                 mainFrame.getContentPane().add(adminFlightController.getView());
+                break;
+            
+            case "AllUsersView":
+                allUsersController = new AllUsersController(db, this);
+                mainFrame.getContentPane().add(allUsersController.getView());
                 break;
 
             default:

@@ -65,6 +65,10 @@ public class CrewController implements ActionListener{
 
     private void addCrewMember() {
         String username = crewView.getSelectedCrewMemberFromDropdown();
+        if (username == null) {
+            crewView.addErrorMessage("Please select a crew member");
+            return;
+        }
         String query = "INSERT INTO crew(username, flight_id) VALUES ('" + username  + "', " + flightNo + ")";
 
         System.out.println(query);
