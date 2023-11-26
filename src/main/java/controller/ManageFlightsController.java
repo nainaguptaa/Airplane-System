@@ -125,7 +125,14 @@ public class ManageFlightsController implements ActionListener {
 
     private void removeFlight() {
         String query = "DELETE FROM flights WHERE flight_id = '" + view.getFlightID() + "'";
-        db.executeUpdate(query);
+        int res = db.executeUpdate(query);
+        if (res == 0) {
+            view.addErrorMessage("Error removing flight");
+            return;
+        }
+        view.addSuccessMessage("Flight removed successfully");
+        view.clearFlightDropdown();
+        getFlightDropdown();
     }
 
     private void saveFlight() {

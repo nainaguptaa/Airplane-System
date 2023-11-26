@@ -14,11 +14,16 @@ INSERT INTO locations (city, state, country, code) VALUES
 ('London', 'N/A', 'UK', 'LHR'),
 ('Sydney', 'NSW', 'Australia', 'SYD');
 
--- Insert data into 'aircrafts'
-INSERT INTO aircrafts (model, capacity) VALUES
+-- Insert data into 'aircraftTypes'
+INSERT INTO aircraftTypes (model, capacity) VALUES
 ('Boeing 737', 190),
 ('Airbus A320', 150),
 ('Boeing 787', 240);
+
+-- Insert data into 'aircrafts'
+INSERT INTO aircrafts (model) VALUES
+('Boeing 737'),
+('Airbus A320');
 
 -- Insert data into 'seats'
 INSERT INTO seats (aircraft_id, seat_number, class) VALUES

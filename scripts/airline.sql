@@ -33,11 +33,17 @@ CREATE TABLE locations (
     state VARCHAR(100) NOT NULL,
     country VARCHAR(100) NOT NULL
 );
+
+-- Create 'aircraftTypes' table
+CREATE TABLE aircraftTypes (
+    model VARCHAR(100) PRIMARY KEY,
+    capacity INT NOT NULL
+);
 -- Create 'aircrafts' table
 CREATE TABLE aircrafts (
     aircraft_id INT AUTO_INCREMENT PRIMARY KEY,
     model VARCHAR(100) NOT NULL,
-    capacity INT NOT NULL
+    FOREIGN KEY (model) REFERENCES aircraftTypes(model) ON DELETE CASCADE
 );
 -- Create 'seats' table
 CREATE TABLE seats (

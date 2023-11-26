@@ -19,6 +19,7 @@ public class MainController {
     private MembershipController membershipController;
     private BookingsController bookingsController;
     private ManageFlightsController manageFlightsController;
+    private ManageAircraftsController manageAircraftsController;
 
     private JFrame mainFrame;
     private JPanel navPanel;
@@ -122,7 +123,7 @@ public class MainController {
         
         JButton btnManageAircraftView = Buttons.createStyledButton(
                 "Manage Aircrafts",
-                "ManageAircraftView", //create manage aircraft view for admin
+                "ManageAircraftsView", //create manage aircraft view for admin
                 buttonSize,
                 buttonColor,
                 buttonFont,
@@ -315,6 +316,15 @@ public class MainController {
 
             case "ManageFlightView":
                 mainFrame.getContentPane().add(manageFlightsController.getMFView());
+                break;
+
+            case "ManageAircraftsView":
+                manageAircraftsController = new ManageAircraftsController(db, this);
+                mainFrame.getContentPane().add(manageAircraftsController.getView());
+                break;
+
+            case "AddAircraftView":
+                mainFrame.getContentPane().add(manageAircraftsController.getAddAircraftView());
                 break;
 
             default:

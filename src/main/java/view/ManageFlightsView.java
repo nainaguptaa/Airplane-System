@@ -83,5 +83,17 @@ public class ManageFlightsView extends JPanel {
     public void addFlightDropdownItem(String flightID) {
         flightIDComboBox.addItem(flightID);
     }
+
+    public void addErrorMessage(String message){
+        JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void addSuccessMessage(String message){
+        JOptionPane.showMessageDialog(this, message, "Success", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void clearFlightDropdown() {
+        flightIDComboBox.removeAllItems();
+    }
 }
 
