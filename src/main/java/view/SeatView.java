@@ -80,21 +80,6 @@ public class SeatView extends JPanel {
         return rowPanel;
     }
 
-    private String getSeatId(int row, int col) {
-        char columnLetter = (char) ('A' + col);
-        return columnLetter + String.valueOf(row);
-    }
-
-    private SeatType getSeatTypeForRow(int row) {
-        if (row < 2) {
-            return SeatType.BUSINESS;
-        } else if (row < 5) {
-            return SeatType.COMFORT;
-        } else {
-            return SeatType.ORDINARY;
-        }
-    }
-
     private JPanel createRowHeaders() {
         JPanel rowHeaders = new JPanel(new GridLayout(ROW_COUNT, 1));
         for (int i = 0; i < ROW_COUNT; i++) {
