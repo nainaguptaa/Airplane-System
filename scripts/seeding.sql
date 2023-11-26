@@ -26,7 +26,7 @@ INSERT INTO aircrafts (model) VALUES
 ('Airbus A320');
 
 -- Insert data into 'seats'
-INSERT INTO seats (seat_id, aircraft_id, class) VALUES
+INSERT INTO seats (seat_number, aircraft_id, class) VALUES
 ("A0", 1, 'Business Class'), ("B0", 1, 'Business Class'), ("C0", 1, 'Business Class'), ("D0", 1, 'Business Class'), ("E0", 1, 'Business Class'), ("F0", 1, 'Business Class'),
 ("A1", 1, 'Business Class'), ("B1", 1, 'Business Class'), ("C1", 1, 'Business Class'), ("D1", 1, 'Business Class'), ("E1", 1, 'Business Class'), ("F1", 1, 'Business Class'),
 ("A2", 1, 'Comfort'), ("B2", 1, 'Comfort'), ("C2", 1, 'Comfort'), ("D2", 1, 'Comfort'), ("E2", 1, 'Comfort'), ("F2", 1, 'Comfort'),
