@@ -1,4 +1,4 @@
-package main.java.model.flight;
+package model.flight;
 
 import java.util.ArrayList;
 
@@ -7,6 +7,10 @@ public class Aircraft {
     private int id;
     private String model;
     private int capacity;
+
+    public Aircraft() {
+        this.seats = new ArrayList<Seat>();
+    }
 
     public Aircraft(int id, String model, int capacity) {
         this.id = id;
@@ -30,6 +34,14 @@ public class Aircraft {
 
     public void removeSeat(Seat seat) {
         this.seats.remove(seat);
+    }
+
+    public void setAircraftID(int id) {
+        this.id = id;
+    }
+
+    public int getAircraftID() {
+        return this.id;
     }
 
 }

@@ -1,7 +1,7 @@
-package main.java.controller;
+package controller;
 
-import main.java.model.role.User;
-import main.java.view.RegisterView;
+import model.role.User;
+import view.RegisterView;
 import java.awt.event.*;
 
 import javax.swing.Action;
@@ -44,28 +44,62 @@ public class RegisterController implements ActionListener {
         model.setEmail(email);
     }
 
+    public void setFirstName(String firstName) {
+        model.setFirstName(firstName);
+    }
+
+    public void setLastName(String lastName) {
+        model.setLastName(lastName);
+    }
+
+    public void setAddress(String address) {
+        model.setAddress(address);
+    }
+
+    public void setRole(int role) {
+        model.setRole(role);
+    }
+
     public void register() {
         // check if user already exists
-        String query = "SELECT * FROM users WHERE username = '" + model.getUsername() + "'";
+        String username = model.getUsername();
+        String password = model.getPassword();
+        String email = model.getEmail();
+        String firstName = model.getFirstName();
+        String lastName = model.getLastName();
+        String address = model.getAddress();
+
+        // check if any fields null
+        if (username.equals("") || password.equals("") || email.equals("") || firstName.equals("") || lastName.equals("")
+                || address.equals("")) {
+            view.addError("Please fill out all fields");
+            return;
+        }
+
+        String query = "SELECT * FROM users WHERE username = '" + username + "'";
         ResultSet rs = db.executeQuery(query);
 
         // check if query was null or returned nothing
         try {
-            if (rs != null && rs.next()) {
-                System.out.println("User already exists"); // Maybe make this an exception
-            } else {
-                // insert user into database
-                try {
-                    query = "INSERT INTO users (username, password, email, role) VALUES ('" + model.getUsername()
-                            + "', '"
-                            + model.getPassword() + "', '" + model.getEmail() + "', '" + model.getRole() + "')";
-                    db.executeUpdate(query);
-                } catch (Exception e) {
-                    System.out.println("Error: " + e.getMessage());
+            if (rs != null) {
+                if(rs.next()){
+                    System.out.println("User already exists"); // Maybe make this an exception
+                } else {
+                    // insert user into database
+                    try {
+                        query = "INSERT INTO users (username, password, first_name, last_name, address, email, role) VALUES ('" + username
+                                + "', '"
+                                + password + "', '" + firstName + "', '" + lastName + "', '" + address + "', '" + email + "', '" + 2 + "')";
+                        System.out.println(query);
+                        db.executeUpdate(query);
+                    } catch (Exception e) {
+                        System.out.println("Error: " + e.getMessage());
+                    }
+                    // this.uc = new UserController(db);
+                    // this.uc.setUser(model);
+                    System.out.println("User registered successfully");
+                    mainController.switchToView("UserView");
                 }
-                // this.uc = new UserController(db);
-                // this.uc.setUser(model);
-                System.out.println("User registered successfully");
             }
         } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
@@ -74,21 +108,24 @@ public class RegisterController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("Action: " + e.getActionCommand());
         setPassword(view.getPassword());
         setUsername(view.getUsername());
         setEmail(view.getEmail());
+        setFirstName(view.getFirstName());
+        setLastName(view.getLastName());
+        setAddress(view.getAddress());
+        setRole(2);
+        
+    
         try {
             if (e.getActionCommand().equals("Register")) { // probably will need to change this
                 register();
-                mainController.switchToView(null);
             }
             if (e.getActionCommand().equals("Cancel")) {
-                mainController.switchToView(null);
-                ;
+                mainController.switchToView("EntryView");
             }
         } catch (Exception ex) {
-            System.out.println("Error: " + ex.getMessage());
+            System.out.println(ex);
         }
     }
 }

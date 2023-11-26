@@ -1,10 +1,12 @@
-package main.java.controller;
+package controller;
 
-import main.java.model.role.User;
-import main.java.view.LoginView;
+import model.role.User;
+import view.LoginView;
 import java.awt.event.*;
 
+import javax.naming.spi.DirStateFactory.Result;
 import javax.swing.Action;
+import java.sql.ResultSet;
 
 //Will need to add listener when login view is created
 public class LoginController implements ActionListener {
@@ -28,6 +30,7 @@ public class LoginController implements ActionListener {
     private void addListeners() {
         view.addLoginListener(this);
         view.addRegisterListener(this);
+        view.addBackListener(this);
     }
 
     public void setUsername(String username) {
@@ -44,14 +47,21 @@ public class LoginController implements ActionListener {
 
     public boolean authenticate() {
         String query = "SELECT * FROM users WHERE username = '" + model.getUsername() + "' AND password = '"
-                + model.getPassword() + "' AND role <= " + model.getRole();
-        return db.executeQuery(query) != null;
+                + model.getPassword() + "' AND role >= " + model.getRole();
+        ResultSet rs = db.executeQuery(query);
+        try {
+            return rs.next();
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public void login() {
         if (authenticate()) {
             System.out.println("Login successful");
-            updateView();
+            getAndSetUserInfo();
+            mainController.switchToView("UserView");
+            mainController.createNavPanel();
             // this.uc = new UserController(db);
             // this.uc.setUser(model);
         } else {
@@ -65,31 +75,28 @@ public class LoginController implements ActionListener {
         updateView();
     }
 
-    public void register() {
-        // check if user already exists
-        String query = "SELECT * FROM user WHERE username = '" + model.getUsername() + "'";
-        if (db.executeQuery(query) != null) {
-            System.out.println("User already exists");
-        } else {
-            // insert user into database
-            try {
-                query = "INSERT INTO user (username, password, email) VALUES ('" + model.getUsername() + "', '"
-                        + model.getPassword() + "', '" + model.getEmail() + "')";
-                db.executeUpdate(query);
-            } catch (Exception e) {
-                System.out.println("Error: " + e.getMessage());
+    public void getAndSetUserInfo() {
+        String query = "SELECT * FROM users WHERE username = '" + model.getUsername() + "' AND password = '"
+                + model.getPassword() + "' AND role >= " + model.getRole();
+        ResultSet rs = db.executeQuery(query);
+        try {
+            if (rs.next()) {
+                model.setUsername(rs.getString("username"));
+                model.setPassword(rs.getString("password"));
+                model.setEmail(rs.getString("email"));
+                model.setMember(rs.getBoolean("member"));
+                model.setFirstName(rs.getString("first_name"));
+                model.setLastName(rs.getString("last_name"));
+                model.setAddress(rs.getString("address"));
             }
-            // this.uc = new UserController(db);
-            // this.uc.setUser(model);
-            System.out.println("User registered successfully");
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
         }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println("Action: " + e.getActionCommand());
-        // setEmail(loginView.getEmail()); //might not receive email from login view,
-        // will need to check
         try {
             if (e.getActionCommand().equals("Login")) {
                 setPassword(view.getPassword());
@@ -97,6 +104,8 @@ public class LoginController implements ActionListener {
                 login();
             } else if (e.getActionCommand().equals("Register")) { // probably will need to change this
                 mainController.switchToView("RegisterView");
+            } else if (e.getActionCommand().equals("Back")) {
+                mainController.switchToView("EntryView");
             }
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());

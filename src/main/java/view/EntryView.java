@@ -1,4 +1,4 @@
-package main.java.view;
+package view;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,6 +14,7 @@ public class EntryView extends JPanel {
      * Default constructor for main view
      */
     public EntryView() {
+
         setBackground(new Color(230, 230, 250));
         // setTitle("Main Menu");
         setLayout(null);
@@ -24,7 +25,7 @@ public class EntryView extends JPanel {
         Admin.setActionCommand("Admin");
         Member.setBounds(242, 57, 115, 56);
         add(Member);
-        Member.setActionCommand("Member");
+        Member.setActionCommand("User");
         Agent.setBounds(66, 141, 115, 56);
         add(Agent);
         Agent.setActionCommand("Agent");
@@ -39,6 +40,8 @@ public class EntryView extends JPanel {
         JLabel exitLbl = new JLabel("Or click X to exit");
         exitLbl.setBounds(154, 213, 126, 20);
         add(exitLbl);
+
+
     }
 
     /**
