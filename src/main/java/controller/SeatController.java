@@ -43,11 +43,11 @@ public class SeatController {
             return seatViewModels;
         }
 
-        String query = "SELECT seat_number, available, class FROM seats WHERE aircraft_id = '" + aircraftId + "';";
+        String query = "SELECT seat_number, is_available, class FROM seats WHERE aircraft_id = '" + aircraftId + "';";
         try (ResultSet rs = db.executeQuery(query);) {
             while (rs.next()) {
                 String seatNumber = rs.getString("seat_number");
-                Boolean isAvailable = rs.getBoolean("available");
+                Boolean isAvailable = rs.getBoolean("is_available");
                 String type = rs.getString("class");
 
                 SeatType seatType = SeatType.fromString(type);
