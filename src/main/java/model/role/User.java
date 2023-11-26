@@ -1,23 +1,23 @@
-package  model.role;
+package model.role;
 
 public class User {
-    //mayve add field for access level/role
+    // mayve add field for access level/role
     private String username;
     private String password;
     private String email;
     private int role;
     private Boolean member;
 
-    public User(){
+    public User() {
         this.username = "";
         this.password = "";
-        this.email="";
+        this.email = "";
     }
 
     public User(String username, String password, String email) {
         this.username = username;
         this.password = password;
-        this.email=email;
+        this.email = email;
         this.member = false;
     }
 
@@ -38,13 +38,19 @@ public class User {
         this.password = password;
     }
 
-    public void setEmail(String email){this.email=email;}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-    public String getEmail(){return email;}
+    public String getEmail() {
+        return email;
+    }
 
-    public void setRole(int role){this.role=role;}
+    public void setRole(int role) {
+        this.role = role;
+    }
 
-    public int getRole(){return role;}
+    public int getRole() {return role;}
 
     public void setMember(Boolean member){this.member=member;}
 

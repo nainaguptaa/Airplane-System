@@ -1,4 +1,4 @@
-package  view;
+package view;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +14,7 @@ public class EntryView extends JPanel {
      * Default constructor for main view
      */
     public EntryView() {
-        
+
         setBackground(new Color(230, 230, 250));
         // setTitle("Main Menu");
         setLayout(null);
@@ -41,7 +41,7 @@ public class EntryView extends JPanel {
         exitLbl.setBounds(154, 213, 126, 20);
         add(exitLbl);
 
-        
+
     }
 
     /**

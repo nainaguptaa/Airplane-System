@@ -1,7 +1,7 @@
-package  controller;
+package controller;
 
-import  model.role.User;
-import  view.LoginView;
+import model.role.User;
+import view.LoginView;
 import java.awt.event.*;
 
 import javax.naming.spi.DirStateFactory.Result;
