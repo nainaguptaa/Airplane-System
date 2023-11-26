@@ -20,6 +20,10 @@ public class MainController {
     private MembershipController membershipController;
     private BookingsController bookingsController;
     private ManageFlightsController manageFlightsController;
+    private ManageAircraftsController manageAircraftsController;
+    private AdminFlightController adminFlightController;
+    private CrewController crewController;
+    private AllUsersController allUsersController;
 
     private JFrame mainFrame;
     private JPanel navPanel;
@@ -33,7 +37,7 @@ public class MainController {
         mainFrame.setLayout(new BorderLayout());
 
         this.user = new User();
-        this.switchToView("FlightView");
+        this.switchToView("EntryView");
         mainFrame.setVisible(true);
     }
 
@@ -107,15 +111,7 @@ public class MainController {
 
         JButton btnManageFlightView = Buttons.createStyledButton(
                 "Manage Flights",
-                "ManageFlightView", //create manage flight view for admin
-                buttonSize,
-                buttonColor,
-                buttonFont,
-                e -> switchToView(e.getActionCommand()));
-
-        JButton btnManagePromoView = Buttons.createStyledButton(
-                "Manage Promotions",
-                "ManagePromoView", //create manage promo view for admin
+                "ManageFlightsView", //create manage flight view for admin
                 buttonSize,
                 buttonColor,
                 buttonFont,
@@ -123,15 +119,15 @@ public class MainController {
 
         JButton btnManageAircraftView = Buttons.createStyledButton(
                 "Manage Aircrafts",
-                "ManageAircraftView", //create manage aircraft view for admin
+                "ManageAircraftsView", //create manage aircraft view for admin
                 buttonSize,
                 buttonColor,
                 buttonFont,
                 e -> switchToView(e.getActionCommand()));
 
-        JButton btnManageCrewsView = Buttons.createStyledButton(
-                "Manage Crews",
-                "ManageCrewsView", //create manage crews view for admin
+        JButton btnAdminFlightView = Buttons.createStyledButton(
+                "Flights",
+                "AdminFlightView", //create manage crews view for admin
                 buttonSize,
                 buttonColor,
                 buttonFont,
@@ -149,11 +145,9 @@ public class MainController {
         navPanel.add(Box.createRigidArea(spacerSize));
         navPanel.add(btnManageFlightView);
         navPanel.add(Box.createRigidArea(spacerSize));
-        navPanel.add(btnManagePromoView);
-        navPanel.add(Box.createRigidArea(spacerSize));
         navPanel.add(btnManageAircraftView);
         navPanel.add(Box.createRigidArea(spacerSize));
-        navPanel.add(btnManageCrewsView);
+        navPanel.add(btnAdminFlightView);
         navPanel.add(Box.createRigidArea(spacerSize));
         navPanel.add(btnAllUsersView);
     }
@@ -281,6 +275,11 @@ public class MainController {
 
             case "SeatMapView":
                 break;
+            
+            case "CrewView":
+                crewController = new CrewController(db, this, args);
+                mainFrame.getContentPane().add(crewController.getView());
+                break;
 
             default:
                 break;
@@ -338,9 +337,32 @@ public class MainController {
                 mainFrame.getContentPane().add(bookingsController.getView());
                 break;
 
-            case "ManageFlightView":
+            case "ManageFlightsView":
                 manageFlightsController = new ManageFlightsController(db, this);
                 mainFrame.getContentPane().add(manageFlightsController.getView());
+                break;
+
+            case "ManageFlightView":
+                mainFrame.getContentPane().add(manageFlightsController.getMFView());
+                break;
+
+            case "ManageAircraftsView":
+                manageAircraftsController = new ManageAircraftsController(db, this);
+                mainFrame.getContentPane().add(manageAircraftsController.getView());
+                break;
+
+            case "AddAircraftView":
+                mainFrame.getContentPane().add(manageAircraftsController.getAddAircraftView());
+                break;
+
+            case "AdminFlightView":
+                adminFlightController = new AdminFlightController(db, this);
+                mainFrame.getContentPane().add(adminFlightController.getView());
+                break;
+            
+            case "AllUsersView":
+                allUsersController = new AllUsersController(db, this);
+                mainFrame.getContentPane().add(allUsersController.getView());
                 break;
 
             default:
