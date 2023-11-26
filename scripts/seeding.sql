@@ -41,3 +41,10 @@ INSERT INTO flights (aircraft_id, departure_time, arrival_time, departure_airpor
 INSERT INTO bookings (username, flight_id, seat_id, booking_date, insurance, price, status) VALUES
 ('user1', 1, 1, '2023-11-24 10:00:00', FALSE, 300.00, 'Confirmed'),
 ('user2', 2, 3, '2023-11-25 10:00:00', TRUE, 450.00, 'Confirmed');
+
+-- Insert data into 'crew'
+INSERT INTO crew (username, flight_id) VALUES
+('user1', 1),
+('user2', 1),
+('user1', 2),
+('user2', 2);

@@ -16,6 +16,10 @@ DROP TABLE IF EXISTS airports;
 DROP TABLE IF EXISTS locations;
 -- Drop 'users' table if it exists
 DROP TABLE IF EXISTS users;
+-- Drop 'aircraftTypes' table if it exists
+DROP TABLE IF EXISTS aircraftTypes;
+-- Drop 'crew' table if it exists
+DROP TABLE IF EXISTS crew;
 -- Now recreate the tables in the correct order
 -- Create 'users' table
 CREATE TABLE users (
@@ -33,7 +37,6 @@ CREATE TABLE locations (
     state VARCHAR(100) NOT NULL,
     country VARCHAR(100) NOT NULL
 );
-
 -- Create 'aircraftTypes' table
 CREATE TABLE aircraftTypes (
     model VARCHAR(100) PRIMARY KEY,
@@ -79,4 +82,12 @@ CREATE TABLE bookings (
     FOREIGN KEY (username) REFERENCES users(username),
     FOREIGN KEY (flight_id) REFERENCES flights(flight_id) ON DELETE CASCADE,
     FOREIGN KEY (seat_id) REFERENCES seats(seat_id)
+);
+-- Create 'crew' table
+CREATE TABLE crew (
+    crew_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    flight_id INT NOT NULL,
+    FOREIGN KEY (username) REFERENCES users(username),
+    FOREIGN KEY (flight_id) REFERENCES flights(flight_id) ON DELETE CASCADE
 );
