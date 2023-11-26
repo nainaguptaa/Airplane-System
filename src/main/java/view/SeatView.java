@@ -10,7 +10,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class SeatView extends JPanel {
-    private static final int ROW_COUNT = 32;
+    private static final int ROW_COUNT = 11;
     private static final int COLUMN_COUNT = 6;
     private static final Color COLOR_SELECTED = Color.GRAY;
     private static final Color COLOR_HOVER = Color.GRAY;
