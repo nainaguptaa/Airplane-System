@@ -378,6 +378,9 @@ public class MainController {
                 agentController = new AgentController(db, this);
                 mainFrame.getContentPane().add(agentController.getFlightView());
                 break;
+            case "PassengerTableView":
+                mainFrame.getContentPane().add(agentController.getPassengerView());
+                break;
 
             default:
                 break;

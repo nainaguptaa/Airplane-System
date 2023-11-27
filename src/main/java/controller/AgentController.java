@@ -103,6 +103,7 @@ public class AgentController implements ActionListener {
             }
         }
         this.passengerView = new PassengerView(usersAndSeats, usersAndNames);
+        mc.switchToView("PassengerTableView");
     }
 
 }
