@@ -1,8 +1,9 @@
 package viewModel;
 
+import viewModel.FlightViewModel;
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import view.FlightView;
 
@@ -18,7 +19,8 @@ public class AgentView {
     // flights table again in this code
     //
 
-    public AgentView() {
-
+    public AgentView(ArrayList<FlightViewModel> fvm) {
+        FlightViewModel[] newFvm = (FlightViewModel[]) fvm.toArray();
+        this.flights = new FlightView(newFvm);
     }
 }
