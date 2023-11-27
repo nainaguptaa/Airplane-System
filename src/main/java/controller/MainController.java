@@ -18,6 +18,7 @@ public class MainController {
     private RegisterController registerController;
     private User user;
     private Booking userBooking;
+    private AgentController agentController;
     private FlightController flightController;
 
     private SeatController seatController;
@@ -372,6 +373,10 @@ public class MainController {
             case "AllUsersView":
                 allUsersController = new AllUsersController(db, this);
                 mainFrame.getContentPane().add(allUsersController.getView());
+                break;
+            case "PassengerListView":
+                agentController = new AgentController(db, this);
+                mainFrame.getContentPane().add(agentController.getFlightView());
                 break;
 
             default:

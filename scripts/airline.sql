@@ -6,6 +6,8 @@ USE airline;
 DROP TABLE IF EXISTS tickets;
 -- Drop 'bookings' table if it exists
 DROP TABLE IF EXISTS bookings;
+-- Drop 'crew' table if it exists
+DROP TABLE IF EXISTS crew;
 -- Drop 'flights' table if it exists
 DROP TABLE IF EXISTS flights;
 -- Drop 'seats' table if it exists
@@ -20,8 +22,6 @@ DROP TABLE IF EXISTS locations;
 DROP TABLE IF EXISTS users;
 -- Drop 'aircraftTypes' table if it exists
 DROP TABLE IF EXISTS aircraftTypes;
--- Drop 'crew' table if it exists
-DROP TABLE IF EXISTS crew;
 -- Now recreate the tables in the correct order
 -- Create 'users' table
 CREATE TABLE users (

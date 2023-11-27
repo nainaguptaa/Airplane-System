@@ -38,13 +38,12 @@ INSERT INTO seats (seat_number, aircraft_id, class) VALUES
 ("A8", 1, 'Ordinary'), ("B8", 1, 'Ordinary'), ("C8", 1, 'Ordinary'), ("D8", 1, 'Ordinary'), ("E8", 1, 'Ordinary'), ("F8", 1, 'Ordinary'),
 ("A9", 1, 'Ordinary'), ("B9", 1, 'Ordinary'), ("C9", 1, 'Ordinary'), ("D9", 1, 'Ordinary'), ("E9", 1, 'Ordinary'), ("F9", 1, 'Ordinary'),
 ("A10", 1, 'Ordinary'), ("B10", 1, 'Ordinary'), ("C10", 1, 'Ordinary'), ("D10", 1, 'Ordinary'), ("E10", 1, 'Ordinary'), ("F10", 1, 'Ordinary');
-
-SELECT * FROM seats;
-
 -- Insert data into 'flights'
 INSERT INTO flights (aircraft_id, departure_time, arrival_time, departure_airport_id, arrival_airport_id, price) VALUES
 (1, '2023-12-01 08:00:00', '2023-12-01 12:00:00', 'JFK', 'LAX', 300.00),
-(2, '2023-12-02 09:00:00', '2023-12-02 11:00:00', 'SYD', 'LHR', 450.00);
+(2, '2023-12-02 09:00:00', '2023-12-02 11:00:00', 'SYD', 'LHR', 450.00),
+(2, '2023-12-02 09:00:00', '2023-12-02 11:00:00', 'LAX', 'LHR', 600.00),
+(1, '2023-12-02 09:00:00', '2023-12-02 11:00:00', 'LHR', 'LAX', 200.00);
 
 -- Insert data into 'bookings'
 INSERT INTO bookings (username, flight_id, seat_id, booking_date, insurance, price, status) VALUES
@@ -54,6 +53,6 @@ INSERT INTO bookings (username, flight_id, seat_id, booking_date, insurance, pri
 -- Insert data into 'crew'
 INSERT INTO crew (username, flight_id) VALUES
 ('user1', 1),
-('user2', 1),
+('user2', 3),
 ('user1', 2),
-('user2', 2);
+('user2', 4);
