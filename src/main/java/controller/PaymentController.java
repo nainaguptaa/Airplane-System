@@ -159,7 +159,7 @@ public double FinalPrice() {
       // Fetch a randomized discount value from the promotion table
       double discount = getRandomDiscount();
       
-      // Apply the discount to the totalPrice
+  // Apply the discount to the totalPrice
       NewtotalPrice = totalPrice - (totalPrice * discount);
 
       return (NewtotalPrice * 1.05);
