@@ -80,7 +80,7 @@ public class LoginView extends JPanel {
             return username.getText();
         } catch (NullPointerException e) {
             messageLabel.setText("Please fill in password field");
-            throw e;
+            return null;
         }
     }
 
@@ -90,7 +90,7 @@ public class LoginView extends JPanel {
             return new String(password.getPassword());
         } catch (NullPointerException e) {
             messageLabel.setText("Please fill in password field");
-            throw e;
+            return null;
         }
     }
 

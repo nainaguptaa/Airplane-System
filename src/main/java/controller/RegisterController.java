@@ -44,9 +44,39 @@ public class RegisterController implements ActionListener {
         model.setEmail(email);
     }
 
+    public void setFirstName(String firstName) {
+        model.setFirstName(firstName);
+    }
+
+    public void setLastName(String lastName) {
+        model.setLastName(lastName);
+    }
+
+    public void setAddress(String address) {
+        model.setAddress(address);
+    }
+
+    public void setRole(int role) {
+        model.setRole(role);
+    }
+
     public void register() {
         // check if user already exists
-        String query = "SELECT * FROM users WHERE username = '" + model.getUsername() + "'";
+        String username = model.getUsername();
+        String password = model.getPassword();
+        String email = model.getEmail();
+        String firstName = model.getFirstName();
+        String lastName = model.getLastName();
+        String address = model.getAddress();
+
+        // check if any fields null
+        if (username.equals("") || password.equals("") || email.equals("") || firstName.equals("") || lastName.equals("")
+                || address.equals("")) {
+            view.addError("Please fill out all fields");
+            return;
+        }
+
+        String query = "SELECT * FROM users WHERE username = '" + username + "'";
         ResultSet rs = db.executeQuery(query);
 
         // check if query was null or returned nothing
@@ -57,9 +87,9 @@ public class RegisterController implements ActionListener {
                 } else {
                     // insert user into database
                     try {
-                        query = "INSERT INTO users (username, password, email, role) VALUES ('" + model.getUsername()
+                        query = "INSERT INTO users (username, password, first_name, last_name, address, email, role) VALUES ('" + username
                                 + "', '"
-                                + model.getPassword() + "', '" + model.getEmail() + "', '" + 2 + "')";
+                                + password + "', '" + firstName + "', '" + lastName + "', '" + address + "', '" + email + "', '" + 2 + "')";
                         System.out.println(query);
                         db.executeUpdate(query);
                     } catch (Exception e) {
@@ -68,6 +98,7 @@ public class RegisterController implements ActionListener {
                     // this.uc = new UserController(db);
                     // this.uc.setUser(model);
                     System.out.println("User registered successfully");
+                    mainController.switchToView("UserView");
                 }
             }
         } catch (SQLException e) {
@@ -80,16 +111,21 @@ public class RegisterController implements ActionListener {
         setPassword(view.getPassword());
         setUsername(view.getUsername());
         setEmail(view.getEmail());
+        setFirstName(view.getFirstName());
+        setLastName(view.getLastName());
+        setAddress(view.getAddress());
+        setRole(2);
+        
+    
         try {
             if (e.getActionCommand().equals("Register")) { // probably will need to change this
                 register();
-                mainController.switchToView("UserView");
             }
             if (e.getActionCommand().equals("Cancel")) {
-                mainController.switchToView("UserView");
+                mainController.switchToView("EntryView");
             }
         } catch (Exception ex) {
-            System.out.println("here");
+            System.out.println(ex);
         }
     }
 }

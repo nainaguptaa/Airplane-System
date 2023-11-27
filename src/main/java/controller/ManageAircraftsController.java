@@ -46,9 +46,54 @@ public class ManageAircraftsController implements ActionListener{
     private void addAircraft() {
         String query = "INSERT INTO aircrafts (model) VALUES ('" + addAircraftView.getModel() + "')";
         int res = db.executeUpdate(query);
+        int businessSeats = 10;
+        int ordinarySeats = 10;
+        int comfortSeats = 10;
+        int id = 0;
+        int seatNum = 0;
         if(res == 0){
             addAircraftView.addErrorMessage("Error adding aircraft");
             return;
+        }
+
+        // get max aircraft ID
+        query = "SELECT MAX(aircraft_id) FROM aircrafts";
+        ResultSet rs = db.executeQuery(query);
+        try{
+            rs.next();
+            id = rs.getInt("MAX(aircraft_id)");
+        } catch (Exception e){
+            System.out.println(e);
+            addAircraftView.addErrorMessage("Error adding aircraft");
+            return;
+        }
+
+        for (int i = 0; i < businessSeats; i++) {
+            query = "INSERT INTO seats (aircraft_id, seat_number, class) VALUES (" + id + ", " + seatNum + ", 'business')";
+            res = db.executeUpdate(query);
+            if (res == 0) {
+                addAircraftView.addErrorMessage("Error adding aircraft");
+                return;
+            }
+            seatNum++;
+        }
+        for (int i = 0; i < ordinarySeats; i++) {
+            query = "INSERT INTO seats (aircraft_id, seat_number, class) VALUES (" + id + ", " + seatNum +  ", 'ordinary')";
+            res = db.executeUpdate(query);
+            if (res == 0) {
+                addAircraftView.addErrorMessage("Error adding aircraft");
+                return;
+            }
+            seatNum++;
+        }
+        for (int i = 0; i < comfortSeats; i++) {
+            query = "INSERT INTO seats (aircraft_id, seat_number, class) VALUES (" + id + ", " + seatNum +  ", 'comfort')";
+            res = db.executeUpdate(query);
+            if (res == 0) {
+                addAircraftView.addErrorMessage("Error adding aircraft");
+                return;
+            }
+            seatNum++;
         }
         addAircraftView.addSuccessMessage("Aircraft added successfully");
     }
