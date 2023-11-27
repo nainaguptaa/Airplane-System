@@ -51,7 +51,7 @@ public class PassengerView extends JPanel {
             tableModel.addRow(new Object[] { entry.getUserName(),
                     entry.getFirstName(),
                     entry.getLastName(),
-                    entry.getSeatID() });
+                    entry.getSeat() });
         }
     }
 }

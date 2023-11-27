@@ -7,16 +7,10 @@ public class PassengerViewModel {
     private String seat;
     private int seatId;
 
-    public PassengerViewModel(String username, String fName, String lName, String seat) {
-        this.username = username;
-        this.firstName = fName;
-        this.lastName = lName;
-        this.seat = seat;
-    }
-
-    public PassengerViewModel(String username, int seatId) {
+    public PassengerViewModel(String username, int seatId, String seatNumber) {
         this.username = username;
         this.seatId = seatId;
+        this.seat = seatNumber;
     }
 
     public String getUserName() {
@@ -25,6 +19,10 @@ public class PassengerViewModel {
 
     public int getSeatID() {
         return seatId;
+    }
+
+    public String getSeat() {
+        return seat;
     }
 
     public String getFirstName() {

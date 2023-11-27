@@ -72,7 +72,8 @@ public class AgentController implements ActionListener {
             while (rs.next()) {
                 String username = rs.getString("username");
                 int seatId = rs.getInt("seat_id");
-                passengerList.add(new PassengerViewModel(username, seatId));
+                String seatNumber = getSeatNumber(seatId);
+                passengerList.add(new PassengerViewModel(username, seatId, seatNumber));
             }
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -96,6 +97,19 @@ public class AgentController implements ActionListener {
         passengerViewModels = passengerList.toArray(new PassengerViewModel[0]);
         this.passengerView = new PassengerView(passengerViewModels);
         mc.switchToView("PassengerTableView");
+    }
+
+    public String getSeatNumber(int seat_id) {
+        String seat_number = "";
+        String seatQuery = "SELECT seat_number FROM seats WHERE seat_id = '" + seat_id + "';";
+        try (ResultSet rs = db.executeQuery(seatQuery)) {
+            if (rs.next()) {
+                seat_number = rs.getString("seat_number");
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        return seat_number;
     }
 
 }
