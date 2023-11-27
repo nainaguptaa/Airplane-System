@@ -59,7 +59,7 @@ CREATE TABLE seats (
     class VARCHAR(50) NOT NULL,
     FOREIGN KEY (aircraft_id) REFERENCES aircrafts(aircraft_id) ON DELETE CASCADE
 );
--- Create 'flights' table
+-- Create 'flights' tables
 CREATE TABLE flights (
     flight_id INT AUTO_INCREMENT PRIMARY KEY,
     aircraft_id INT NOT NULL,

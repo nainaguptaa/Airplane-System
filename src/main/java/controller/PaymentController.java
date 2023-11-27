@@ -74,6 +74,35 @@ public class PaymentController implements ActionListener{
     this.db = db;
 }
 
+
+int seatId = booking.getSeatId();
+double flight_price = booking.getPrice();
+double above_price = 300.00;
+
+
+
+
+public string seatType() {
+  String query = "SELECT class FROM seats WHERE seat_id = '" + booking.getSeatId() +  "'"; 
+  ResultSet rs = db.executeQuery(query);
+  try {
+      return rs.next();
+  } catch (Exception e) { }
+}
+
+
+public boolean promotion() {
+  double flight_price = booking.getPrice();
+  double above_price = 300.00;
+
+  if (flight_price > above_price) {
+      return true;
+  } else {
+      return false;
+  }
+}
+
+
 public PaymentView getView() {
   return view;
 }
