@@ -22,11 +22,16 @@ DROP TABLE IF EXISTS locations;
 DROP TABLE IF EXISTS users;
 -- Drop 'aircraftTypes' table if it exists
 DROP TABLE IF EXISTS aircraftTypes;
+-- Drop 'promotions' table if it exists
+DROP TABLE IF EXISTS promotion;
 -- Now recreate the tables in the correct order
 -- Create 'users' table
 CREATE TABLE users (
     username VARCHAR(50) PRIMARY KEY,
     password VARCHAR(255) NOT NULL,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+    address VARCHAR(100) NOT NULL,
     email VARCHAR(100),
     role INT NOT NULL,
     member BOOLEAN DEFAULT FALSE,
@@ -93,4 +98,10 @@ CREATE TABLE crew (
     flight_id INT NOT NULL,
     FOREIGN KEY (username) REFERENCES users(username),
     FOREIGN KEY (flight_id) REFERENCES flights(flight_id) ON DELETE CASCADE
+);
+-- Create 'promotion' table
+CREATE TABLE promotion (
+    promotion_id INT AUTO_INCREMENT PRIMARY KEY,
+    discount DECIMAL(3, 2) NOT NULL, -- Stores values from 0.00 to 1.00, representing 0% to 100%
+    price_for_discount DECIMAL(10, 2) NOT NULL
 );

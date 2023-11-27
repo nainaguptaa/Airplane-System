@@ -2,10 +2,10 @@
 USE airline;
 
 -- Insert data into 'users'
-INSERT INTO users (username, password, email, role, member) VALUES
-('user1', 'password1', 'user1@email.com', 2, TRUE),
-('user2', 'password2', 'user2@email.com', 3, FALSE),
-('admin1', 'password1', 'admin1@email.com', 4, TRUE);
+INSERT INTO users (username, password, first_name, last_name, address, email, role, member) VALUES
+('user1', 'password1', 'user', 'one', '123 main st.', 'user1@email.com', 2, TRUE),
+('user2', 'password2', 'user', 'two', '345 main st.', 'user2@email.com', 3, FALSE),
+('admin1', 'password1', 'admin', 'one', '214 main st.', 'admin1@email.com', 4, TRUE);
 
 -- Insert data into 'locations'
 INSERT INTO locations (city, state, country, code) VALUES
@@ -53,6 +53,12 @@ INSERT INTO bookings (username, flight_id, seat_id, booking_date, insurance, pri
 -- Insert data into 'crew'
 INSERT INTO crew (username, flight_id) VALUES
 ('user1', 1),
-('user2', 3),
+('user2', 1),
 ('user1', 2),
-('user2', 4);
+('user2', 2);
+
+INSERT INTO promotion (discount, price_for_discount) VALUES
+(0.1, 100),
+(0.8, 800),
+(0.9, 900),
+(1.0, 1000);
