@@ -30,7 +30,7 @@ public class FlightView extends JPanel {
         add(lbl);
 
         // Define column names
-        String[] columnNames = { "Flight Number", "Depature Time", "Arrival Time", "Price", "Depature", "Destination" };
+        String[] columnNames = { "Flight Number", "Departure Time", "Arrival Time", "Price", "Departure", "Destination" };
 
         // Initialize the table model and set column names
         tableModel = new DefaultTableModel(columnNames, 0) {
@@ -66,10 +66,10 @@ public class FlightView extends JPanel {
     }
 
     private void loadFlights() {
-        for (int i = 0; i < flightViewModel.length; i++) {
-            tableModel.addRow(new Object[] { flightViewModel[i].FlightNumber, flightViewModel[i].DepartureTime,
-                    flightViewModel[i].ArrivalTime, flightViewModel[i].Price,
-                    flightViewModel[i].Departure, flightViewModel[i].Destination });
+        for (FlightViewModel viewModel : flightViewModel) {
+            tableModel.addRow(new Object[]{viewModel.FlightNumber, viewModel.DepartureTime,
+                    viewModel.ArrivalTime, viewModel.Price,
+                    viewModel.Departure, viewModel.Destination});
         }
     }
 }

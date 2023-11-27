@@ -48,3 +48,9 @@ INSERT INTO crew (username, flight_id) VALUES
 ('user2', 1),
 ('user1', 2),
 ('user2', 2);
+
+INSERT INTO promotion (discount, price_for_discount) VALUES
+(0.1, 100),
+(0.8, 800),
+(0.9, 900),
+(1.0, 1000);
