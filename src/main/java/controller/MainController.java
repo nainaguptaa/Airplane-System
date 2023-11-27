@@ -2,6 +2,7 @@
 package main.java.controller;
 
 import main.java.model.role.User;
+import main.java.model.flight.Booking;
 import main.java.utils.Buttons;
 
 import javax.swing.*;
@@ -25,6 +26,7 @@ public class MainController {
     private CrewController crewController;
     private AllUsersController allUsersController;
     private PaymentController paymentController;
+    private Booking booking;
 
     private AdminPromotionController adminPromotionController;
 
@@ -378,7 +380,7 @@ public class MainController {
                 break;
             
             case "PaymentView":
-                paymentController = new PaymentController(db, this);
+                paymentController = new PaymentController(db, this, booking);
                 mainFrame.getContentPane().add(paymentController.getView());
                 break;
 
