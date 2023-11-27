@@ -70,6 +70,7 @@ public class PaymentController implements ActionListener{
   private double totalPrice;
 
 
+
   public PaymentController(Database db, MainController mc, Booking booking) {
     this.mainController = mc;
     this.booking = booking;
@@ -133,30 +134,6 @@ public double seatPrice() {
 
 
 
-public void Promotion() {
-  String query = "SELECT discount FROM promototion WHERE seat_id = '" + booking.getSeatId() + "'";
-  ResultSet rs = db.executeQuery(query);
-
-  try {
-      if (rs.next()) {
-          SeatTypeVal = rs.getString("class");
-      } 
-  } catch (SQLException e) {
-      e.printStackTrace(); // Handle or log the exception appropriately
-      // Or throw an exception if needed
-  } finally {
-      // Close resources in a finally block
-      try {
-          if (rs != null) {
-              rs.close();
-          }
-          // Close other resources if needed (e.g., preparedStatement)
-      } catch (SQLException e) {
-          e.printStackTrace(); // Handle or log the exception appropriately
-      }
-  }
-}
-
 public double ifPromotion() {
   double flight_price = booking.getPrice();
   double above_price = 300.00;
@@ -195,9 +172,12 @@ private double getRandomDiscount() {
 
 
 
+
+
 public PaymentView getView() {
   return view;
 }
+
 
 private void addListeners() {
   view.addConfirmListener(this);

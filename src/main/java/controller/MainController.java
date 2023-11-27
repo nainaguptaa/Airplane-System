@@ -24,6 +24,7 @@ public class MainController {
     private AdminFlightController adminFlightController;
     private CrewController crewController;
     private AllUsersController allUsersController;
+    private PaymentController paymentController;
 
     private AdminPromotionController adminPromotionController;
 
@@ -374,6 +375,11 @@ public class MainController {
             case "AdminPromotionView":
                 adminPromotionController = new AdminPromotionController(db, this);
                 mainFrame.getContentPane().add(adminPromotionController.getView());
+                break;
+            
+            case "PaymentView":
+                paymentController = new PaymentController(db, this);
+                mainFrame.getContentPane().add(paymentController.getView());
                 break;
 
             default:
