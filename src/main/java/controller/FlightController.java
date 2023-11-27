@@ -5,6 +5,7 @@ import utils.Views;
 import view.FlightView;
 import viewModel.FlightViewModel;
 
+import javax.swing.*;
 import java.awt.event.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -80,7 +81,7 @@ public class FlightController implements ActionListener {
         args.put("booking", booking);
 
         if (username == null) {
-            mainController.switchToView("LoginView");
+            JOptionPane.showMessageDialog(null, "You must be logged in to book a flight", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             mainController.switchToViewWithArgs("SeatMapView", args);
         }
