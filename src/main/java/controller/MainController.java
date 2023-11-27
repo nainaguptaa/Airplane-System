@@ -39,7 +39,7 @@ public class MainController {
         mainFrame.setLayout(new BorderLayout());
 
         this.user = new User();
-        this.switchToView("AdminPromotionView");
+        this.switchToView("EntryView");
         mainFrame.setVisible(true);
     }
 
@@ -143,6 +143,14 @@ public class MainController {
                 buttonFont,
                 e -> switchToView(e.getActionCommand()));
 
+        JButton btnAdminPromotionView = Buttons.createStyledButton(
+                "Promotion",
+                "AdminPromotionView", //create promotion view for admin
+                buttonSize,
+                buttonColor,
+                buttonFont,
+                e -> switchToView(e.getActionCommand()));
+
         navPanel.add(btnUserView);
         navPanel.add(Box.createRigidArea(spacerSize));
         navPanel.add(btnManageFlightView);
@@ -152,6 +160,8 @@ public class MainController {
         navPanel.add(btnAdminFlightView);
         navPanel.add(Box.createRigidArea(spacerSize));
         navPanel.add(btnAllUsersView);
+        navPanel.add(Box.createRigidArea(spacerSize));
+        navPanel.add(btnAdminPromotionView);
     }
 
     private void createMemberNavButtons(){
@@ -363,7 +373,7 @@ public class MainController {
 
             case "AdminPromotionView":
                 adminPromotionController = new AdminPromotionController(db, this);
-                mainFrame.getContentPane().add(adminFlightController.getView());
+                mainFrame.getContentPane().add(adminPromotionController.getView());
                 break;
 
             default:

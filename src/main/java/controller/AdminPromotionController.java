@@ -14,25 +14,27 @@ public class AdminPromotionController implements ActionListener {
     private AdminPromotionView adminPromotionView;
 
     private ArrayList<Promotion> promotions;
+    private AdminPromotionView view;
 
     public AdminPromotionController(Database db, MainController mc) {
         this.db = db;
         this.mainController = mc;
-        promotions = new ArrayList<Promotion>();
 
+
+        promotions = new ArrayList<Promotion>();
         adminPromotionView = new AdminPromotionView(getPromotions().toArray(new Promotion[0]));
-        adminPromotionView.getAddButton().addActionListener(this);
-        adminPromotionView.getRemoveButton().addActionListener(this);
+//        adminPromotionView.getAddButton().addActionListener(this);
+//        adminPromotionView.getRemoveButton().addActionListener(this);
 
 
     }
 
     private ArrayList<Promotion> getPromotions() {
         try {
-            ResultSet rs = db.executeQuery("SELECT promotion_id, discount, price_after_discount FROM promotion");
+            ResultSet rs = db.executeQuery("SELECT promotion_id, discount, price_for_discount FROM promotion");
 
             while(rs.next()) {
-                promotions.add(new Promotion(rs.getInt("promotion_id"), rs.getDouble("discount"), rs.getDouble("price_after_discount")));
+                promotions.add(new Promotion(rs.getInt("promotion_id"), rs.getDouble("discount"), rs.getDouble("price_for_discount")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -43,7 +45,7 @@ public class AdminPromotionController implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == adminPromotionView.getAddButton()) {
-            db.executeUpdate("INSERT INTO promotion (discount, price_after_discount) VALUES (0, 0)");
+            db.executeUpdate("INSERT INTO promotion (discount, price_for_discount) VALUES (0, 0)");
             promotions = getPromotions();
         } else if (e.getSource() == adminPromotionView.getRemoveButton()) {
             int selectedId = adminPromotionView.getSelectedPromotionId();

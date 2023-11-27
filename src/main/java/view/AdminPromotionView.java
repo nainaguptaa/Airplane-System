@@ -6,6 +6,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -18,13 +19,15 @@ public class AdminPromotionView extends JPanel {
 
     private JScrollPane scrollPane;
 
+    private ActionListener promotionSelectionListener;
+
 
     public AdminPromotionView(Promotion[] promotions) {
         this.promotions = promotions;
         setSize(600, 400);
         setLayout(null);
 
-        JLabel lbl = new JLabel("Flights");
+        JLabel lbl = new JLabel("Promotions");
         lbl.setBounds(250, 10, 100, 30);
         add(lbl);
 
@@ -43,18 +46,17 @@ public class AdminPromotionView extends JPanel {
         promotionsTable = new JTable(tableModel);
 
         // Mouse listener for row selection
-//        promotionsTable.addMouseListener(new MouseAdapter() {
-//            public void mouseClicked(MouseEvent e) {
-//                if (e.getClickCount() == 1) {
-//                    int row = promotionsTable.getSelectedRow();
-//                    if (promotionsTable != null) {
-//                        promotionsTable.actionPerformed(
-//                                new ActionEvent(promotionsTable, ActionEvent.ACTION_PERFORMED, String.valueOf(row)));
-//                    }
-//                }
-//            }
-//        });
-
+        promotionsTable.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 1) {
+                    int row = promotionsTable.getSelectedRow();
+                    if (promotionSelectionListener != null) {
+                        promotionSelectionListener.actionPerformed(
+                                new ActionEvent(promotionsTable, ActionEvent.ACTION_PERFORMED, String.valueOf(row)));
+                    }
+                }
+            }
+        });
         scrollPane = new JScrollPane(promotionsTable);
         scrollPane.setBounds(50, 50, 500, 300);
         add(scrollPane);
