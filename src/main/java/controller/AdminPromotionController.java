@@ -83,7 +83,12 @@ public class AdminPromotionController implements ActionListener {
                 double discount = Double.parseDouble(discountField.getText());
                 double priceAfterDiscount = Double.parseDouble(priceAfterDiscountField.getText());
 
-                // Add validation if necessary
+                // Add validation
+                if (discount < 0 || discount > 1) {
+                    JOptionPane.showMessageDialog(null, "Discount must be between 0 and 1.");
+                    return;
+                }
+
 
                 // Insert the new promotion into the database
                 db.executeUpdate("INSERT INTO promotion (discount, price_for_discount) VALUES ("
@@ -94,13 +99,21 @@ public class AdminPromotionController implements ActionListener {
 
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Invalid input. Please enter valid numbers.");
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Error creating new promotion.");
             }
         }
     }
 
 
     private void refreshPromotions() {
-        promotions = getPromotions();
+        // Clear the promotions list
+        promotions.clear();
+
+        // Reload promotions from database
+        getPromotions();
+
+        // Update the table model
         adminPromotionView.updateTableData(promotions.toArray(new Promotion[0]));
     }
 

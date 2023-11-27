@@ -32,7 +32,10 @@ public class AdminPromotionView extends JPanel {
         add(createButton);
 
 
+        initTable();
+    }
 
+    private void initTable() {
         // Define column names
         String[] columnNames = { "PromotionId", "Discount", "Price After Discount" };
 
@@ -82,9 +85,8 @@ public class AdminPromotionView extends JPanel {
 
     // Method to update table data
     public void updateTableData(Promotion[] newPromotions) {
-        this.promotions = newPromotions;
-        // Clear table
-
+        promotions = newPromotions;
+        tableModel.setRowCount(0);
         loadPromotions();
     }
 }
