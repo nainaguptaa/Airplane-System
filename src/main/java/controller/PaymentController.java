@@ -67,6 +67,7 @@ public class PaymentController implements ActionListener{
   private MainController mainController;
   private String SeatTypeVal;
   private double SeatPrice;
+  private double totalPrice;
 
 
   public PaymentController(Database db, MainController mc, Booking booking) {
@@ -79,7 +80,7 @@ public class PaymentController implements ActionListener{
 
 int seatId = booking.getSeatId();
 double flight_price = booking.getPrice();
-double above_price = 300.00;
+
 
 
 
@@ -131,16 +132,66 @@ public double seatPrice() {
 
 
 
-public boolean promotion() {
-  double flight_price = booking.getPrice();
-  double above_price = 300.00;
+public void Promotion() {
+  String query = "SELECT discount FROM promototion WHERE seat_id = '" + booking.getSeatId() + "'";
+  ResultSet rs = db.executeQuery(query);
 
-  if (flight_price >= above_price) {
-      return true;
-  } else {
-      return false;
+  try {
+      if (rs.next()) {
+          SeatTypeVal = rs.getString("class");
+      } 
+  } catch (SQLException e) {
+      e.printStackTrace(); // Handle or log the exception appropriately
+      // Or throw an exception if needed
+  } finally {
+      // Close resources in a finally block
+      try {
+          if (rs != null) {
+              rs.close();
+          }
+          // Close other resources if needed (e.g., preparedStatement)
+      } catch (SQLException e) {
+          e.printStackTrace(); // Handle or log the exception appropriately
+      }
   }
 }
+
+public double ifPromotion() {
+  double flight_price = booking.getPrice();
+  double above_price = 300.00;
+  double NewtotalPrice;
+  totalPrice = flight_price + SeatPrice;
+
+  if (totalPrice >= above_price) {
+      // Fetch a randomized discount value from the promotion table
+      double discount = getRandomDiscount();
+      
+      // Apply the discount to the totalPrice
+      NewtotalPrice = totalPrice - (totalPrice * discount);
+
+      return NewtotalPrice;
+  } else {
+      // If the promotion condition is not met, return the original totalPrice
+      return totalPrice;
+  }
+}
+
+
+private double getRandomDiscount() {
+  String query = "SELECT discount FROM promotion ORDER BY RAND() LIMIT 1";
+  try {
+      ResultSet rs = db.executeQuery(query);
+      if (rs.next()) {
+          return rs.getDouble("discount");
+      }
+  } catch (SQLException e) {
+      e.printStackTrace(); // Handle or log the exception appropriately
+  }
+
+  // Return a default discount value if fetching from the table fails
+  return 0.0;
+}
+
 
 
 public PaymentView getView() {
