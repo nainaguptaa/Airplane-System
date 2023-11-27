@@ -24,9 +24,9 @@ public class Member extends User {
         return name;
     }
 
-    public Address getAddress() {
-        return address;
-    }
+    // public Address getAddress() {
+    //     return address;
+    // }
 
     public void setAddress(Address address) {
         this.address = address;
