@@ -75,6 +75,7 @@ public class PaymentController implements ActionListener{
     this.booking = booking;
     this.view = new PaymentView();
     this.db = db;
+    addListeners();
 }
 
 
@@ -198,7 +199,9 @@ public PaymentView getView() {
   return view;
 }
 
-
+private void addListeners() {
+  view.addConfirmListener(this);
+}
 
 
 
