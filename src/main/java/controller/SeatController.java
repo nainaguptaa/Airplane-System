@@ -8,8 +8,9 @@ import viewModel.SeatViewModel;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Map;
+import java.awt.event.ActionListener;
 
-public class SeatController {
+public class SeatController implements ActionListener{
 
     private Database db;
     private MainController mc;
@@ -21,6 +22,7 @@ public class SeatController {
     public SeatController(Database db, MainController mc, Map<String, Object> args) {
         this.db = db;
         this.mc = mc;
+        this.seatViewModels = new ArrayList<>();
         try {
             this.booking = (Booking) args.get("booking");
             // Use the retrievedBooking object as needed
@@ -31,6 +33,11 @@ public class SeatController {
 
         seatView = new SeatView(getSeatViewModels());
         seatView.display(seatView);
+        addListeners();
+    }
+
+    private void addListeners(){
+        seatView.addConfirmListener(this);
     }
 
     public ArrayList<SeatViewModel> getSeatViewModels() {
@@ -38,6 +45,7 @@ public class SeatController {
         // Potentially change format of seat insertion in database (A0, B0, C0, D0, E0,
         // F0, A1, B1 , C1,etc.) to sort rows in order from top to bottom
         int aircraftId = getAircraftID(booking);
+        System.out.println(aircraftId);
 
         if (aircraftId == -1) {
             return seatViewModels;
@@ -75,6 +83,14 @@ public class SeatController {
             return -1;
         }
         return aircraftId;
+    }
+
+    @Override
+    public void actionPerformed(java.awt.event.ActionEvent e) {
+        String seatNumber = seatView.getSelectedSeatId();
+        booking.setSeatId(Integer.parseInt(seatNumber.substring(1)));
+        System.out.println(seatNumber);
+        // mc.switchToView("PaymentView");
     }
 
     public SeatView getView() {

@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.awt.event.ActionListener;
 
 public class SeatView extends JPanel {
     private static final int ROW_COUNT = 11;
@@ -17,18 +18,23 @@ public class SeatView extends JPanel {
     private static final Color COLOR_BUSINESS = Color.RED;
     private static final Color COLOR_COMFORT = Color.ORANGE;
     private static final Color COLOR_ORDINARY = Color.GREEN;
+    private JButton confirmButton;
 
     private SeatButton selectedSeatButton = null;
 
-    private ArrayList<SeatViewModel> seatViewModels;
+    private ArrayList<SeatViewModel> seatViewModels = new ArrayList<>();
 
     public SeatView(ArrayList<SeatViewModel> svm) {
         this.seatViewModels = svm; // Assign the passed ArrayList
-        setLayout(new BorderLayout());
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         add(createLegendPanel(), BorderLayout.NORTH); // Legend panel
         add(createSeatMapPanel(), BorderLayout.CENTER); // Seat map panel
+        confirmButton = new JButton("Confirm");
+        add(confirmButton, BorderLayout.SOUTH); // Confirm button
+        confirmButton.setEnabled(false); // Disable the confirm button until a seat is selected
 
-        setLayout(new GridBagLayout()); // Use GridBagLayout to center the SeatView
+
+        //setLayout(new GridBagLayout()); // Use GridBagLayout to center the SeatView
 
         // Constraints for the SeatView panel
         GridBagConstraints gbc = new GridBagConstraints();
@@ -38,9 +44,8 @@ public class SeatView extends JPanel {
         gbc.weighty = 1;
         gbc.fill = GridBagConstraints.NONE; // Do not resize the SeatView panel
 
-        add(this, gbc); // Add SeatView panel to the frame with constraints
+        //add(this, gbc); // Add SeatView panel to the frame with constraints
         setSize(new Dimension(500, 700)); // Set the window size
-        setVisible(true);
     }
 
     private JPanel createSeatMapPanel() {
@@ -66,6 +71,7 @@ public class SeatView extends JPanel {
                 rowPanel.add(Box.createHorizontalStrut(30));
             }
             int index = rowNumber * COLUMN_COUNT + col;
+
             if (index < seatViewModels.size()) {
                 SeatViewModel viewModel = seatViewModels.get(index);
                 rowPanel.add(new SeatButton(viewModel));
@@ -113,6 +119,13 @@ public class SeatView extends JPanel {
             setPreferredSize(new Dimension(100, 30));
         }
     }
+    public String getSelectedSeatId() {
+        return selectedSeatButton.viewModel.getSeatID();
+    }
+
+    public void addConfirmListener(ActionListener al) {
+        confirmButton.addActionListener(al);
+    }
 
     private class SeatButton extends JButton {
         SeatViewModel viewModel;
@@ -129,6 +142,7 @@ public class SeatView extends JPanel {
                     if (selectedSeatButton != null && selectedSeatButton != SeatButton.this) {
                         selectedSeatButton.resetToOriginalState();
                     }
+                    confirmButton.setEnabled(true); // Enable the confirm button when a seat is selected
                     selectedSeatButton = SeatButton.this;
                     setBackground(COLOR_SELECTED);
                 }
@@ -198,6 +212,5 @@ public class SeatView extends JPanel {
         frame.add(view, gbc); // Add SeatView panel to the frame with constraints
         frame.setSize(new Dimension(500, 700)); // Set the window size
         frame.setLocationRelativeTo(null); // Center on screen
-        frame.setVisible(true);
     }
 }

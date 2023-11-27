@@ -34,7 +34,7 @@ public class MainController {
     private JPanel navPanel;
 
     private MainController() {
-        this.db = Database.getInstance("jdbc:mysql://localhost:3306/airline", "root", "Venezuela071$");
+        this.db = Database.getInstance("jdbc:mysql://localhost:3306/airline", "root", "SagittariusA5290$");
 
         mainFrame = new JFrame("Airline Management System");
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
