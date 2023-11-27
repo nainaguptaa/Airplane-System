@@ -13,6 +13,7 @@ public enum Views {
     ManageAircraftsView,
     AddAircraftView,
     AdminFlightView,
-    AllUsersView
+    AllUsersView,
+    PaymentView
 }
 

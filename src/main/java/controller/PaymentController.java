@@ -68,6 +68,7 @@ public class PaymentController implements ActionListener{
   private String SeatTypeVal;
   private double SeatPrice;
   private double totalPrice;
+  private double cancellationFees;
 
 
 
@@ -134,11 +135,25 @@ public double seatPrice() {
 
 
 
-public double ifPromotion() {
+@Override
+public void actionPerformed(ActionEvent e) {
+    // Check if the "Yes" button is the source of the event
+    if (e.getSource() == view.getYesButton()) {
+        // If "Yes" button is clicked, add 50 to totalPrice
+        cancellationFees = 50.00;
+    }
+    else{
+      cancellationFees = 0.00;
+    }
+  }
+
+
+public double FinalPrice() {
+  //includes cancellation fees, taxes, and discount
   double flight_price = booking.getPrice();
   double above_price = 300.00;
   double NewtotalPrice;
-  totalPrice = flight_price + SeatPrice;
+  totalPrice = flight_price + SeatPrice + cancellationFees;
 
   if (totalPrice >= above_price) {
       // Fetch a randomized discount value from the promotion table
@@ -147,10 +162,10 @@ public double ifPromotion() {
       // Apply the discount to the totalPrice
       NewtotalPrice = totalPrice - (totalPrice * discount);
 
-      return NewtotalPrice;
+      return (NewtotalPrice * 1.05);
   } else {
       // If the promotion condition is not met, return the original totalPrice
-      return totalPrice;
+      return (totalPrice * 1.05);
   }
 }
 
@@ -181,6 +196,11 @@ public PaymentView getView() {
 
 private void addListeners() {
   view.addConfirmListener(this);
+}
+
+
+public void updateView() {
+  view.display();
 }
 
 

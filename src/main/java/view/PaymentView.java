@@ -178,6 +178,7 @@ public class PaymentView extends JPanel {
     private JTextField expirationDate;
     private JTextField cvv;
     private JButton confirmBtn;
+    private JButton yesButton;
     private JLabel messageLabel; // Label to display messages
 
     public PaymentView() {
@@ -222,6 +223,11 @@ public class PaymentView extends JPanel {
         gbc.gridx = 1;
         formPanel.add(cvv, gbc);
 
+            // Cancellation Insurance Message
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        formPanel.add(new JLabel("Would you like cancellation insurance?"), gbc);
+
         return formPanel;
     }
 
@@ -232,6 +238,9 @@ public class PaymentView extends JPanel {
         confirmBtn = new JButton("Confirm Booking");
         buttonPanel.add(confirmBtn);
 
+        
+        JButton yesButton = new JButton("Yes");
+        buttonPanel.add(yesButton);
 
         return buttonPanel;
     }
@@ -244,7 +253,9 @@ public class PaymentView extends JPanel {
     }
 
 
-
+    public JButton getYesButton() {
+        return yesButton;
+    }
 
 
     public void addConfirmListener(ActionListener al) {
