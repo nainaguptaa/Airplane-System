@@ -134,7 +134,7 @@ public double seatPrice() {
 }
 
 
-
+//Checks if button was clicked for cancellation fees, if clicked adds $50
 @Override
 public void actionPerformed(ActionEvent e) {
     // Check if the "Yes" button is the source of the event
