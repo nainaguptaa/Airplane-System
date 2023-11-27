@@ -5,7 +5,7 @@ import view.LoginView;
 import java.awt.event.*;
 
 import javax.naming.spi.DirStateFactory.Result;
-import javax.swing.Action;
+import javax.swing.*;
 import java.sql.ResultSet;
 
 //Will need to add listener when login view is created
@@ -65,6 +65,7 @@ public class LoginController implements ActionListener {
             // this.uc = new UserController(db);
             // this.uc.setUser(model);
         } else {
+            JOptionPane.showMessageDialog(null, "Invalid username or password");
             System.out.println("Invalid username or password");
         }
     }
