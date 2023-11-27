@@ -2,6 +2,9 @@ package controller;
 
 import model.util.Promotion;
 import view.AdminPromotionView;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
@@ -14,7 +17,6 @@ public class AdminPromotionController implements ActionListener {
     private AdminPromotionView adminPromotionView;
 
     private ArrayList<Promotion> promotions;
-    private AdminPromotionView view;
 
     public AdminPromotionController(Database db, MainController mc) {
         this.db = db;
@@ -23,8 +25,15 @@ public class AdminPromotionController implements ActionListener {
 
         promotions = new ArrayList<Promotion>();
         adminPromotionView = new AdminPromotionView(getPromotions().toArray(new Promotion[0]));
-//        adminPromotionView.getAddButton().addActionListener(this);
-//        adminPromotionView.getRemoveButton().addActionListener(this);
+
+        adminPromotionView.getCreateButton().addActionListener(this);
+
+        // Add property change listener for delete action
+        adminPromotionView.addPropertyChangeListener("deletePromotion", evt -> {
+            int row = (int) evt.getNewValue();
+            deletePromotion(promotions.get(row));
+            refreshPromotions();
+        });
 
 
     }
@@ -42,18 +51,57 @@ public class AdminPromotionController implements ActionListener {
         return promotions;
     }
 
+    private void deletePromotion(Promotion promotion) {
+        db.executeUpdate("DELETE FROM promotion WHERE promotion_id = " + promotion.getPromotionId());
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == adminPromotionView.getAddButton()) {
-            db.executeUpdate("INSERT INTO promotion (discount, price_for_discount) VALUES (0, 0)");
-            promotions = getPromotions();
-        } else if (e.getSource() == adminPromotionView.getRemoveButton()) {
-            int selectedId = adminPromotionView.getSelectedPromotionId();
-            if (selectedId != -1) {
-                db.executeUpdate("DELETE FROM promotion WHERE promotion_id = " + selectedId);
-                promotions = getPromotions();
+        if (e.getSource() == adminPromotionView.getCreateButton()) {
+            // Display dialog or another form to get new promotion data
+            createNewPromotion();
+        }
+    }
+
+    private void createNewPromotion() {
+        // Create a panel to hold input fields
+        JPanel panel = new JPanel(new GridLayout(0, 2));
+        JTextField discountField = new JTextField();
+        JTextField priceAfterDiscountField = new JTextField();
+
+        panel.add(new JLabel("Discount:"));
+        panel.add(discountField);
+        panel.add(new JLabel("Price For Discount:"));
+        panel.add(priceAfterDiscountField);
+
+        // Show dialog with input fields
+        int result = JOptionPane.showConfirmDialog(null, panel,
+                "Create New Promotion", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+        if (result == JOptionPane.OK_OPTION) {
+            try {
+                double discount = Double.parseDouble(discountField.getText());
+                double priceAfterDiscount = Double.parseDouble(priceAfterDiscountField.getText());
+
+                // Add validation if necessary
+
+                // Insert the new promotion into the database
+                db.executeUpdate("INSERT INTO promotion (discount, price_for_discount) VALUES ("
+                        + discount + ", " + priceAfterDiscount + ")");
+
+                // Refresh promotions list
+                refreshPromotions();
+
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Invalid input. Please enter valid numbers.");
             }
         }
+    }
+
+
+    private void refreshPromotions() {
+        promotions = getPromotions();
+        adminPromotionView.updateTableData(promotions.toArray(new Promotion[0]));
     }
 
     public AdminPromotionView getView() {
