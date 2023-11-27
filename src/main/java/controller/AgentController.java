@@ -63,8 +63,9 @@ public class AgentController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String selectedRow = e.getActionCommand();
         FlightViewModel flight = flightViewModels[Integer.parseInt(selectedRow)];
-        int flight_id = flight.FlightId;
+        int flight_id = flight.FlightId; // Grab selected flights id
 
+        // Grab usernames and seat ids of all passengers on the selected flight
         String selectUsernamesQuery = "SELECT username, seat_id FROM bookings WHERE flight_id = '" + flight_id + "';";
         List<PassengerViewModel> passengerList = new ArrayList<>();
 
@@ -79,6 +80,7 @@ public class AgentController implements ActionListener {
             exception.printStackTrace();
         }
 
+        // Grab first names and last names of all passengers on the selected flight
         for (PassengerViewModel entry : passengerList) {
             String selectNamesQuery = "SELECT first_name, last_name FROM users WHERE username = '" + entry.getUserName()
                     + "';";
@@ -94,6 +96,7 @@ public class AgentController implements ActionListener {
             }
         }
 
+        // Use the list of passengers to create a table
         passengerViewModels = passengerList.toArray(new PassengerViewModel[0]);
         this.passengerView = new PassengerView(passengerViewModels);
         mc.switchToView("PassengerTableView");
