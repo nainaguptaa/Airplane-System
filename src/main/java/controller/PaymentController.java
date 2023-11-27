@@ -65,6 +65,8 @@ public class PaymentController implements ActionListener{
   private Database db;
   private PaymentView view;
   private MainController mainController;
+  private String SeatTypeVal;
+  private double SeatPrice;
 
 
   public PaymentController(Database db, MainController mc, Booking booking) {
@@ -82,20 +84,58 @@ double above_price = 300.00;
 
 
 
-public string seatType() {
-  String query = "SELECT class FROM seats WHERE seat_id = '" + booking.getSeatId() +  "'"; 
+// public string seatType() {
+//   String query = "SELECT class FROM seats WHERE seat_id = '" + booking.getSeatId() +  "'"; 
+//   ResultSet rs = db.executeQuery(query);
+//   try {
+//       return rs.next();
+//   } catch (Exception e) { }
+// }
+
+public void seatType() {
+  String query = "SELECT class FROM seats WHERE seat_id = '" + booking.getSeatId() + "'";
   ResultSet rs = db.executeQuery(query);
+
   try {
-      return rs.next();
-  } catch (Exception e) { }
+      if (rs.next()) {
+          SeatTypeVal = rs.getString("class");
+      } 
+  } catch (SQLException e) {
+      e.printStackTrace(); // Handle or log the exception appropriately
+      // Or throw an exception if needed
+  } finally {
+      // Close resources in a finally block
+      try {
+          if (rs != null) {
+              rs.close();
+          }
+          // Close other resources if needed (e.g., preparedStatement)
+      } catch (SQLException e) {
+          e.printStackTrace(); // Handle or log the exception appropriately
+      }
+  }
 }
+
+public double seatPrice() {
+  if ("business".equals(SeatTypeVal)) {
+      SeatPrice = 50.00;
+  }
+  if ("comfort".equals(SeatTypeVal)) {
+      SeatPrice = 35.00;
+  }
+  if ("ordinary".equals(SeatTypeVal)) {
+      SeatPrice = 20.00;
+  }
+  return SeatPrice;
+}
+
 
 
 public boolean promotion() {
   double flight_price = booking.getPrice();
   double above_price = 300.00;
 
-  if (flight_price > above_price) {
+  if (flight_price >= above_price) {
       return true;
   } else {
       return false;
