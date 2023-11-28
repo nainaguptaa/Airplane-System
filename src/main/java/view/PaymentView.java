@@ -275,7 +275,11 @@ public class PaymentView extends JPanel {
         confirmButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                showConfirmationPopUp();
+                if (validateCardInfo()) {
+                    showConfirmationPopUp();
+                } else {
+                    JOptionPane.showMessageDialog(PaymentView.this, "Please enter all information.");
+                }
             }
         });
         add(confirmButton);
@@ -344,7 +348,7 @@ public class PaymentView extends JPanel {
     private void showConfirmationPopUp() {
         JOptionPane.showMessageDialog(this, "Congratulations! Your booking has been confirmed!");
     }
-    
+
     public void displayTotal() {
         double seatPrice = paymentViewModel[0].SeatPrice;
         double flightPrice = paymentViewModel[0].FlightPrice;
@@ -368,7 +372,11 @@ public class PaymentView extends JPanel {
                 breakdownTextArea.setVisible(true);
     }
     
-
+    private boolean validateCardInfo() {
+        // Check if all three fields are filled
+        return !cardNumber.getText().isEmpty() && !expirationDate.getText().isEmpty() && !cvv.getText().isEmpty();
+    }
+    
     private void loadPaymentInfo() {
         for (PaymentViewModel viewModel : paymentViewModel) {
             tableModel.addRow(new Object[]{viewModel.SeatPrice, viewModel.FlightPrice,
