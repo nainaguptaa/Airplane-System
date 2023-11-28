@@ -1,5 +1,6 @@
 package model.role;
 
+
 public class User {
     // mayve add field for access level/role
     private String username;
