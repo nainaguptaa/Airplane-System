@@ -5,6 +5,8 @@ import model.flight.SeatType;
 import utils.EmailSender;
 import view.PaymentView;
 import ViewModel.PaymentViewModel;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
@@ -23,15 +25,16 @@ public class PaymentController implements ActionListener {
         this.mainController = mc;
         this.db = db;
         this.booking = (Booking) args.get("booking");
-        updateModel();
-
-        this.paymentView = new PaymentView(paymentModel);
+        if (booking == null) {
+            System.err.println("The object retrieved from 'args' is not a Booking");
+        }
+        this.paymentView = new PaymentView(updateModel());
 
         paymentView.addConfirmPaymentListener(this);
 
     }
 
-    private void updateModel() {
+    private PaymentViewModel updateModel() {
         double flightPrice = booking.getPrice();
         try {
             if (mainController.getUser().getMember()) {
@@ -45,24 +48,34 @@ public class PaymentController implements ActionListener {
                     paymentModel = new PaymentViewModel(0, booking.getPrice(), 0.05 * booking.getPrice(),
                             mainController.getUser().getMember(), discount);
                 }
-
+                System.out.println("HERE 1:" + booking.getSeatId());
                 String query2 = "SELECT class FROM seats where seat_id = " + booking.getSeatId();
                 ResultSet rs2 = db.executeQuery(query2);
                 if (rs2 != null && rs2.next()) {
                     String seatClass = rs2.getString("class");
+                    System.out.println("HERE 2:" + seatClass);
                     paymentModel.setSeatPrice(SeatType.getPriceByType(seatClass));
                 }
+                System.out.println("HERE 3:" + paymentModel.getSeatPrice());
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        return paymentModel;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        updateDatabase();
-        sendConfirmationEmail();
+        if (paymentView.validateCardInfo()) {
+            updateDatabase();
+            sendConfirmationEmail();
+            JOptionPane.showMessageDialog(paymentView, "Congratulations! Your booking has been confirmed!");
+            mainController.switchToView("UserView");
+
+        } else {
+            JOptionPane.showMessageDialog(paymentView, "Please enter all information.");
+        }
     }
 
     private void sendConfirmationEmail() {
@@ -76,7 +89,7 @@ public class PaymentController implements ActionListener {
         String username = mainController.getUser().getUsername();
         int flightId = booking.getFlightId();
         int seatId = booking.getSeatId();
-        boolean insurance = paymentView.getCancellation() == 0.0 ? true : false;
+        boolean insurance = paymentView.getCancellation() != 0.0;
         double price = paymentView.getFinalPrice();
 
         try {
@@ -91,7 +104,7 @@ public class PaymentController implements ActionListener {
                 pstmt.setInt(3, seatId);
                 pstmt.setBoolean(4, insurance);
                 pstmt.setDouble(5, price);
-                pstmt.setString(6, "confirmed");
+                pstmt.setString(6, "Confirmed");
                 pstmt.executeUpdate();
             }
 

@@ -278,6 +278,11 @@ public class MainController {
     }
 
     public void switchToViewWithArgs(String viewName, Map<String, Object> args) {
+
+        if (args == null) {
+            throw new IllegalArgumentException("args cannot be null");
+        }
+
         Container contentPane = mainFrame.getContentPane();
         BorderLayout layout = (BorderLayout) contentPane.getLayout();
         Component centerComponent = layout.getLayoutComponent(BorderLayout.CENTER);
@@ -302,10 +307,6 @@ public class MainController {
                 mainFrame.getContentPane().add(paymentController.getView());
                 break;
 
-            case "PaymentView":
-                // paymentController = new PaymentController(db, this, args);
-                // mainFrame.getContentPane().add(paymentController.getView());
-                // break;
             default:
                 break;
         }

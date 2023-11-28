@@ -1,9 +1,8 @@
 package view;
 
-import viewModel.PaymentViewModel;
+import ViewModel.PaymentViewModel;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -34,16 +33,6 @@ public class PaymentView extends JPanel {
         paymentViewModel = pvm;
         initializeGUI();
     }
-
-    // // Default constructor
-    // public PaymentView() {
-    //
-    // PaymentViewModel pvm = new PaymentViewModel(60.00, 800.00, 1.05, true, 10);
-    // PaymentViewModel pvmArr[] = { pvm };
-    // paymentViewModel = pvmArr;
-    // initializeGUI();
-    //
-    // }
 
     private void initializeGUI() {
 
@@ -87,17 +76,8 @@ public class PaymentView extends JPanel {
         add(cvv);
 
         confirmButton = new JButton("Confirm Payment");
-        confirmButton.setBounds(480, 500, 200, 50);
-        confirmButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (validateCardInfo()) {
-                    showConfirmationPopUp();
-                } else {
-                    JOptionPane.showMessageDialog(PaymentView.this, "Please enter all information.");
-                }
-            }
-        });
+        confirmButton.setBounds(400, 500, 200, 50);
+
         add(confirmButton);
 
         setSize(600, 1200);
@@ -163,15 +143,12 @@ public class PaymentView extends JPanel {
         confirmButton.addActionListener(listener);
     }
 
-    private void showConfirmationPopUp() {
-        JOptionPane.showMessageDialog(this, "Congratulations! Your booking has been confirmed!");
-    }
-
     public void displayTotal() {
-        double seatPrice = paymentViewModel.SeatPrice;
-        double flightPrice = paymentViewModel.FlightPrice;
-        double tax = paymentViewModel.Tax;
-        double promotion = paymentViewModel.Promotion;
+        boolean isMember = paymentViewModel.getIsMember();
+        double seatPrice = paymentViewModel.getSeatPrice();
+        double flightPrice = paymentViewModel.getFlightPrice();
+        double tax = paymentViewModel.getTax();
+        double promotion = isMember ? paymentViewModel.getPromotionDiscount() : 0.0;
 
         total = seatPrice + flightPrice + cancellation;
         PriceBeforeTax = total - (total * (promotion / 100));
@@ -195,12 +172,12 @@ public class PaymentView extends JPanel {
     }
 
     // Checks if all three fields are filled
-    private boolean validateCardInfo() {
+    public boolean validateCardInfo() {
         return !cardNumber.getText().isEmpty() && !expirationDate.getText().isEmpty() && !cvv.getText().isEmpty();
     }
 
     private void loadPaymentInfo() {
-        tableModel.addRow(new Object[] { paymentViewModel.SeatPrice, paymentViewModel.FlightPrice,
-                paymentViewModel.Tax, paymentViewModel.isMember, paymentViewModel.Promotion });
+        tableModel.addRow(new Object[] { paymentViewModel.getSeatPrice(), paymentViewModel.getFlightPrice(),
+                paymentViewModel.getTax(), paymentViewModel.getIsMember(), paymentViewModel.getPromotionDiscount() });
     }
 }
