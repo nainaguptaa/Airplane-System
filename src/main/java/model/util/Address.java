@@ -41,6 +41,17 @@ public class Address {
         this.country = country;
     }
 
+    public Address(String address){
+        String[] parts = address.split(",");
+        this.street = parts[0];
+        this.city = parts[1];
+        this.division = parts[2];
+        this.code = Integer.parseInt(parts[3]);
+        this.direction = Direction.valueOf(parts[4]);
+        this.postalCode = parts[5];
+        this.country = parts[6];
+    }
+
     // Getters and Setters
     public String getStreet() {
         return street;

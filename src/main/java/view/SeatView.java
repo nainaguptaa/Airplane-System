@@ -119,7 +119,7 @@ public class SeatView extends JPanel {
             setPreferredSize(new Dimension(100, 30));
         }
     }
-    public String getSelectedSeatId() {
+    public int getSelectedSeatId() {
         return selectedSeatButton.viewModel.getSeatID();
     }
 
