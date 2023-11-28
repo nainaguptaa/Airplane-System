@@ -18,7 +18,6 @@ public class PaymentController implements ActionListener {
     private Database db;
     private Booking booking;
 
-
     public PaymentController(Database db, MainController mc, Map<String, Object> args) {
         this.mainController = mc;
         this.db = db;
@@ -30,30 +29,30 @@ public class PaymentController implements ActionListener {
         paymentView.addConfirmPaymentListener(this);
         paymentView.addInsuranceListener(this);
 
-
     }
 
     private void updateModel() {
         double flightPrice = booking.getPrice();
         try {
             if (mainController.getUser().getMember()) {
-                String query = "SELECT * FROM promotion WHERE price_for_discount <= " + flightPrice +
+                String query1 = "SELECT * FROM promotion WHERE price_for_discount <= " + flightPrice +
                         " ORDER BY discount DESC LIMIT 1";
 
-                ResultSet rs = db.executeQuery(query);
-                if (rs != null && rs.next()) {
-                    double discount = rs.getDouble("discount");
+                ResultSet rs1 = db.executeQuery(query1);
+                if (rs1 != null && rs1.next()) {
+                    double discount = rs1.getDouble("discount");
                     // Update paymentModel with the obtained discount
                     paymentModel = new PaymentViewModel(0, booking.getPrice(), 0.05 * booking.getPrice(),
                             mainController.getUser().getMember(), discount);
                 }
+
+                String query2 = "SELECT class FROM seats where seat_id = " + booking.getSeatId();
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
     }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -67,6 +66,7 @@ public class PaymentController implements ActionListener {
                 "Flight Details: ...";
         EmailSender.sendEmail(mainController.getUser().getEmail(), "Payment Confirmation", emailContent);
     }
+
     private void updateDatabase() {
         // Example data - replace these with actual data from your application context
         String username = mainController.getUser().getUsername();
@@ -92,7 +92,7 @@ public class PaymentController implements ActionListener {
             }
 
             // Update the seat status to 'taken'
-            String updateSeatSql = "UPDATE seats SET status = 'taken' WHERE seat_id = ?";
+            String updateSeatSql = "UPDATE seats SET is_available = false WHERE seat_id = ?";
             try (PreparedStatement pstmt = db.getConnection().prepareStatement(updateSeatSql)) {
                 pstmt.setInt(1, seatId);
                 pstmt.executeUpdate();

@@ -7,12 +7,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
-
 public class PaymentView extends JPanel {
     private JTable PaymentTable;
     private DefaultTableModel tableModel;
-    private PaymentViewModel paymentViewModel[];
+    private PaymentViewModel paymentViewModel;
     private JLabel questionLabel;
     private JButton yesButton;
     private JButton noButton;
@@ -32,36 +30,32 @@ public class PaymentView extends JPanel {
     private JButton confirmButton;
 
     // Parameterized constructor
-    public PaymentView(PaymentViewModel pvm[]) {
+    public PaymentView(PaymentViewModel pvm) {
         paymentViewModel = pvm;
         initializeGUI();
     }
 
-    // Default constructor
-    public PaymentView() {
-         
-                PaymentViewModel pvm = new PaymentViewModel(60.00, 800.00, 1.05, true, 10);
-                PaymentViewModel pvmArr[] = {pvm};
-                paymentViewModel = pvmArr;
-                initializeGUI();
-             
-        
-     
-    }
-
-
+//    // Default constructor
+//    public PaymentView() {
+//
+//        PaymentViewModel pvm = new PaymentViewModel(60.00, 800.00, 1.05, true, 10);
+//        PaymentViewModel pvmArr[] = { pvm };
+//        paymentViewModel = pvmArr;
+//        initializeGUI();
+//
+//    }
 
     private void initializeGUI() {
 
         breakdownLabel = new JLabel("Price Breakdown:");
         breakdownLabel.setBounds(50, 200, 150, 20);
-        breakdownLabel.setVisible(false); 
+        breakdownLabel.setVisible(false);
         add(breakdownLabel);
 
         breakdownTextArea = new JTextArea();
         breakdownTextArea.setEditable(false);
         breakdownTextArea.setBounds(50, 220, 500, 150);
-        breakdownTextArea.setVisible(false); 
+        breakdownTextArea.setVisible(false);
         add(breakdownTextArea);
 
         cardInfoLabel = new JLabel("Please enter Credit card information:");
@@ -91,9 +85,7 @@ public class PaymentView extends JPanel {
         cvv = new JTextField();
         cvv.setBounds(160, 490, 200, 20);
         add(cvv);
-        
 
-        
         confirmButton = new JButton("Confirm Payment");
         confirmButton.setBounds(480, 500, 200, 50);
         confirmButton.addActionListener(new ActionListener() {
@@ -108,8 +100,6 @@ public class PaymentView extends JPanel {
         });
         add(confirmButton);
 
-
-
         setSize(600, 1200);
         setLayout(null);
 
@@ -118,7 +108,7 @@ public class PaymentView extends JPanel {
         add(lbl);
 
         // Define column names
-        String[] columnNames = {"Seat Price ($)", "Flight Price ($) ", "Tax", "Member", "Promotion (%)"};
+        String[] columnNames = { "Seat Price ($)", "Flight Price ($) ", "Tax", "Member", "Promotion (%)" };
 
         // Initialize the table model and set column names
         tableModel = new DefaultTableModel(columnNames, 0) {
@@ -134,7 +124,7 @@ public class PaymentView extends JPanel {
         PaymentTable = new JTable(tableModel);
 
         JScrollPane scrollPane = new JScrollPane(PaymentTable);
-        scrollPane.setBounds(50, 50, 500, 50);  
+        scrollPane.setBounds(50, 50, 500, 50);
         add(scrollPane);
 
         questionLabel = new JLabel("Would you like to add cancellation insurance ($50) ?");
@@ -146,7 +136,7 @@ public class PaymentView extends JPanel {
         yesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+
                 cancellation = 50.00;
                 System.out.println(cancellation);
                 displayTotal();
@@ -154,7 +144,6 @@ public class PaymentView extends JPanel {
         });
         add(yesButton);
 
-       
         noButton = new JButton("No");
         noButton.setBounds(140, 150, 80, 30);
         noButton.addActionListener(new ActionListener() {
@@ -168,21 +157,21 @@ public class PaymentView extends JPanel {
         });
         add(noButton);
     }
-    
+
     private void showConfirmationPopUp() {
         JOptionPane.showMessageDialog(this, "Congratulations! Your booking has been confirmed!");
     }
 
     public void displayTotal() {
-        double seatPrice = paymentViewModel[0].SeatPrice;
-        double flightPrice = paymentViewModel[0].FlightPrice;
-        double tax = paymentViewModel[0].Tax;
-        double promotion = paymentViewModel[0].Promotion;
-    
+        double seatPrice = paymentViewModel.SeatPrice;
+        double flightPrice = paymentViewModel.FlightPrice;
+        double tax = paymentViewModel.Tax;
+        double promotion = paymentViewModel.Promotion;
+
         total = seatPrice + flightPrice + cancellation;
         PriceBeforeTax = total - (total * (promotion / 100));
         finalPrice = PriceBeforeTax * tax;
-    
+
         String breakdown = "Seat Price: $" + seatPrice + "\n" +
                 "Flight Price: $" + flightPrice + "\n" +
                 "Cancellation Fee: $" + cancellation + "\n" +
@@ -190,33 +179,21 @@ public class PaymentView extends JPanel {
                 "\nTax: " + tax + "\n" +
                 "---------------------------\n" +
                 "Total: $" + finalPrice;
-    
-                breakdownTextArea.setText(breakdown);
-                breakdownLabel.setVisible(true); 
-                breakdownTextArea.setVisible(true);
+
+        breakdownTextArea.setText(breakdown);
+        breakdownLabel.setVisible(true);
+        breakdownTextArea.setVisible(true);
     }
-    
+
     // Checks if all three fields are filled
     private boolean validateCardInfo() {
         return !cardNumber.getText().isEmpty() && !expirationDate.getText().isEmpty() && !cvv.getText().isEmpty();
     }
 
-
-    
     private void loadPaymentInfo() {
         for (PaymentViewModel viewModel : paymentViewModel) {
-            tableModel.addRow(new Object[]{viewModel.SeatPrice, viewModel.FlightPrice,
-                    viewModel.Tax, viewModel.isMember, viewModel.Promotion});
+            tableModel.addRow(new Object[] { viewModel.SeatPrice, viewModel.FlightPrice,
+                    viewModel.Tax, viewModel.isMember, viewModel.Promotion });
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
