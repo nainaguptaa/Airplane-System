@@ -198,7 +198,16 @@ public class PaymentView extends JPanel {
     private double total;
     private double PriceBeforeTax;
     private double finalPrice;
-    
+    private JTextArea breakdownTextArea;
+    private JLabel breakdownLabel;
+    private JLabel cardInfoLabel;
+    private JTextField cardNumber;
+    private JTextField expirationDate;
+    private JTextField cvv;
+    private JLabel cardNumberLabel;
+    private JLabel expirationDateLabel;
+    private JLabel cvvLabel;
+    private JButton confirmButton;
 
     // Parameterized constructor
     public PaymentView(PaymentViewModel pvm[]) {
@@ -221,8 +230,59 @@ public class PaymentView extends JPanel {
 
 
     private void initializeGUI() {
+
+        breakdownLabel = new JLabel("Price Breakdown:");
+        breakdownLabel.setBounds(50, 200, 150, 20);
+        breakdownLabel.setVisible(false); // Initially set it to invisible
+        add(breakdownLabel);
+
+        breakdownTextArea = new JTextArea();
+        breakdownTextArea.setEditable(false);
+        breakdownTextArea.setBounds(50, 220, 500, 150);
+        breakdownTextArea.setVisible(false); // Initially set it to invisible
+        add(breakdownTextArea);
+
+        cardInfoLabel = new JLabel("Please enter Credit card information:");
+        cardInfoLabel.setBounds(50, 400, 250, 20);
+        add(cardInfoLabel);
+
+        cardNumberLabel = new JLabel("Card Number:");
+        cardNumberLabel.setBounds(50, 430, 200, 20);
+        add(cardNumberLabel);
+
+        cardNumber = new JTextField();
+        cardNumber.setBounds(160, 430, 200, 20);
+        add(cardNumber);
+
+        expirationDateLabel = new JLabel("Expiration Date:");
+        expirationDateLabel.setBounds(50, 460, 200, 20);
+        add(expirationDateLabel);
+
+        expirationDate = new JTextField();
+        expirationDate.setBounds(160, 460, 200, 20);
+        add(expirationDate);
+
+        cvvLabel = new JLabel("CVV:");
+        cvvLabel.setBounds(50, 490, 200, 20);
+        add(cvvLabel);
+
+        cvv = new JTextField();
+        cvv.setBounds(160, 490, 200, 20);
+        add(cvv);
         
-        setSize(600, 400);
+        confirmButton = new JButton("Confirm Payment");
+        confirmButton.setBounds(480, 500, 200, 50);
+        confirmButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showConfirmationPopUp();
+            }
+        });
+        add(confirmButton);
+
+
+
+        setSize(600, 1200);
         setLayout(null);
 
         JLabel lbl = new JLabel("Your Payment Information:");
@@ -281,6 +341,9 @@ public class PaymentView extends JPanel {
         add(noButton);
     }
     
+    private void showConfirmationPopUp() {
+        JOptionPane.showMessageDialog(this, "Congratulations! Your booking has been confirmed!");
+    }
     
     public void displayTotal() {
         double seatPrice = paymentViewModel[0].SeatPrice;
@@ -300,7 +363,9 @@ public class PaymentView extends JPanel {
                 "---------------------------\n" +
                 "Total: $" + finalPrice;
     
-        JOptionPane.showMessageDialog(null, breakdown, "Payment Breakdown", JOptionPane.INFORMATION_MESSAGE);
+                breakdownTextArea.setText(breakdown);
+                breakdownLabel.setVisible(true); 
+                breakdownTextArea.setVisible(true);
     }
     
 
