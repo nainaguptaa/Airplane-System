@@ -17,19 +17,13 @@ public class PaymentViewModel {
     }
 
     // getters and setters
-
-
-    public double getSeatPrice() {
-        return seatPrice;
-    }
-
+    public double getSeatPrice() { return seatPrice; }
     public double getTax() {
         return tax;
     }
     public boolean getIsMember() {
         return isMember;
     }
-
     public double getPromotionDiscount() {
         return promotionDiscount;
     }
