@@ -27,7 +27,7 @@ public class MainController {
     private AdminFlightController adminFlightController;
     private CrewController crewController;
     private AllUsersController allUsersController;
-    // private PaymentController paymentController;
+    private PaymentController paymentController;
     private Booking booking;
     private PaymentViewModel paymentViewModel;
 
@@ -46,7 +46,7 @@ public class MainController {
         mainFrame.setLayout(new BorderLayout());
 
         this.user = new User();
-        this.switchToView("EntryView");
+        this.switchToView("PaymentView");
         mainFrame.setVisible(true);
     }
 
@@ -387,8 +387,10 @@ public class MainController {
             
             case "PaymentView":
                    
-                // paymentController = new PaymentController(db, this, booking);
-                // mainFrame.getContentPane().add(paymentController.getView());
+                paymentController = new PaymentController(db, this, booking);
+                mainFrame.getContentPane().add(paymentController.getView());
+            
+              
                 break;
 
             default:
