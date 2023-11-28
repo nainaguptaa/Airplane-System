@@ -45,5 +45,7 @@ public class PaymentView extends JPanel {
         confirmPaymentButton.addActionListener(listener);
     }
 
-    // Additional methods for getting payment data, insurance selection, etc.
+    public JCheckBox getInsuranceCheckBox() {
+        return insuranceCheckBox;
+    }
 }

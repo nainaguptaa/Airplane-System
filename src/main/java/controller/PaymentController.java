@@ -7,6 +7,7 @@ import ViewModel.PaymentViewModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Map;
 
@@ -30,8 +31,26 @@ public class PaymentController implements ActionListener {
     }
 
     private void updateModel() {
-         paymentModel = new PaymentViewModel(0, booking.getPrice(), 0.05 * booking.getPrice(), mainController.getUser().getMember(), 0);
+        double flightPrice = booking.getPrice();
+        try {
+            if (mainController.getUser().getMember()) {
+                String query = "SELECT * FROM promotion WHERE price_for_discount <= " + flightPrice +
+                        " ORDER BY discount DESC LIMIT 1";
+
+                ResultSet rs = db.executeQuery(query);
+                if (rs != null && rs.next()) {
+                    double discount = rs.getDouble("discount");
+                    // Update paymentModel with the obtained discount
+                    paymentModel = new PaymentViewModel(0, booking.getPrice(), 0.05 * booking.getPrice(),
+                            mainController.getUser().getMember(), discount);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -44,7 +63,7 @@ public class PaymentController implements ActionListener {
         String username = mainController.getUser().getUsername();
         int flightId = booking.getFlightId();
         int seatId = booking.getSeatId();
-        boolean insurance = false; // paymentView.getInsurance();
+        boolean insurance = false; // paymentView.getInsuranceCheckBox(); // paymentView.getInsurance();
         double price = 0; // paymentView.getTotalPrice();
 
         try {
