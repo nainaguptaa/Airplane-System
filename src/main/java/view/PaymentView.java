@@ -194,6 +194,10 @@ public class PaymentView extends JPanel {
     private JLabel questionLabel;
     private JButton yesButton;
     private JButton noButton;
+    private double cancellation;
+    private double total;
+    private double PriceBeforeTax;
+    private double finalPrice;
     
 
     // Parameterized constructor
@@ -254,8 +258,10 @@ public class PaymentView extends JPanel {
         yesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Add your logic for "Yes" button click
-                System.out.println("Yes button clicked");
+                
+                cancellation = 50.00;
+                System.out.println(cancellation);
+                displayTotal();
             }
         });
         add(yesButton);
@@ -267,13 +273,35 @@ public class PaymentView extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Add your logic for "No" button click
-                System.out.println("No button clicked");
+                cancellation = 0.00;
+                System.out.println(cancellation);
+                displayTotal();
             }
         });
         add(noButton);
     }
     
     
+    public void displayTotal() {
+        double seatPrice = paymentViewModel[0].SeatPrice;
+        double flightPrice = paymentViewModel[0].FlightPrice;
+        double tax = paymentViewModel[0].Tax;
+        double promotion = paymentViewModel[0].Promotion;
+    
+        total = seatPrice + flightPrice + cancellation;
+        PriceBeforeTax = total - (total * (promotion / 100));
+        finalPrice = PriceBeforeTax * tax;
+    
+        String breakdown = "Seat Price: $" + seatPrice + "\n" +
+                "Flight Price: $" + flightPrice + "\n" +
+                "Cancellation Fee: $" + cancellation + "\n" +
+                "Discount: " + promotion + "%" +
+                "\nTax: " + tax + "\n" +
+                "---------------------------\n" +
+                "Total: $" + finalPrice;
+    
+        JOptionPane.showMessageDialog(null, breakdown, "Payment Breakdown", JOptionPane.INFORMATION_MESSAGE);
+    }
     
 
     private void loadPaymentInfo() {
