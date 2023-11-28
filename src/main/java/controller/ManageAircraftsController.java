@@ -67,7 +67,7 @@ public class ManageAircraftsController implements ActionListener{
         }
 
         for (int i = 0; i < 2; i++) {
-            for(int j = 0; i <= 6; i++) {
+            for(int j = 0; j < 6; j++) {
                 query = "INSERT INTO seats (aircraft_id, seat_number, class) VALUES (" + id + ", '" + seatCol + seatRow + "', 'Business')";
                 res = db.executeUpdate(query);
                 if (res == 0) {
@@ -80,8 +80,8 @@ public class ManageAircraftsController implements ActionListener{
             seatRow++;
         }
 
-        for (int i = 0; i < 2; i++) {
-            for(int j = 0; i <= 6; i++) {
+        for (int i = 0; i < 3; i++) {
+            for(int j = 0; j < 6; j++) {
                 query = "INSERT INTO seats (aircraft_id, seat_number, class) VALUES (" + id + ", '" + seatCol + seatRow + "', 'Comfort')";
                 res = db.executeUpdate(query);
                 if (res == 0) {
@@ -94,8 +94,8 @@ public class ManageAircraftsController implements ActionListener{
             seatRow++;
         }
 
-        for (int i = 0; i < 2; i++) {
-            for(int j = 0; i <= 6; i++) {
+        for (int i = 0; i < 6; i++) {
+            for(int j = 0; j < 6; j++) {
                 query = "INSERT INTO seats (aircraft_id, seat_number, class) VALUES (" + id + ", '" + seatCol + seatRow + "', 'ordinary')";
                 res = db.executeUpdate(query);
                 if (res == 0) {
@@ -107,6 +107,8 @@ public class ManageAircraftsController implements ActionListener{
             seatCol = 'A';
             seatRow++;
         }
+
+        addAircraftView.addSuccessMessage("Aircraft added successfully");
     }
 
 
