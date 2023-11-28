@@ -5,47 +5,48 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import model.role.User;
 
-public class MembershipController {
+import javax.swing.*;
+
+public class MembershipController implements ActionListener {
 
     private MembershipView view;
     private Database db;
     private MainController mainController;
-    private User model;
+    private User user;
 
     public MembershipController(Database db, MainController mc) {
         this.mainController = mc;
-        this.model = mainController.getUser();
-        this.view = new MembershipView();
+        this.user = mainController.getUser();
+        this.view = new MembershipView(user.getMember());
         this.db = db;
 
-        initialize();
+        if (user.getMember()) {
+            view.getCancelMembership().addActionListener(this);
+        } else {
+            view.getSignUp().addActionListener(this);
+        }
     }
 
-    private void initialize() {
-        // // Check if the user is a premium member
-        // boolean isPremiumMember = model.getMember();
-        // view.setMembershipStatus(isPremiumMember);
 
-        // if (isPremiumMember) {
-        // // Load and display promotions
-        // String[] promotions = membershipModel.getPromotions();
-        // membershipView.setPromotionsList(promotions);
-        // }
-
-        // // Add action listener for sign up button
-        // membershipView.addSignUpListener(new ActionListener() {
-        // @Override
-        // public void actionPerformed(ActionEvent e) {
-        // handleSignUp();
-        // }
-        // });
-    }
-
-    private void handleSignUp() {
-        // Logic for handling user sign-up
-    }
 
     public MembershipView getView() {
         return view;
     }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == view.getCancelMembership()) {
+            db.executeUpdate("UPDATE users SET member = false WHERE username = '" + user.getUsername() + "'");
+            user.setMember(false);
+        } else if (e.getSource() == view.getSignUp()) {
+            db.executeUpdate("UPDATE users SET member = true WHERE username = '" + user.getUsername() + "'");
+            user.setMember(true);
+        }
+
+        // Popup message saying success and then naviagte back to main menu
+        JOptionPane.showMessageDialog(null, "Success!");
+        mainController.switchToView("UserView");
+    }
+
+
 }

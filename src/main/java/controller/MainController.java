@@ -18,6 +18,7 @@ public class MainController {
     private RegisterController registerController;
     private User user;
     private Booking userBooking;
+    private AgentController agentController;
     private FlightController flightController;
 
     private SeatController seatController;
@@ -29,6 +30,8 @@ public class MainController {
     private AdminFlightController adminFlightController;
     private CrewController crewController;
     private AllUsersController allUsersController;
+
+    private AdminPromotionController adminPromotionController;
 
     private JFrame mainFrame;
     private JPanel navPanel;
@@ -146,6 +149,14 @@ public class MainController {
                 buttonFont,
                 e -> switchToView(e.getActionCommand()));
 
+        JButton btnAdminPromotionView = Buttons.createStyledButton(
+                "Promotion",
+                "AdminPromotionView", //create promotion view for admin
+                buttonSize,
+                buttonColor,
+                buttonFont,
+                e -> switchToView(e.getActionCommand()));
+
         navPanel.add(btnUserView);
         navPanel.add(Box.createRigidArea(spacerSize));
         navPanel.add(btnManageFlightView);
@@ -155,6 +166,8 @@ public class MainController {
         navPanel.add(btnAdminFlightView);
         navPanel.add(Box.createRigidArea(spacerSize));
         navPanel.add(btnAllUsersView);
+        navPanel.add(Box.createRigidArea(spacerSize));
+        navPanel.add(btnAdminPromotionView);
     }
 
     private void createMemberNavButtons() {
@@ -272,12 +285,6 @@ public class MainController {
         }
 
         switch (viewName) {
-            case "InfoView":
-                InfoController infoController = new InfoController(db, this);
-                infoController.setArgs(args);
-                mainFrame.getContentPane().add(infoController.getView());
-                break;
-
             case "SeatMapView":
                 seatController = new SeatController(db, this, args);
                 mainFrame.getContentPane().add(seatController.getView());
@@ -372,6 +379,18 @@ public class MainController {
             case "AllUsersView":
                 allUsersController = new AllUsersController(db, this);
                 mainFrame.getContentPane().add(allUsersController.getView());
+                break;
+            case "PassengerListView":
+                agentController = new AgentController(db, this);
+                mainFrame.getContentPane().add(agentController.getFlightView());
+                break;
+            case "PassengerTableView":
+                mainFrame.getContentPane().add(agentController.getPassengerView());
+                break;
+
+            case "AdminPromotionView":
+                adminPromotionController = new AdminPromotionController(db, this);
+                mainFrame.getContentPane().add(adminPromotionController.getView());
                 break;
 
             default:

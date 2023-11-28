@@ -62,19 +62,33 @@ public class User {
         return role;
     }
 
-    public void setFirstName(String firstName){this.firstName=firstName;}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-    public String getFirstName(){return firstName;}
+    public String getFirstName() {
+        return firstName;
+    }
 
-    public void setLastName(String lastName){this.lastName=lastName;}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-    public String getLastName(){return lastName;}
+    public String getLastName() {
+        return lastName;
+    }
 
-    public void setAddress(String address){this.address=address;}
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-    public String getAddress(){return address;}
+    public String getAddress() {
+        return address;
+    }
 
-    public void setMember(Boolean member){this.member=member;}
+    public void setMember(Boolean member) {
+        this.member = member;
+    }
 
     public Boolean getMember() {
         return member;
@@ -85,11 +99,9 @@ public class User {
             return "Admin";
         } else if (role == 3) {
             return "Agent";
-        }
-        else if(role==2){
+        } else if (role == 2) {
             return "User";
-        }
-        else if(role==1){
+        } else if (role == 1) {
             return "Guest";
         } else {
             return "Invalid Role";
@@ -101,8 +113,7 @@ public class User {
             return 4;
         } else if (role.equals("Agent")) {
             return 3;
-        }
-        else if(role.equals("User")){
+        } else if (role.equals("User")) {
             return 2;
         } else if (role.equals("Guest")) {
             return 1;
