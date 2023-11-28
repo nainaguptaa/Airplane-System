@@ -2,8 +2,8 @@ package controller;
 
 import view.FlightView;
 import view.PassengerView;
-import viewModel.FlightViewModel;
-import viewModel.PassengerViewModel;
+import ViewModel.FlightViewModel;
+import ViewModel.PassengerViewModel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
