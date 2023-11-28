@@ -1,13 +1,13 @@
 package model.flight;
 
 public class Seat {
-    private int seatId;
+    private String seatId;
     private int aircraftId;
     private int seatNumber;
     private SeatType seatType;
     private boolean isAvailable;
 
-    public Seat(int seatId, int aircraftId, int seatNumber, SeatType seatType, boolean isAvailable) {
+    public Seat(String seatId, int aircraftId, int seatNumber, SeatType seatType, boolean isAvailable) {
         this.seatId = seatId;
         this.aircraftId = aircraftId;
         this.seatNumber = seatNumber;
@@ -16,7 +16,7 @@ public class Seat {
     }
 
     // Getters and Setters
-    public int getSeatId() {
+    public String getSeatId() {
         return seatId;
     }
 
@@ -36,7 +36,7 @@ public class Seat {
         return isAvailable;
     }
 
-    public void setSeatId(int seatId) {
+    public void setSeatId(String seatId) {
         this.seatId = seatId;
     }
 

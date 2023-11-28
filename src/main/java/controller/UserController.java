@@ -1,11 +1,11 @@
 package controller;
 
 import model.role.*;
-import  model.role.*;
-import  view.UserView;
+import model.role.*;
+import view.UserView;
 import java.awt.event.*;
 
-public class UserController implements ActionListener{
+public class UserController implements ActionListener {
     private User user;
     private UserView userView;
     private Database db;
@@ -30,8 +30,7 @@ public class UserController implements ActionListener{
         System.out.println(e.getActionCommand());
         if (e.getActionCommand().equals("BookingsView")) {
             mainController.switchToView("BookingsView");
-        }
-        else if (e.getActionCommand().equals("Logout")) {
+        } else if (e.getActionCommand().equals("Logout")) {
             mainController.switchToView("EntryView");
             mainController.setUser(new User());
             mainController.removeNavPanel();
@@ -53,7 +52,6 @@ public class UserController implements ActionListener{
     public void setUser(User user) {
         this.user = user;
     }
-
 
     // maybe add methods for different types of users (admin, member, etc.)
 }

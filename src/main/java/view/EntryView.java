@@ -41,7 +41,6 @@ public class EntryView extends JPanel {
         exitLbl.setBounds(154, 213, 126, 20);
         add(exitLbl);
 
-
     }
 
     /**

@@ -8,8 +8,7 @@ import java.util.ArrayList;
 import model.flight.Booking;
 import utils.EmailSender;
 
-
-public class BookingsController implements ActionListener{
+public class BookingsController implements ActionListener {
     BookingsView view;
     MainController mainController;
     Database db;
@@ -26,7 +25,6 @@ public class BookingsController implements ActionListener{
         addListeners();
     }
 
-
     private void addListeners() {
         view.addCancelButtonListener(this);
         view.addTableListener(e -> view.updateButtons());
@@ -36,21 +34,20 @@ public class BookingsController implements ActionListener{
         // Get bookings from database
         String query = "SELECT * FROM bookings WHERE username = '" + mainController.getUser().getUsername() + "'";
         ResultSet rs = db.executeQuery(query);
-        try{
-            while(rs.next()){
+        try {
+            while (rs.next()) {
                 Booking booking = new Booking(
-                    rs.getInt("booking_id"),
-                    rs.getInt("flight_id"),
-                    rs.getString("username"),
-                    rs.getInt("seat_id"),
-                    rs.getBoolean("insurance"),
-                    rs.getDouble("price"),
-                    rs.getDate("booking_date")
-                );
+                        rs.getInt("booking_id"),
+                        rs.getInt("flight_id"),
+                        rs.getString("username"),
+                        rs.getInt("seat_id"),
+                        rs.getBoolean("insurance"),
+                        rs.getDouble("price"),
+                        rs.getDate("booking_date"));
                 bookings.add(booking);
                 bookingsData.add(booking.getBookingData());
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
     }
@@ -58,7 +55,7 @@ public class BookingsController implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("Cancel")) {
-            try{
+            try {
                 // Cancel
                 int id = view.getSelectedBooking();
                 Booking selectedBooking = null;
@@ -74,15 +71,16 @@ public class BookingsController implements ActionListener{
                 String query = "DELETE FROM bookings WHERE booking_id = " + id;
                 db.executeUpdate(query);
                 view.updateTable(bookingsData);
-                if (selectedBooking.getInsurance()){
-                    EmailSender.sendEmail(mainController.getUser().getEmail(), "Booking Cancelled", "Your booking has been cancelled. You will be refunded the full amount.");
+                if (selectedBooking.getInsurance()) {
+                    EmailSender.sendEmail(mainController.getUser().getEmail(), "Booking Cancelled",
+                            "Your booking has been cancelled. You will be refunded the full amount.");
                 } else {
-                    EmailSender.sendEmail(mainController.getUser().getEmail(), "Booking Cancelled", "Your booking has been cancelled. You will be refunded the full amount minus the insurance fee.");
+                    EmailSender.sendEmail(mainController.getUser().getEmail(), "Booking Cancelled",
+                            "Your booking has been cancelled. You will be refunded the full amount minus the insurance fee.");
                 }
 
                 bookings.remove(selectedBooking);
-            }
-            catch(Exception ex){
+            } catch (Exception ex) {
                 System.out.println(ex);
             } finally {
                 view.updateButtons();

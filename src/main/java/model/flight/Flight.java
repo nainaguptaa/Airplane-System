@@ -81,7 +81,6 @@ public class Flight {
     public LocalDateTime getArrivalLocalDateTime() {
         return LocalDateTime.ofInstant(arrivalTime.toInstant(), ZoneId.systemDefault());
     }
-    
 
     public double getPrice() {
         return price;
