@@ -148,6 +148,8 @@ public void actionPerformed(ActionEvent e) {
   }
 
 
+
+
 public double FinalPrice() {
   //includes cancellation fees, taxes, and discount
   double flight_price = booking.getPrice();
