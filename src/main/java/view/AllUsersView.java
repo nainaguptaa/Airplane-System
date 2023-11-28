@@ -20,7 +20,7 @@ public class AllUsersView extends JPanel {
         add(titleLabel);
 
         // Define column names for users table
-        String[] columnNames = {"Username", "Email", "Role"};
+        String[] columnNames = {"Username", "First Name", "Last Name", "Address", "Email", "Role", "Member"};
 
         // Initialize the table model and set column names
         tableModel = new DefaultTableModel(columnNames, 0);
