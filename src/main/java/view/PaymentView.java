@@ -168,6 +168,14 @@
 
 package view;
 
+// import javax.swing.*;
+// import javax.swing.text.*;
+// import java.awt.*;
+// import java.awt.event.ActionEvent;
+// import java.awt.event.ActionListener;
+
+
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -217,7 +225,7 @@ public class PaymentView extends JPanel {
 
                 // Password
         gbc.gridx = 0;
-        gbc.gridy = 1;
+        gbc.gridy = 3;
         formPanel.add(new JLabel("CVV:"), gbc);
         cvv = new JTextField(10);
         gbc.gridx = 1;
@@ -225,11 +233,14 @@ public class PaymentView extends JPanel {
 
             // Cancellation Insurance Message
         gbc.gridx = 0;
-        gbc.gridy = 3;
+        gbc.gridy = -5;
         formPanel.add(new JLabel("Would you like cancellation insurance?"), gbc);
 
         return formPanel;
     }
+
+
+
 
     private JPanel createButtonPanel() {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
@@ -269,7 +280,4 @@ public class PaymentView extends JPanel {
         // Code to display login form (username and password fields)
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new PaymentView());
-    }
 }

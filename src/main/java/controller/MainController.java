@@ -42,7 +42,7 @@ public class MainController {
         mainFrame.setLayout(new BorderLayout());
 
         this.user = new User();
-        this.switchToView("EntryView");
+        this.switchToView("PaymentView");
         mainFrame.setVisible(true);
     }
 

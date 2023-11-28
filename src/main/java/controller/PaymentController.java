@@ -81,8 +81,8 @@ public class PaymentController implements ActionListener{
 }
 
 
-int seatId = booking.getSeatId();
-double flight_price = booking.getPrice();
+// int seatId = booking.getSeatId();
+// double flight_price = booking.getPrice();
 
 
 
