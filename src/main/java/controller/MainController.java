@@ -1,9 +1,9 @@
 
-package main.java.controller;
+package controller;
 
-import main.java.model.role.User;
-import main.java.model.flight.Booking;
-import main.java.utils.Buttons;
+import model.role.User;
+import model.flight.Booking;
+import utils.Buttons;
 
 import javax.swing.*;
 import java.awt.*;
@@ -313,7 +313,7 @@ public class MainController {
         switch (viewName) {
             case "EntryView":
                 entryController = new EntryController(db, this);
-                mainFrame.getContentPane().add(EntryCpntroller.entryController.getView());
+                mainFrame.getContentPane().add(EntryController.entryController.getView());
                 break;
 
             case "FlightView":

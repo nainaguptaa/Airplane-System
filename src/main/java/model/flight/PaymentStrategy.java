@@ -1,6 +1,6 @@
-package main.java.model.flight;
+// package main.java.model.flight;
 
-public interface PaymentStrategy {
-  void pay(int amount);
-}
+// public interface PaymentStrategy {
+//   void pay(int amount);
+// }
 

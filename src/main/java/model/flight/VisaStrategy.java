@@ -1,11 +1,11 @@
-package main.java.model.flight;
+// package main.java.model.flight;
 
-public class VisaStrategy implements PaymentStrategy {
+// public class VisaStrategy implements PaymentStrategy {
 
 
-  @Override
-  public void pay(int amount){
-    System.out.println("Exectuing Visa Payment: Charging $" + amount);
-  }
+//   @Override
+//   public void pay(int amount){
+//     System.out.println("Exectuing Visa Payment: Charging $" + amount);
+//   }
 
-}
+// }

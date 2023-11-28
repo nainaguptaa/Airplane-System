@@ -166,7 +166,7 @@
 
 
 
-package main.java.view;
+package view;
 
 import javax.swing.*;
 import java.awt.*;
