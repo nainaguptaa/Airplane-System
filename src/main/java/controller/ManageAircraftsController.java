@@ -46,11 +46,9 @@ public class ManageAircraftsController implements ActionListener{
     private void addAircraft() {
         String query = "INSERT INTO aircrafts (model) VALUES ('" + addAircraftView.getModel() + "')";
         int res = db.executeUpdate(query);
-        int businessSeats = 10;
-        int ordinarySeats = 10;
-        int comfortSeats = 10;
+        char seatCol = 'A';
         int id = 0;
-        int seatNum = 0;
+        int seatRow = 0;
         if(res == 0){
             addAircraftView.addErrorMessage("Error adding aircraft");
             return;
@@ -68,35 +66,49 @@ public class ManageAircraftsController implements ActionListener{
             return;
         }
 
-        for (int i = 0; i < businessSeats; i++) {
-            query = "INSERT INTO seats (aircraft_id, seat_number, class) VALUES (" + id + ", " + seatNum + ", 'business')";
-            res = db.executeUpdate(query);
-            if (res == 0) {
-                addAircraftView.addErrorMessage("Error adding aircraft");
-                return;
+        for (int i = 0; i < 2; i++) {
+            for(int j = 0; i <= 6; i++) {
+                query = "INSERT INTO seats (aircraft_id, seat_number, class) VALUES (" + id + ", '" + seatCol + seatRow + "', 'Business')";
+                res = db.executeUpdate(query);
+                if (res == 0) {
+                    addAircraftView.addErrorMessage("Error adding aircraft");
+                    return;
+                }
+                seatCol++;
             }
-            seatNum++;
+            seatCol = 'A';
+            seatRow++;
         }
-        for (int i = 0; i < ordinarySeats; i++) {
-            query = "INSERT INTO seats (aircraft_id, seat_number, class) VALUES (" + id + ", " + seatNum +  ", 'ordinary')";
-            res = db.executeUpdate(query);
-            if (res == 0) {
-                addAircraftView.addErrorMessage("Error adding aircraft");
-                return;
+
+        for (int i = 0; i < 2; i++) {
+            for(int j = 0; i <= 6; i++) {
+                query = "INSERT INTO seats (aircraft_id, seat_number, class) VALUES (" + id + ", '" + seatCol + seatRow + "', 'Comfort')";
+                res = db.executeUpdate(query);
+                if (res == 0) {
+                    addAircraftView.addErrorMessage("Error adding aircraft");
+                    return;
+                }
+                seatCol++;
             }
-            seatNum++;
+            seatCol = 'A';
+            seatRow++;
         }
-        for (int i = 0; i < comfortSeats; i++) {
-            query = "INSERT INTO seats (aircraft_id, seat_number, class) VALUES (" + id + ", " + seatNum +  ", 'comfort')";
-            res = db.executeUpdate(query);
-            if (res == 0) {
-                addAircraftView.addErrorMessage("Error adding aircraft");
-                return;
+
+        for (int i = 0; i < 2; i++) {
+            for(int j = 0; i <= 6; i++) {
+                query = "INSERT INTO seats (aircraft_id, seat_number, class) VALUES (" + id + ", '" + seatCol + seatRow + "', 'ordinary')";
+                res = db.executeUpdate(query);
+                if (res == 0) {
+                    addAircraftView.addErrorMessage("Error adding aircraft");
+                    return;
+                }
+                seatCol++;
             }
-            seatNum++;
+            seatCol = 'A';
+            seatRow++;
         }
-        addAircraftView.addSuccessMessage("Aircraft added successfully");
     }
+
 
     private void getAircraftDropdown() {
         String query = "SELECT aircraft_id FROM aircrafts";
