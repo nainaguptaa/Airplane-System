@@ -55,7 +55,8 @@ public class FlightController implements ActionListener {
                 String departureAirportId = res.getString("departure_airport_id");
                 String arrivalAirportId = res.getString("arrival_airport_id");
 
-                flightList.add(new FlightViewModel(flightId, arrivalAirportId, departureAirportId, departureTime, arrivalTime, price, flightId + ""));
+                flightList.add(new FlightViewModel(flightId, arrivalAirportId, departureAirportId, departureTime,
+                        arrivalTime, price, flightId + ""));
             }
             flightViewModel = flightList.toArray(new FlightViewModel[0]);
         } catch (SQLException e) {
@@ -81,7 +82,8 @@ public class FlightController implements ActionListener {
         args.put("booking", booking);
 
         if (username == null) {
-            JOptionPane.showMessageDialog(null, "You must be logged in to book a flight", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "You must be logged in to book a flight", "Error",
+                    JOptionPane.ERROR_MESSAGE);
         } else {
             mainController.switchToViewWithArgs("SeatMapView", args);
         }

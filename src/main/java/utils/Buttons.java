@@ -23,7 +23,7 @@ public class Buttons {
         return button;
     }
 
-        public static JButton createStyledButton(String text, String actionCommand, Dimension size, Color color,
+    public static JButton createStyledButton(String text, String actionCommand, Dimension size, Color color,
             Font font) {
         JButton button = new JButton(text);
         button.setActionCommand(actionCommand);
@@ -37,6 +37,5 @@ public class Buttons {
         button.setFocusPainted(false);
         return button;
     }
-
 
 }

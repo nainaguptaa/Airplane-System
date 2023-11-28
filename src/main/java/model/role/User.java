@@ -58,56 +58,66 @@ public class User {
         this.role = role;
     }
 
-    public int getRole() {return role;}
+    public int getRole() {
+        return role;
+    }
 
-    public void setFirstName(String firstName){this.firstName=firstName;}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-    public String getFirstName(){return firstName;}
+    public String getFirstName() {
+        return firstName;
+    }
 
-    public void setLastName(String lastName){this.lastName=lastName;}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-    public String getLastName(){return lastName;}
+    public String getLastName() {
+        return lastName;
+    }
 
-    public void setAddress(String address){this.address=address;}
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-    public String getAddress(){return address;}
+    public String getAddress() {
+        return address;
+    }
 
-    public void setMember(Boolean member){this.member=member;}
+    public void setMember(Boolean member) {
+        this.member = member;
+    }
 
-    public Boolean getMember(){return member;}
+    public Boolean getMember() {
+        return member;
+    }
 
-    public static String roleToString(int role){
-        if(role==4){
+    public static String roleToString(int role) {
+        if (role == 4) {
             return "Admin";
-        }
-        else if(role==3){
+        } else if (role == 3) {
             return "Agent";
-        }
-        else if(role==2){
+        } else if (role == 2) {
             return "User";
-        }
-        else if(role==1){
+        } else if (role == 1) {
             return "Guest";
-        }
-        else{
+        } else {
             return "Invalid Role";
         }
     }
 
-    public static int roleToInt(String role){
-        if(role.equals("Admin")){
+    public static int roleToInt(String role) {
+        if (role.equals("Admin")) {
             return 4;
-        }
-        else if(role.equals("Agent")){
+        } else if (role.equals("Agent")) {
             return 3;
-        }
-        else if(role.equals("User")){
+        } else if (role.equals("User")) {
             return 2;
-        }
-        else if(role.equals("Guest")){
+        } else if (role.equals("Guest")) {
             return 1;
-        }
-        else{
+        } else {
             return 0;
         }
     }
