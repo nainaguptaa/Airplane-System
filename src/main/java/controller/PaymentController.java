@@ -28,6 +28,9 @@ public class PaymentController implements ActionListener {
         this.paymentView = new PaymentView(paymentModel);
 
         paymentView.addConfirmPaymentListener(this);
+        paymentView.addInsuranceListener(this);
+
+
     }
 
     private void updateModel() {
@@ -54,10 +57,16 @@ public class PaymentController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        EmailSender.sendEmail(mainController.getUser().getEmail(), "Payment Confirmation", "Your payment has been confirmed. Here is your ticket information:...\n");
         updateDatabase();
+        sendConfirmationEmail();
     }
 
+    private void sendConfirmationEmail() {
+        String emailContent = "Your payment has been confirmed.\n" +
+                "Booking ID: " + booking.getBookingId() + "\n" + // This booking id wont work
+                "Flight Details: ...";
+        EmailSender.sendEmail(mainController.getUser().getEmail(), "Payment Confirmation", emailContent);
+    }
     private void updateDatabase() {
         // Example data - replace these with actual data from your application context
         String username = mainController.getUser().getUsername();
