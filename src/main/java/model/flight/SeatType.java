@@ -17,4 +17,21 @@ public enum SeatType {
             return null;
         }
     }
+
+    public static int getPriceByType(SeatType type) {
+        if (type == null) {
+            throw new IllegalArgumentException("Seat type cannot be null");
+        }
+
+        switch (type) {
+            case BUSINESS:
+                return 50;
+            case COMFORT:
+                return 35;
+            case ORDINARY:
+                return 20;
+            default:
+                throw new IllegalArgumentException("Unknown seat type: " + type);
+        }
+    }
 }
