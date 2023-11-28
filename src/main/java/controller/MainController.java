@@ -30,10 +30,6 @@ public class MainController {
     private AdminFlightController adminFlightController;
     private CrewController crewController;
     private AllUsersController allUsersController;
-    private PaymentController paymentController;
-    private Booking booking;
-    private PaymentViewModel paymentViewModel;
-
 
     private AdminPromotionController adminPromotionController;
 
