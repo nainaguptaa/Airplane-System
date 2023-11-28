@@ -166,7 +166,7 @@
 
 
 
-package view;
+
 
 // import javax.swing.*;
 // import javax.swing.text.*;
@@ -176,108 +176,316 @@ package view;
 
 
 
+
+//whatever
+
+//package view
+// import viewModel.PaymentViewModel;
+
+// import javax.swing.*;
+// import java.awt.*;
+// import java.awt.event.ActionListener;
+// import javax.swing.table.DefaultTableModel;
+
+// // Setup Decorator Pattern
+// public class PaymentView extends JPanel {
+//     private JTable PaymentTable;
+//     private JTextField cardNumber;
+//     private JTextField expirationDate;
+//     private JTextField cvv;
+//     private JButton confirmBtn;
+//     private JButton yesButton;
+//     private DefaultTableModel tableModel;
+//     private JLabel messageLabel; // Label to display messages
+//     private PaymentViewModel PaymentViewModel[];
+
+
+
+
+//     public PaymentView(PaymentViewModel pvm[]) {
+//         // setTitle("Flights");
+//         PaymentViewModel = pvm;
+
+//         setSize(600, 400);
+//         setLayout(null);
+
+//         JLabel lbl = new JLabel("Payment Information");
+//         lbl.setBounds(250, 10, 100, 30);
+//         add(lbl);
+
+//         // Define column names
+//         String[] columnNames = { "SeatPrice", "Flight Price", "Tax", "Member", "Promotion" };
+
+//         // Initialize the table model and set column names
+//         tableModel = new DefaultTableModel(columnNames, 0) {
+//             @Override
+//             public boolean isCellEditable(int row, int column) {
+//                 return false;
+//             }
+//         };
+
+//         loadPaymentInfo();
+
+
+
+
+//         PaymentTable = new JTable(tableModel);
+
+
+//         private void loadPaymentInfo() {
+//             for (PaymentViewModel viewModel : PaymentViewModel) {
+//                 tableModel.addRow(new Object[]{viewModel.SeatPrice, viewModel.FlightPrice,
+//                         viewModel.Tax, viewModel.isMember,
+//                         viewModel.Promotion});
+//             }
+//         }
+//     }
+
+
+
+
+
+
+
+//good stuff
+
+package view;
+
+import viewModel.PaymentViewModel;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionListener;
 
-// Setup Decorator Pattern
+// public class PaymentView extends JPanel {
+//     private JTable PaymentTable;
+//     private JTextField cardNumber;
+//     private JTextField expirationDate;
+//     private JTextField cvv;
+//     private JButton confirmBtn;
+//     private JButton yesButton;
+//     private DefaultTableModel tableModel;
+//     private JLabel messageLabel; // Label to display messages
+//     private PaymentViewModel PaymentViewModel[];
+
+    // Parameterized constructor
+//     public PaymentView(PaymentViewModel pvm[]) {
+//         PaymentViewModel = pvm;
+//         setSize(600, 400);
+//         setLayout(null);
+
+//         JLabel lbl = new JLabel("Payment Information");
+//         lbl.setBounds(250, 10, 100, 30);
+//         add(lbl);
+
+//         // Define column names
+//         String[] columnNames = {"SeatPrice", "Flight Price", "Tax", "Member", "Promotion"};
+
+//         // Initialize the table model and set column names
+//         tableModel = new DefaultTableModel(columnNames, 0) {
+//             @Override
+//             public boolean isCellEditable(int row, int column) {
+//                 return false;
+//             }
+//         };
+
+//         // Load payment info
+//         loadPaymentInfo();
+
+//         PaymentTable = new JTable(tableModel);
+//     }
+
+//     // Default constructor
+//     public PaymentView() {
+//         // Call the parameterized constructor with dummy data
+//         this(new PaymentViewModel[] {
+//                 new PaymentViewModel(60.00, 800.00, 0.05, true, 10)
+
+//                 setSize(600, 400);
+//         setLayout(null);
+
+//         JLabel lbl = new JLabel("Payment Information");
+//         lbl.setBounds(250, 10, 100, 30);
+//         add(lbl);
+
+//         // Define column names
+//         String[] columnNames = {"SeatPrice", "Flight Price", "Tax", "Member", "Promotion"};
+
+//         // Initialize the table model and set column names
+//         tableModel = new DefaultTableModel(columnNames, 0) {
+//             @Override
+//             public boolean isCellEditable(int row, int column) {
+//                 return false;
+//                 // Add more instances if needed
+//         });
+//     }
+// }
+
+//     private void loadPaymentInfo() {
+//         for (PaymentViewModel viewModel : PaymentViewModel) {
+//             tableModel.addRow(new Object[]{viewModel.SeatPrice, viewModel.FlightPrice,
+//                     viewModel.Tax, viewModel.isMember, viewModel.Promotion});
+//         }
+//     }
+// }
+
+
+
+
+
 public class PaymentView extends JPanel {
-    private JTextField cardNumber;
-    private JTextField expirationDate;
-    private JTextField cvv;
-    private JButton confirmBtn;
-    private JButton yesButton;
-    private JLabel messageLabel; // Label to display messages
+    private JTable PaymentTable;
+    private DefaultTableModel tableModel;
+    private PaymentViewModel paymentViewModel[];
 
+    // Parameterized constructor
+    public PaymentView(PaymentViewModel pvm[]) {
+        paymentViewModel = pvm;
+        initializeGUI();
+    }
+
+    // Default constructor
     public PaymentView() {
-        // setTitle("Login");
-        setSize(450, 300);
-        setBackground(new Color(230, 230, 250));
-
-        // Using BorderLayout for overall layout
-        setLayout(new BorderLayout(10, 10));
-        add(createFormPanel(), BorderLayout.CENTER);
-        add(createButtonPanel(), BorderLayout.SOUTH);
-        add(createMessagePanel(), BorderLayout.NORTH); // Add message panel at the top
+         
+                PaymentViewModel pvm = new PaymentViewModel(60.00, 800.00, 0.05, true, 10);
+                PaymentViewModel pvmArr[] = {pvm};
+                paymentViewModel = pvmArr;
+                initializeGUI();
+                // Add more instances if needed
+        
+     
     }
 
-    private JPanel createFormPanel() {
-        JPanel formPanel = new JPanel();
-        formPanel.setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(4, 4, 4, 4); // Padding
+    private void initializeGUI() {
+        setSize(600, 400);
+        setLayout(null);
 
-        // Username
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        formPanel.add(new JLabel("Card Number:"), gbc);
-        cardNumber = new JTextField(10);
-        gbc.gridx = 1;
-        formPanel.add(cardNumber, gbc);
+        JLabel lbl = new JLabel("Payment Information");
+        lbl.setBounds(250, 10, 100, 30);
+        add(lbl);
 
-        // Password
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        formPanel.add(new JLabel("Expiration Date:"), gbc);
-        expirationDate = new JTextField(10);
-        gbc.gridx = 1;
-        formPanel.add(expirationDate, gbc);
+        // Define column names
+        String[] columnNames = {"SeatPrice", "Flight Price", "Tax", "Member", "Promotion"};
 
-                // Password
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        formPanel.add(new JLabel("CVV:"), gbc);
-        cvv = new JTextField(10);
-        gbc.gridx = 1;
-        formPanel.add(cvv, gbc);
+        // Initialize the table model and set column names
+        tableModel = new DefaultTableModel(columnNames, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
 
-            // Cancellation Insurance Message
-        gbc.gridx = 0;
-        gbc.gridy = -5;
-        formPanel.add(new JLabel("Would you like cancellation insurance?"), gbc);
+        // Load payment info
+        loadPaymentInfo();
 
-        return formPanel;
+        PaymentTable = new JTable(tableModel);
     }
 
+    private void loadPaymentInfo() {
+        for (PaymentViewModel viewModel : paymentViewModel) {
+            tableModel.addRow(new Object[]{viewModel.SeatPrice, viewModel.FlightPrice,
+                    viewModel.Tax, viewModel.isMember, viewModel.Promotion});
+        }
+    }
+}
+
+
+///good stuff
 
 
 
-    private JPanel createButtonPanel() {
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
-        // Login Button
-        confirmBtn = new JButton("Confirm Booking");
-        buttonPanel.add(confirmBtn);
+
+
+
+//     public PaymentView() {
+//         // setTitle("Login");
+//         setSize(450, 300);
+//         setBackground(new Color(230, 230, 250));
+
+//         // Using BorderLayout for overall layout
+//         setLayout(new BorderLayout(10, 10));
+//         add(createFormPanel(), BorderLayout.CENTER);
+//         add(createButtonPanel(), BorderLayout.SOUTH);
+//         add(createMessagePanel(), BorderLayout.NORTH); // Add message panel at the top
+    
+
+//     private JPanel createFormPanel() {
+//         JPanel formPanel = new JPanel();
+//         formPanel.setLayout(new GridBagLayout());
+//         GridBagConstraints gbc = new GridBagConstraints();
+//         gbc.insets = new Insets(4, 4, 4, 4); // Padding
+
+//         // Username
+//         gbc.gridx = 0;
+//         gbc.gridy = 0;
+//         formPanel.add(new JLabel("Card Number:"), gbc);
+//         cardNumber = new JTextField(10);
+//         gbc.gridx = 1;
+//         formPanel.add(cardNumber, gbc);
+
+//         // Password
+//         gbc.gridx = 0;
+//         gbc.gridy = 1;
+//         formPanel.add(new JLabel("Expiration Date:"), gbc);
+//         expirationDate = new JTextField(10);
+//         gbc.gridx = 1;
+//         formPanel.add(expirationDate, gbc);
+
+//                 // Password
+//         gbc.gridx = 0;
+//         gbc.gridy = 3;
+//         formPanel.add(new JLabel("CVV:"), gbc);
+//         cvv = new JTextField(10);
+//         gbc.gridx = 1;
+//         formPanel.add(cvv, gbc);
+
+//             // Cancellation Insurance Message
+//         gbc.gridx = 0;
+//         gbc.gridy = -5;
+//         formPanel.add(new JLabel("Would you like cancellation insurance?"), gbc);
+
+//         return formPanel;
+//     }
+
+
+
+
+//     private JPanel createButtonPanel() {
+//         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+
+//         // Login Button
+//         confirmBtn = new JButton("Confirm Booking");
+//         buttonPanel.add(confirmBtn);
 
         
-        JButton yesButton = new JButton("Yes");
-        buttonPanel.add(yesButton);
+//         JButton yesButton = new JButton("Yes");
+//         buttonPanel.add(yesButton);
 
-        return buttonPanel;
-    }
+//         return buttonPanel;
+//     }
 
-    private JPanel createMessagePanel() {
-        JPanel messagePanel = new JPanel();
-        messageLabel = new JLabel(" ");
-        messagePanel.add(messageLabel);
-        return messagePanel;
-    }
-
-
-    public JButton getYesButton() {
-        return yesButton;
-    }
+//     private JPanel createMessagePanel() {
+//         JPanel messagePanel = new JPanel();
+//         messageLabel = new JLabel(" ");
+//         messagePanel.add(messageLabel);
+//         return messagePanel;
+//     }
 
 
-    public void addConfirmListener(ActionListener al) {
-        confirmBtn.addActionListener(al);
-    }
+//     public JButton getYesButton() {
+//         return yesButton;
+//     }
+
+
+//     public void addConfirmListener(ActionListener al) {
+//         confirmBtn.addActionListener(al);
+//     }
 
 
 
-    public void display() {
-        System.out.println("Payment Page:");
-        // Code to display login form (username and password fields)
-    }
+//     public void display() {
+//         System.out.println("Payment Page:");
+//         // Code to display login form (username and password fields)
+//     }
 
-}
+// }

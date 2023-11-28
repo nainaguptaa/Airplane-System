@@ -63,6 +63,7 @@ public class FlightController implements ActionListener {
         }
 
         return flightViewModel;
+
     }
 
     @Override

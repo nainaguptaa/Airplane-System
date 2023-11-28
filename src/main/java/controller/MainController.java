@@ -4,6 +4,8 @@ package controller;
 import model.role.User;
 import model.flight.Booking;
 import utils.Buttons;
+import view.PaymentView;
+import viewModel.PaymentViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,8 +27,10 @@ public class MainController {
     private AdminFlightController adminFlightController;
     private CrewController crewController;
     private AllUsersController allUsersController;
-    private PaymentController paymentController;
+    // private PaymentController paymentController;
     private Booking booking;
+    private PaymentViewModel paymentViewModel;
+
 
     private AdminPromotionController adminPromotionController;
 
@@ -42,9 +46,11 @@ public class MainController {
         mainFrame.setLayout(new BorderLayout());
 
         this.user = new User();
-        this.switchToView("PaymentView");
+        this.switchToView("EntryView");
         mainFrame.setVisible(true);
     }
+
+
 
     public static MainController getInstance() {
         if (instance == null) {
@@ -380,8 +386,9 @@ public class MainController {
                 break;
             
             case "PaymentView":
-                paymentController = new PaymentController(db, this, booking);
-                mainFrame.getContentPane().add(paymentController.getView());
+                   
+                // paymentController = new PaymentController(db, this, booking);
+                // mainFrame.getContentPane().add(paymentController.getView());
                 break;
 
             default:
