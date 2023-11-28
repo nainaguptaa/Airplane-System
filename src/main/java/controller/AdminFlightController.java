@@ -1,8 +1,7 @@
 package controller;
 
-import model.flight.Booking;
 import view.AdminFlightView;
-import viewModel.FlightViewModel;
+import ViewModel.FlightViewModel;
 import view.CrewView;
 
 import java.awt.event.*;

@@ -25,6 +25,8 @@ public class MainController {
     private CrewController crewController;
     private AllUsersController allUsersController;
 
+    private PaymentController paymentController;
+
     private AdminPromotionController adminPromotionController;
 
     private JFrame mainFrame;
@@ -285,6 +287,11 @@ public class MainController {
             case "CrewView":
                 crewController = new CrewController(db, this, args);
                 mainFrame.getContentPane().add(crewController.getView());
+                break;
+
+            case "PaymentView":
+                paymentController = new PaymentController(db, this, args);
+                mainFrame.getContentPane().add(paymentController.getView());
                 break;
 
             default:
