@@ -35,15 +35,15 @@ public class PaymentView extends JPanel {
         initializeGUI();
     }
 
-//    // Default constructor
-//    public PaymentView() {
-//
-//        PaymentViewModel pvm = new PaymentViewModel(60.00, 800.00, 1.05, true, 10);
-//        PaymentViewModel pvmArr[] = { pvm };
-//        paymentViewModel = pvmArr;
-//        initializeGUI();
-//
-//    }
+    // // Default constructor
+    // public PaymentView() {
+    //
+    // PaymentViewModel pvm = new PaymentViewModel(60.00, 800.00, 1.05, true, 10);
+    // PaymentViewModel pvmArr[] = { pvm };
+    // paymentViewModel = pvmArr;
+    // initializeGUI();
+    //
+    // }
 
     private void initializeGUI() {
 
@@ -138,7 +138,6 @@ public class PaymentView extends JPanel {
             public void actionPerformed(ActionEvent e) {
 
                 cancellation = 50.00;
-                System.out.println(cancellation);
                 displayTotal();
             }
         });
@@ -149,13 +148,19 @@ public class PaymentView extends JPanel {
         noButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Add your logic for "No" button click
                 cancellation = 0.00;
-                System.out.println(cancellation);
                 displayTotal();
             }
         });
         add(noButton);
+    }
+
+    public double getCancellation() {
+        return cancellation;
+    }
+
+    public void addConfirmPaymentListener(ActionListener listener) {
+        confirmButton.addActionListener(listener);
     }
 
     private void showConfirmationPopUp() {
@@ -170,7 +175,7 @@ public class PaymentView extends JPanel {
 
         total = seatPrice + flightPrice + cancellation;
         PriceBeforeTax = total - (total * (promotion / 100));
-        finalPrice = PriceBeforeTax * tax;
+        finalPrice = PriceBeforeTax + tax;
 
         String breakdown = "Seat Price: $" + seatPrice + "\n" +
                 "Flight Price: $" + flightPrice + "\n" +
@@ -185,15 +190,17 @@ public class PaymentView extends JPanel {
         breakdownTextArea.setVisible(true);
     }
 
+    public double getFinalPrice() {
+        return finalPrice;
+    }
+
     // Checks if all three fields are filled
     private boolean validateCardInfo() {
         return !cardNumber.getText().isEmpty() && !expirationDate.getText().isEmpty() && !cvv.getText().isEmpty();
     }
 
     private void loadPaymentInfo() {
-        for (PaymentViewModel viewModel : paymentViewModel) {
-            tableModel.addRow(new Object[] { viewModel.SeatPrice, viewModel.FlightPrice,
-                    viewModel.Tax, viewModel.isMember, viewModel.Promotion });
-        }
+        tableModel.addRow(new Object[] { paymentViewModel.SeatPrice, paymentViewModel.FlightPrice,
+                paymentViewModel.Tax, paymentViewModel.isMember, paymentViewModel.Promotion });
     }
 }

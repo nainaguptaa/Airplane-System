@@ -1,6 +1,7 @@
 package controller;
 
 import model.flight.Booking;
+import model.flight.SeatType;
 import utils.EmailSender;
 import view.PaymentView;
 import ViewModel.PaymentViewModel;
@@ -27,7 +28,6 @@ public class PaymentController implements ActionListener {
         this.paymentView = new PaymentView(paymentModel);
 
         paymentView.addConfirmPaymentListener(this);
-        paymentView.addInsuranceListener(this);
 
     }
 
@@ -47,6 +47,11 @@ public class PaymentController implements ActionListener {
                 }
 
                 String query2 = "SELECT class FROM seats where seat_id = " + booking.getSeatId();
+                ResultSet rs2 = db.executeQuery(query2);
+                if (rs2 != null && rs2.next()) {
+                    String seatClass = rs2.getString("class");
+                    paymentModel.setSeatPrice(SeatType.getPriceByType(seatClass));
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -68,12 +73,11 @@ public class PaymentController implements ActionListener {
     }
 
     private void updateDatabase() {
-        // Example data - replace these with actual data from your application context
         String username = mainController.getUser().getUsername();
         int flightId = booking.getFlightId();
         int seatId = booking.getSeatId();
-        boolean insurance = false; // paymentView.getInsuranceCheckBox(); // paymentView.getInsurance();
-        double price = 0; // paymentView.getTotalPrice();
+        boolean insurance = paymentView.getCancellation() == 0.0 ? true : false;
+        double price = paymentView.getFinalPrice();
 
         try {
             // Start a transaction
