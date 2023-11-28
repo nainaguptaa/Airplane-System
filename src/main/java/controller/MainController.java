@@ -42,7 +42,7 @@ public class MainController {
         mainFrame.setLayout(new BorderLayout());
 
         this.user = new User();
-        this.switchToView("PaymentView");
+        this.switchToView("EntryView");
         mainFrame.setVisible(true);
     }
 
@@ -313,7 +313,7 @@ public class MainController {
         switch (viewName) {
             case "EntryView":
                 entryController = new EntryController(db, this);
-                mainFrame.getContentPane().add(EntryController.entryController.getView());
+                mainFrame.getContentPane().add(entryController.getView());
                 break;
 
             case "FlightView":
