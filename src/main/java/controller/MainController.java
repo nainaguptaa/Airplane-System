@@ -295,6 +295,10 @@ public class MainController {
                 mainFrame.getContentPane().add(crewController.getView());
                 break;
 
+            case "PaymentView":
+                // paymentController = new PaymentController(db, this, args);
+                // mainFrame.getContentPane().add(paymentController.getView());
+                // break;
             default:
                 break;
         }
