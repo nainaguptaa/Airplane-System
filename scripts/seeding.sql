@@ -7,9 +7,9 @@ INSERT INTO users (username, password, first_name, last_name, address, email, ro
 ('agent1', 'password2', 'Ice', 'Spice', '345 main st.', 'user2@email.com', 3, FALSE),
 ('admin1', 'password3', 'Ben', 'Ten', '214 main st.', 'admin1@email.com', 4, TRUE),
 ('guest1', 'password4', 'Jane', 'Doe', '678 another st.', 'user3@email.com', 1, FALSE),
-('user4', 'password5', 'John', 'Smith', '910 another ave', 'user4@email.com', 2, TRUE),
+('user2', 'password5', 'John', 'Smith', '910 another ave', 'user4@email.com', 2, TRUE),
 ('admin2', 'password6', 'Alice', 'Johnson', '1011 admin rd.', 'admin2@email.com', 4, FALSE),
-('user5', 'password7', 'Emily', 'Brown', '111 Sunset Blvd', 'user5@email.com', 2, TRUE),
+('user3', 'password7', 'Emily', 'Brown', '111 Sunset Blvd', 'user5@email.com', 2, TRUE),
 ('agent2', 'password8', 'Michael', 'Green', '222 Sunrise Ave', 'user6@email.com', 3, FALSE),
 ('guest2', 'password9', 'Sarah', 'White', '333 Moon St', 'user7@email.com', 1, TRUE),
 ('agent3', 'password10', 'David', 'Black', '444 Star Rd', 'user8@email.com', 2, FALSE),
@@ -147,11 +147,11 @@ INSERT INTO flights (aircraft_id, departure_time, arrival_time, departure_airpor
 INSERT INTO bookings (username, flight_id, seat_id, booking_date, insurance, price, status) VALUES
 ('user1', 1, 1, '2023-11-24 10:00:00', FALSE, 300.00, 'Confirmed'),
 ('user2', 2, 3, '2023-11-25 10:00:00', TRUE, 450.00, 'Confirmed'),
-('user3', 3, 25, '2023-11-26 11:00:00', TRUE, 350.00, 'Confirmed'),
-('user4', 4, 26, '2023-11-27 12:00:00', FALSE, 500.00, 'Confirmed'),
-('user5', 5, 30, '2023-11-28 13:00:00', TRUE, 550.00, 'Confirmed'),
-('user6', 6, 31, '2023-11-29 14:00:00', FALSE, 600.00, 'Confirmed'),
-('user7', 7, 32, '2023-11-30 15:00:00', TRUE, 650.00, 'Confirmed');
+('user3', 3, 2, '2023-11-26 11:00:00', TRUE, 350.00, 'Confirmed'),
+('user1', 4, 4, '2023-11-27 12:00:00', FALSE, 500.00, 'Confirmed'),
+('user2', 5, 6, '2023-11-28 13:00:00', TRUE, 550.00, 'Confirmed'),
+('user3', 6, 7, '2023-11-29 14:00:00', FALSE, 600.00, 'Confirmed'),
+('user1', 7, 8, '2023-11-30 15:00:00', TRUE, 650.00, 'Confirmed');
 
 -- Insert data into 'crew'
 INSERT INTO crew (username, flight_id) VALUES
