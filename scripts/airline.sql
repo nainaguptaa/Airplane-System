@@ -64,7 +64,7 @@ CREATE TABLE seats (
     is_available BOOLEAN DEFAULT TRUE NOT NULL,
     FOREIGN KEY (aircraft_id) REFERENCES aircrafts(aircraft_id) ON DELETE CASCADE
 );
--- Create 'flights' tables
+-- Create 'flights' table
 CREATE TABLE flights (
     flight_id INT AUTO_INCREMENT PRIMARY KEY,
     aircraft_id INT NOT NULL,

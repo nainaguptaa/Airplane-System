@@ -3,7 +3,7 @@ package controller;
 
 import model.role.User;
 import utils.Buttons;
-import view.PaymentView;
+import model.flight.Booking;
 
 import javax.swing.*;
 import java.awt.*;
