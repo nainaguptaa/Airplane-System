@@ -95,7 +95,7 @@ public class RegisterView extends JPanel {
         return buttonPanel;
     }
 
-    public String getEmail() { //need to check if email is valid
+    public String getEmail() { // need to check if email is valid
         try {
             return emailField.getText();
         } catch (NullPointerException e) {

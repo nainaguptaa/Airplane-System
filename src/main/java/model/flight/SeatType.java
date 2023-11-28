@@ -1,8 +1,8 @@
-package  model.flight;
+package model.flight;
 
 public enum SeatType {
-    ORDINARY, 
-    COMFORT, 
+    ORDINARY,
+    COMFORT,
     BUSINESS;
 
     @Override
@@ -11,10 +11,27 @@ public enum SeatType {
     }
 
     public static SeatType fromString(String str) {
-        try{
+        try {
             return SeatType.valueOf(str.toUpperCase());
         } catch (IllegalArgumentException e) {
             return null;
+        }
+    }
+
+    public static int getPriceByType(SeatType type) {
+        if (type == null) {
+            throw new IllegalArgumentException("Seat type cannot be null");
+        }
+
+        switch (type) {
+            case BUSINESS:
+                return 50;
+            case COMFORT:
+                return 35;
+            case ORDINARY:
+                return 20;
+            default:
+                throw new IllegalArgumentException("Unknown seat type: " + type);
         }
     }
 }

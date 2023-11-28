@@ -5,11 +5,12 @@ public class FlightViewModel {
     public String Departure;
     public String DepartureTime;
     public String ArrivalTime;
-    public int Price;
+    public double Price;
     public String FlightNumber;
     public int FlightId;
 
-    public FlightViewModel(int FlightId, String Destination, String Departure, String DepartureTime, String ArrivalTime, int Price,
+    public FlightViewModel(int FlightId, String Destination, String Departure, String DepartureTime, String ArrivalTime,
+            double Price,
             String FlightNumber) {
         this.FlightId = FlightId;
         this.Destination = Destination;

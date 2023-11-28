@@ -3,7 +3,7 @@ package controller;
 import view.MembershipView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import  model.role.User;
+import model.role.User;
 
 import javax.swing.*;
 
