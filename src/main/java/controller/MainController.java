@@ -151,7 +151,7 @@ public class MainController {
 
         JButton btnAdminPromotionView = Buttons.createStyledButton(
                 "Promotion",
-                "AdminPromotionView", //create promotion view for admin
+                "AdminPromotionView", // create promotion view for admin
                 buttonSize,
                 buttonColor,
                 buttonFont,
@@ -333,11 +333,6 @@ public class MainController {
                 registerController = new RegisterController(db, this);
                 mainFrame.getContentPane().add(registerController.getView());
                 break;
-            case "SeatView":
-                // seatController = new SeatController(db, this, userBooking);
-                // mainFrame.getContentPane().add(seatController.getView());
-                // break;
-
             case "UserView":
                 userController = new UserController(db, this);
                 mainFrame.getContentPane().add(userController.getView());
