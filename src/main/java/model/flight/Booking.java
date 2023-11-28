@@ -9,10 +9,11 @@ public class Booking {
     private int flightId;
     private int seatId;
     private double price;
-    private Date bookingTime; //Make time object
+    private Date bookingTime; // Make time object
     private Boolean insurance;
 
-    public Booking(int bookingId, int flightId, String username, int seatId,  Boolean insurance, double price, Date bookingTime) {
+    public Booking(int bookingId, int flightId, String username, int seatId, Boolean insurance, double price,
+            Date bookingTime) {
         this.bookingId = bookingId;
         this.username = username;
         this.flightId = flightId;

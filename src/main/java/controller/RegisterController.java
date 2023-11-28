@@ -82,7 +82,7 @@ public class RegisterController implements ActionListener {
         // check if query was null or returned nothing
         try {
             if (rs != null) {
-                if(rs.next()){
+                if (rs.next()) {
                     System.out.println("User already exists"); // Maybe make this an exception
                 } else {
                     // insert user into database

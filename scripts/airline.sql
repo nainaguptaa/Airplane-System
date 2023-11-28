@@ -1,3 +1,5 @@
+-- Create database
+CREATE DATABASE IF NOT EXISTS airline;
 -- Use the 'airline' database
 USE airline;
 -- Drop 'tickets' table if it exists
@@ -20,6 +22,8 @@ DROP TABLE IF EXISTS locations;
 DROP TABLE IF EXISTS users;
 -- Drop 'aircraftTypes' table if it exists
 DROP TABLE IF EXISTS aircraftTypes;
+-- Drop 'promotions' table if it exists
+DROP TABLE IF EXISTS promotion;
 -- Now recreate the tables in the correct order
 -- Create 'users' table
 CREATE TABLE users (
@@ -57,6 +61,7 @@ CREATE TABLE seats (
     aircraft_id INT NOT NULL,
     seat_number VARCHAR(10) NOT NULL,
     class VARCHAR(50) NOT NULL,
+    is_available BOOLEAN DEFAULT TRUE NOT NULL,
     FOREIGN KEY (aircraft_id) REFERENCES aircrafts(aircraft_id) ON DELETE CASCADE
 );
 -- Create 'flights' table

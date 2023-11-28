@@ -3,6 +3,7 @@ package controller;
 
 import model.role.User;
 import utils.Buttons;
+import model.flight.Booking;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,7 +17,12 @@ public class MainController {
     private UserController userController;
     private RegisterController registerController;
     private User user;
+    private Booking userBooking;
+    private AgentController agentController;
     private FlightController flightController;
+
+    private SeatController seatController;
+
     private MembershipController membershipController;
     private BookingsController bookingsController;
     private ManageFlightsController manageFlightsController;
@@ -66,9 +72,9 @@ public class MainController {
     }
 
     public void removeNavPanel() {
-        try{
+        try {
             mainFrame.remove(navPanel);
-        } catch (Exception e){
+        } catch (Exception e) {
         }
     }
 
@@ -95,7 +101,7 @@ public class MainController {
         }
     }
 
-    private void createAdminNavButtons(){
+    private void createAdminNavButtons() {
         // Create and add buttons
 
         Dimension buttonSize = new Dimension(140, 40); // Uniform size for all buttons
@@ -115,7 +121,7 @@ public class MainController {
 
         JButton btnManageFlightView = Buttons.createStyledButton(
                 "Manage Flights",
-                "ManageFlightsView", //create manage flight view for admin
+                "ManageFlightsView", // create manage flight view for admin
                 buttonSize,
                 buttonColor,
                 buttonFont,
@@ -123,7 +129,7 @@ public class MainController {
 
         JButton btnManageAircraftView = Buttons.createStyledButton(
                 "Manage Aircrafts",
-                "ManageAircraftsView", //create manage aircraft view for admin
+                "ManageAircraftsView", // create manage aircraft view for admin
                 buttonSize,
                 buttonColor,
                 buttonFont,
@@ -131,7 +137,7 @@ public class MainController {
 
         JButton btnAdminFlightView = Buttons.createStyledButton(
                 "Flights",
-                "AdminFlightView", //create manage crews view for admin
+                "AdminFlightView", // create manage crews view for admin
                 buttonSize,
                 buttonColor,
                 buttonFont,
@@ -139,7 +145,7 @@ public class MainController {
 
         JButton btnAllUsersView = Buttons.createStyledButton(
                 "All Users",
-                "AllUsersView", //create all users view for admin
+                "AllUsersView", // create all users view for admin
                 buttonSize,
                 buttonColor,
                 buttonFont,
@@ -147,7 +153,7 @@ public class MainController {
 
         JButton btnAdminPromotionView = Buttons.createStyledButton(
                 "Promotion",
-                "AdminPromotionView", //create promotion view for admin
+                "AdminPromotionView", // create promotion view for admin
                 buttonSize,
                 buttonColor,
                 buttonFont,
@@ -166,7 +172,7 @@ public class MainController {
         navPanel.add(btnAdminPromotionView);
     }
 
-    private void createMemberNavButtons(){
+    private void createMemberNavButtons() {
 
         // Create and add buttons
 
@@ -208,8 +214,8 @@ public class MainController {
         navPanel.add(btnMembershipView);
     }
 
-    private void createGuestNavButtons(){
-            // Create and add buttons
+    private void createGuestNavButtons() {
+        // Create and add buttons
 
         Dimension buttonSize = new Dimension(140, 40); // Uniform size for all buttons
         Dimension spacerSize = new Dimension(0, 10); // Spacer size for padding
@@ -240,7 +246,7 @@ public class MainController {
 
     }
 
-    private void createAgentNavButtons(){
+    private void createAgentNavButtons() {
         // Create and add buttons
 
         Dimension buttonSize = new Dimension(140, 40); // Uniform size for all buttons
@@ -260,7 +266,7 @@ public class MainController {
 
         JButton btnPassengerListView = Buttons.createStyledButton(
                 "Passenger List",
-                "PassengerListView", //create passenger list view for agent
+                "PassengerListView", // create passenger list view for agent
                 buttonSize,
                 buttonColor,
                 buttonFont,
@@ -282,8 +288,10 @@ public class MainController {
 
         switch (viewName) {
             case "SeatMapView":
+                seatController = new SeatController(db, this, args);
+                mainFrame.getContentPane().add(seatController.getView());
                 break;
-            
+
             case "CrewView":
                 crewController = new CrewController(db, this, args);
                 mainFrame.getContentPane().add(crewController.getView());
@@ -294,6 +302,10 @@ public class MainController {
                 mainFrame.getContentPane().add(paymentController.getView());
                 break;
 
+            case "PaymentView":
+                // paymentController = new PaymentController(db, this, args);
+                // mainFrame.getContentPane().add(paymentController.getView());
+                // break;
             default:
                 break;
         }
@@ -301,8 +313,6 @@ public class MainController {
         mainFrame.getContentPane().revalidate();
         mainFrame.getContentPane().repaint();
     }
-
-
 
     public void switchToView(String viewName) {
 
@@ -334,7 +344,6 @@ public class MainController {
                 registerController = new RegisterController(db, this);
                 mainFrame.getContentPane().add(registerController.getView());
                 break;
-
             case "UserView":
                 userController = new UserController(db, this);
                 mainFrame.getContentPane().add(userController.getView());
@@ -372,10 +381,17 @@ public class MainController {
                 adminFlightController = new AdminFlightController(db, this);
                 mainFrame.getContentPane().add(adminFlightController.getView());
                 break;
-            
+
             case "AllUsersView":
                 allUsersController = new AllUsersController(db, this);
                 mainFrame.getContentPane().add(allUsersController.getView());
+                break;
+            case "PassengerListView":
+                agentController = new AgentController(db, this);
+                mainFrame.getContentPane().add(agentController.getFlightView());
+                break;
+            case "PassengerTableView":
+                mainFrame.getContentPane().add(agentController.getPassengerView());
                 break;
 
             case "AdminPromotionView":
