@@ -8,6 +8,7 @@ import viewModel.SeatViewModel;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.HashMap;
 import java.awt.event.ActionListener;
 
 public class SeatController implements ActionListener{
@@ -90,7 +91,9 @@ public class SeatController implements ActionListener{
         String seatNumber = seatView.getSelectedSeatId();
         booking.setSeatId(Integer.parseInt(seatNumber.substring(1)));
         System.out.println(seatNumber);
-        // mc.switchToView("PaymentView");
+        HashMap<String, Object> args = new HashMap<>();
+        args.put("booking", booking);   
+        mc.switchToViewWithArgs("PaymentView", args);
     }
 
     public SeatView getView() {
