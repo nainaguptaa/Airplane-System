@@ -19,7 +19,7 @@ public class Member extends User {
     }
 
     // public Address getAddress() {
-    //     return address;
+    // return address;
     // }
 
     public void setAddress(Address address) {
