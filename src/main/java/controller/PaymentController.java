@@ -37,28 +37,23 @@ public class PaymentController implements ActionListener {
     private PaymentViewModel updateModel() {
         double flightPrice = booking.getPrice();
         try {
-            if (mainController.getUser().getMember()) {
-                String query1 = "SELECT * FROM promotion WHERE price_for_discount <= " + flightPrice +
-                        " ORDER BY discount DESC LIMIT 1";
+            String query1 = "SELECT * FROM promotion WHERE price_for_discount <= " + flightPrice +
+                    " ORDER BY discount DESC LIMIT 1";
 
-                ResultSet rs1 = db.executeQuery(query1);
-                if (rs1 != null && rs1.next()) {
-                    double discount = rs1.getDouble("discount");
-                    // Update paymentModel with the obtained discount
-                    paymentModel = new PaymentViewModel(0, booking.getPrice(), 0.05 * booking.getPrice(),
-                            mainController.getUser().getMember(), discount);
-                }
-                System.out.println("HERE 1:" + booking.getSeatId());
-                String query2 = "SELECT class FROM seats where seat_id = " + booking.getSeatId();
-                ResultSet rs2 = db.executeQuery(query2);
-                if (rs2 != null && rs2.next()) {
-                    String seatClass = rs2.getString("class");
-                    System.out.println("HERE 2:" + seatClass);
-                    paymentModel.setSeatPrice(SeatType.getPriceByType(seatClass));
-                }
-                System.out.println("HERE 3:" + paymentModel.getSeatPrice());
-
+            ResultSet rs1 = db.executeQuery(query1);
+            if (rs1 != null && rs1.next()) {
+                double discount = mainController.getUser().getMember() ? rs1.getDouble("discount") : 0.0;
+                // Update paymentModel with the obtained discount
+                paymentModel = new PaymentViewModel(0, booking.getPrice(), 0.05 * booking.getPrice(),
+                        mainController.getUser().getMember(), discount);
             }
+            String query2 = "SELECT class FROM seats where seat_id = " + booking.getSeatId();
+            ResultSet rs2 = db.executeQuery(query2);
+            if (rs2 != null && rs2.next()) {
+                String seatClass = rs2.getString("class");
+                paymentModel.setSeatPrice(SeatType.getPriceByType(seatClass));
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -80,9 +75,11 @@ public class PaymentController implements ActionListener {
 
     private void sendConfirmationEmail() {
         String emailContent = "Your payment has been confirmed.\n" +
-                "Booking ID: " + booking.getBookingId() + "\n" + // This booking id wont work
-                "Flight Details: ...";
-        EmailSender.sendEmail(mainController.getUser().getEmail(), "Payment Confirmation", emailContent);
+                "Flight Details: " + booking.getFlightId() + "\n" +
+                "Seat Details: " + booking.getSeatId() + "\n" +
+                "Price: " + paymentView.getFinalPrice() + "\n" +
+                "Cancellation: " + (paymentView.getCancellation() != 0.0 ? "Insured" : "Not Insured") + "\n";
+        EmailSender.sendEmail(mainController.getUser().getEmail(), "Payment Confirmation - " + mainController.getUser().getUsername(), emailContent);
     }
 
     private void updateDatabase() {

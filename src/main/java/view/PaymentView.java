@@ -31,7 +31,9 @@ public class PaymentView extends JPanel {
     // Parameterized constructor
     public PaymentView(PaymentViewModel pvm) {
         paymentViewModel = pvm;
+        cancellation = 0.00;
         initializeGUI();
+        displayTotal();
     }
 
     private void initializeGUI() {
