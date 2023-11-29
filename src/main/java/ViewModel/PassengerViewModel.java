@@ -1,4 +1,4 @@
-package viewModel;
+package ViewModel;
 
 public class PassengerViewModel {
     private String username;

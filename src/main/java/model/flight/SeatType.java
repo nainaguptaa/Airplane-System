@@ -18,20 +18,21 @@ public enum SeatType {
         }
     }
 
-    public static int getPriceByType(SeatType type) {
+    public static int getPriceByType(String type) {
         if (type == null) {
             throw new IllegalArgumentException("Seat type cannot be null");
         }
 
-        switch (type) {
-            case BUSINESS:
+        switch (type.toUpperCase()) {
+            case "BUSINESS":
                 return 50;
-            case COMFORT:
+            case "COMFORT":
                 return 35;
-            case ORDINARY:
+            case "ORDINARY":
                 return 20;
             default:
                 throw new IllegalArgumentException("Unknown seat type: " + type);
+
         }
     }
 }

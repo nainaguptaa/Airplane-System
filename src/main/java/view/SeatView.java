@@ -1,7 +1,7 @@
 package view;
 
 import model.flight.SeatType;
-import viewModel.SeatViewModel;
+import ViewModel.SeatViewModel;
 
 import javax.swing.*;
 import java.awt.*;

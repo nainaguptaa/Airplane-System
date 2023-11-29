@@ -1,4 +1,4 @@
-package viewModel;
+package ViewModel;
 
 import model.flight.SeatType;
 

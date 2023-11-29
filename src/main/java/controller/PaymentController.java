@@ -1,221 +1,137 @@
-// package main.java.controller;
-// import main.java.model.flight.PaymentContext;
-// import main.java.model.flight.PaymentStrategy;
-// import main.java.model.flight.MasterCardStrategy;
-// import main.java.model.flight.VisaStrategy;
-// import main.java.view.PaymentView;
-// import java.sql.Connection;
-
-// public class PaymentController {
-//   private final PaymentView paymentView;
-//   private final Connection databaseConnection;
-
-//   public PaymentController(PaymentView paymentView, Connection databaseConnection) {
-//       this.paymentView = paymentView;
-//       this.databaseConnection = databaseConnection;
-//       initialize();
-//   }
-
-//   private void initialize() {
-//     // Add listeners for user actions in the PaymentView
-//     paymentView.getMasterCardButton().addActionListener(e -> processPayment("MasterCard"));
-//     paymentView.getVisaButton().addActionListener(e -> processPayment("Visa"));
-//     // Add listeners for other UI components as needed
-// }
-
-// private void processPayment(String paymentMethod) {
-//   // Get relevant information from the View
-//   int flightId = /* get flightId */;
-//   boolean hasCancellationInsurance = paymentView.hasCancellationInsurance();
-
-//   // Create a PaymentStrategy based on the payment method
-//   PaymentStrategy paymentStrategy;
-
-//   switch (paymentMethod) {
-//       case "MasterCard":
-//           paymentStrategy = new MasterCardStrategy();
-//           break;
-//       case "Visa":
-//           paymentStrategy = new VisaStrategy();
-//           break;
-//   }
-// }
-
-// PaymentContext paymentContext = new PaymentContext(flightId, paymentStrategy, databaseConnection, hasCancellationInsurance);
-// paymentContext.processPayment(paymentMethod);
-
-// }
-
-
-
-
 package controller;
-import model.role.User;
-import model.flight.Booking;
-import viewModel.PaymentViewModel;
-import view.PaymentView;
-import java.awt.event.*;
 
-import javax.swing.Action;
+import model.flight.Booking;
+import model.flight.SeatType;
+import utils.EmailSender;
+import view.PaymentView;
+import ViewModel.PaymentViewModel;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Map;
 
+public class PaymentController implements ActionListener {
+    private PaymentView paymentView;
+    private PaymentViewModel paymentModel;
+    private MainController mainController;
+    private Database db;
+    private Booking booking;
 
+    public PaymentController(Database db, MainController mc, Map<String, Object> args) {
+        this.mainController = mc;
+        this.db = db;
+        this.booking = (Booking) args.get("booking");
+        if (booking == null) {
+            System.err.println("The object retrieved from 'args' is not a Booking");
+        }
+        this.paymentView = new PaymentView(updateModel());
 
-public class PaymentController implements ActionListener{
-  private Booking booking;
-  private Database db;
-  private PaymentView view;
-  private MainController mainController;
-  private String SeatTypeVal;
-  private double SeatPrice;
-  private double totalPrice;
-  private double cancellationFees;
-
-
-
-
-  public PaymentController(Database db, MainController mc, Booking booking) {
-    this.mainController = mc;
-    this.booking = booking;
-    this.view = new PaymentView();
-    this.db = db;
-    // addListeners();
-}
-
-
-// int seatId = booking.getSeatId();
-// double flight_price = booking.getPrice();
-
-
-
-
-
-
-// public string seatType() {
-//   String query = "SELECT class FROM seats WHERE seat_id = '" + booking.getSeatId() +  "'"; 
-//   ResultSet rs = db.executeQuery(query);
-//   try {
-//       return rs.next();
-//   } catch (Exception e) { }
-// }
-
-public void seatType() {
-  String query = "SELECT class FROM seats WHERE seat_id = '" + booking.getSeatId() + "'";
-  ResultSet rs = db.executeQuery(query);
-
-  try {
-      if (rs.next()) {
-          SeatTypeVal = rs.getString("class");
-      } 
-  } catch (SQLException e) {
-      e.printStackTrace(); // Handle or log the exception appropriately
-      // Or throw an exception if needed
-  } finally {
-      // Close resources in a finally block
-      try {
-          if (rs != null) {
-              rs.close();
-          }
-          // Close other resources if needed (e.g., preparedStatement)
-      } catch (SQLException e) {
-          e.printStackTrace(); // Handle or log the exception appropriately
-      }
-  }
-}
-
-public double seatPrice() {
-  if ("business".equals(SeatTypeVal)) {
-      SeatPrice = 50.00;
-  }
-  if ("comfort".equals(SeatTypeVal)) {
-      SeatPrice = 35.00;
-  }
-  if ("ordinary".equals(SeatTypeVal)) {
-      SeatPrice = 20.00;
-  }
-  return SeatPrice;
-}
-
-
-// Checks if button was clicked for cancellation fees, if clicked adds $50
-// @Override
-// public void actionPerformed(ActionEvent e) {
-//     // Check if the "Yes" button is the source of the event
-//     if (e.getSource() == view.getYesButton()) {
-//         // If "Yes" button is clicked, add 50 to totalPrice
-//         cancellationFees = 50.00;
-//     }
-//     else{
-//       cancellationFees = 0.00;
-//     }
-  //}
-
-
-
- // Checks if button was clicked for cancellation fees, if clicked adds $50
-  @Override
-  public void actionPerformed(ActionEvent e) {
+        paymentView.addConfirmPaymentListener(this);
 
     }
 
+    private PaymentViewModel updateModel() {
+        double flightPrice = booking.getPrice();
+        try {
+            String query1 = "SELECT * FROM promotion WHERE price_for_discount <= " + flightPrice +
+                    " ORDER BY discount DESC LIMIT 1";
 
-public double FinalPrice() {
-  //includes cancellation fees, taxes, and discount
-  double flight_price = booking.getPrice();
-  double above_price = 300.00;
-  double NewtotalPrice;
-  totalPrice = flight_price + SeatPrice + cancellationFees;
+            ResultSet rs1 = db.executeQuery(query1);
+            if (rs1 != null && rs1.next()) {
+                double discount = mainController.getUser().getMember() ? rs1.getDouble("discount") : 0.0;
+                // Update paymentModel with the obtained discount
+                paymentModel = new PaymentViewModel(0, booking.getPrice(), 0.05 * booking.getPrice(),
+                        mainController.getUser().getMember(), discount);
+            }
+            String query2 = "SELECT class FROM seats where seat_id = " + booking.getSeatId();
+            ResultSet rs2 = db.executeQuery(query2);
+            if (rs2 != null && rs2.next()) {
+                String seatClass = rs2.getString("class");
+                paymentModel.setSeatPrice(SeatType.getPriceByType(seatClass));
+            }
 
-  if (totalPrice >= above_price) {
-      // Fetch a randomized discount value from the promotion table
-      double discount = getRandomDiscount();
-      
-  // Apply the discount to the totalPrice
-      NewtotalPrice = totalPrice - (totalPrice * discount);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return paymentModel;
+    }
 
-      return (NewtotalPrice * 1.05);
-  } else {
-      // If the promotion condition is not met, return the original totalPrice
-      return (totalPrice * 1.05);
-  }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (paymentView.validateCardInfo()) {
+            updateDatabase();
+            sendConfirmationEmail();
+            JOptionPane.showMessageDialog(paymentView, "Congratulations! Your booking has been confirmed!");
+            mainController.switchToView("UserView");
+
+        } else {
+            JOptionPane.showMessageDialog(paymentView, "Please enter all information.");
+        }
+    }
+
+    private void sendConfirmationEmail() {
+        String emailContent = "Your payment has been confirmed.\n" +
+                "Flight Details: " + booking.getFlightId() + "\n" +
+                "Seat Details: " + booking.getSeatId() + "\n" +
+                "Price: " + paymentView.getFinalPrice() + "\n" +
+                "Cancellation: " + (paymentView.getCancellation() != 0.0 ? "Insured" : "Not Insured") + "\n";
+        EmailSender.sendEmail(mainController.getUser().getEmail(), "Payment Confirmation - " + mainController.getUser().getUsername(), emailContent);
+    }
+
+    private void updateDatabase() {
+        String username = mainController.getUser().getUsername();
+        int flightId = booking.getFlightId();
+        int seatId = booking.getSeatId();
+        boolean insurance = paymentView.getCancellation() != 0.0;
+        double price = paymentView.getFinalPrice();
+
+        try {
+            // Start a transaction
+            db.getConnection().setAutoCommit(false);
+
+            // Insert a new booking
+            String insertBookingSql = "INSERT INTO bookings (username, flight_id, seat_id, insurance, price, status) VALUES (?, ?, ?, ?, ?, ?)";
+            try (PreparedStatement pstmt = db.getConnection().prepareStatement(insertBookingSql)) {
+                pstmt.setString(1, username);
+                pstmt.setInt(2, flightId);
+                pstmt.setInt(3, seatId);
+                pstmt.setBoolean(4, insurance);
+                pstmt.setDouble(5, price);
+                pstmt.setString(6, "Confirmed");
+                pstmt.executeUpdate();
+            }
+
+            // Update the seat status to 'taken'
+            String updateSeatSql = "UPDATE seats SET is_available = false WHERE seat_id = ?";
+            try (PreparedStatement pstmt = db.getConnection().prepareStatement(updateSeatSql)) {
+                pstmt.setInt(1, seatId);
+                pstmt.executeUpdate();
+            }
+
+            // Commit the transaction
+            db.getConnection().commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try {
+                db.getConnection().rollback();
+            } catch (SQLException rollbackEx) {
+                rollbackEx.printStackTrace();
+            }
+        } finally {
+            try {
+                db.getConnection().setAutoCommit(true);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public PaymentView getView() {
+        return paymentView;
+    }
+
 }
-
-
-private double getRandomDiscount() {
-  String query = "SELECT discount FROM promotion ORDER BY RAND() LIMIT 1";
-  try {
-      ResultSet rs = db.executeQuery(query);
-      if (rs.next()) {
-          return rs.getDouble("discount");
-      }
-  } catch (SQLException e) {
-      e.printStackTrace(); // Handle or log the exception appropriately
-  }
-
-  // Return a default discount value if fetching from the table fails
-  return 0.0;
-}
-
-
-
-
-
-public PaymentView getView() {
-  return view;
-}
-
-
-
-
-// private void addListeners() {
-//   view.addConfirmListener(this);
-// }
-
-}
-// public void updateView() {
-//   view.display();
-// }
-
-
-
