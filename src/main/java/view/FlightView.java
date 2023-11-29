@@ -3,7 +3,7 @@ package view;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-import viewModel.FlightViewModel;
+import ViewModel.FlightViewModel;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

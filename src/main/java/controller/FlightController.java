@@ -1,9 +1,8 @@
 package controller;
 
 import model.flight.Booking;
-import utils.Views;
 import view.FlightView;
-import viewModel.FlightViewModel;
+import ViewModel.FlightViewModel;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -12,7 +11,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class FlightController implements ActionListener {
     private Database db;

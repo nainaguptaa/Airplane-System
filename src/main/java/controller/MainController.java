@@ -31,6 +31,8 @@ public class MainController {
     private CrewController crewController;
     private AllUsersController allUsersController;
 
+    private PaymentController paymentController;
+
     private AdminPromotionController adminPromotionController;
 
     private JFrame mainFrame;
@@ -276,6 +278,11 @@ public class MainController {
     }
 
     public void switchToViewWithArgs(String viewName, Map<String, Object> args) {
+
+        if (args == null) {
+            throw new IllegalArgumentException("args cannot be null");
+        }
+
         Container contentPane = mainFrame.getContentPane();
         BorderLayout layout = (BorderLayout) contentPane.getLayout();
         Component centerComponent = layout.getLayoutComponent(BorderLayout.CENTER);
@@ -296,9 +303,10 @@ public class MainController {
                 break;
 
             case "PaymentView":
-                // paymentController = new PaymentController(db, this, args);
-                // mainFrame.getContentPane().add(paymentController.getView());
-                // break;
+                paymentController = new PaymentController(db, this, args);
+                mainFrame.getContentPane().add(paymentController.getView());
+                break;
+
             default:
                 break;
         }

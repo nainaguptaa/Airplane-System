@@ -3,7 +3,7 @@ package controller;
 import model.flight.Booking;
 import model.flight.SeatType;
 import view.SeatView;
-import viewModel.SeatViewModel;
+import ViewModel.SeatViewModel;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -42,26 +42,23 @@ public class SeatController implements ActionListener{
     }
 
     public ArrayList<SeatViewModel> getSeatViewModels() {
-
-        // Potentially change format of seat insertion in database (A0, B0, C0, D0, E0,
-        // F0, A1, B1 , C1,etc.) to sort rows in order from top to bottom
         int aircraftId = getAircraftID(booking);
-        System.out.println(aircraftId);
 
         if (aircraftId == -1) {
             return seatViewModels;
         }
 
-        String query = "SELECT seat_number, is_available, class FROM seats WHERE aircraft_id = '" + aircraftId + "';";
+        String query = "SELECT seat_id, seat_number, is_available, class FROM seats WHERE aircraft_id = '" + aircraftId + "';";
         try (ResultSet rs = db.executeQuery(query);) {
             while (rs.next()) {
                 String seatNumber = rs.getString("seat_number");
-                Boolean isAvailable = rs.getBoolean("is_available");
+                boolean isAvailable = rs.getBoolean("is_available");
                 String type = rs.getString("class");
+                int seatId = rs.getInt("seat_id");
 
                 SeatType seatType = SeatType.fromString(type);
 
-                SeatViewModel seat = new SeatViewModel(seatNumber, seatType, isAvailable);
+                SeatViewModel seat = new SeatViewModel(seatId, seatType, isAvailable, seatNumber);
                 seatViewModels.add(seat);
             }
         } catch (Exception e) {
@@ -88,9 +85,8 @@ public class SeatController implements ActionListener{
 
     @Override
     public void actionPerformed(java.awt.event.ActionEvent e) {
-        String seatNumber = seatView.getSelectedSeatId();
-        booking.setSeatId(Integer.parseInt(seatNumber.substring(1)));
-        System.out.println(seatNumber);
+        int seatNumber = seatView.getSelectedSeatId();
+        booking.setSeatId(seatNumber);
         HashMap<String, Object> args = new HashMap<>();
         args.put("booking", booking);   
         mc.switchToViewWithArgs("PaymentView", args);

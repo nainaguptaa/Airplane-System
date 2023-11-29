@@ -1,7 +1,7 @@
 package view;
 
 import model.flight.SeatType;
-import viewModel.SeatViewModel;
+import ViewModel.SeatViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -119,7 +119,7 @@ public class SeatView extends JPanel {
             setPreferredSize(new Dimension(100, 30));
         }
     }
-    public String getSelectedSeatId() {
+    public int getSelectedSeatId() {
         return selectedSeatButton.viewModel.getSeatID();
     }
 
