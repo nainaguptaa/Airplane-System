@@ -1,6 +1,6 @@
 package view;
 
-import viewModel.PassengerViewModel;
+import ViewModel.PassengerViewModel;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;

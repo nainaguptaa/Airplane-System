@@ -1,4 +1,4 @@
-package viewModel;
+package ViewModel;
 
 public class FlightViewModel {
     public String Destination;

@@ -3,7 +3,7 @@ package controller;
 import model.flight.Booking;
 import model.flight.SeatType;
 import view.SeatView;
-import viewModel.SeatViewModel;
+import ViewModel.SeatViewModel;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -42,11 +42,7 @@ public class SeatController implements ActionListener{
     }
 
     public ArrayList<SeatViewModel> getSeatViewModels() {
-
-        // Potentially change format of seat insertion in database (A0, B0, C0, D0, E0,
-        // F0, A1, B1 , C1,etc.) to sort rows in order from top to bottom
         int aircraftId = getAircraftID(booking);
-        System.out.println(aircraftId);
 
         if (aircraftId == -1) {
             return seatViewModels;
@@ -56,7 +52,7 @@ public class SeatController implements ActionListener{
         try (ResultSet rs = db.executeQuery(query);) {
             while (rs.next()) {
                 String seatNumber = rs.getString("seat_number");
-                Boolean isAvailable = rs.getBoolean("is_available");
+                boolean isAvailable = rs.getBoolean("is_available");
                 String type = rs.getString("class");
                 int seatId = rs.getInt("seat_id");
 
@@ -91,7 +87,6 @@ public class SeatController implements ActionListener{
     public void actionPerformed(java.awt.event.ActionEvent e) {
         int seatNumber = seatView.getSelectedSeatId();
         booking.setSeatId(seatNumber);
-        System.out.println(seatNumber);
         HashMap<String, Object> args = new HashMap<>();
         args.put("booking", booking);   
         mc.switchToViewWithArgs("PaymentView", args);
