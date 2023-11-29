@@ -3,17 +3,17 @@ USE airline;
 
 -- Insert data into 'users'
 INSERT INTO users (username, password, first_name, last_name, address, email, role, member) VALUES
-('user1', 'password1', 'Apple', 'Banana', '123 main st.', 'user1@email.com', 2, TRUE),
-('agent1', 'password2', 'Ice', 'Spice', '345 main st.', 'user2@email.com', 3, FALSE),
-('admin1', 'password3', 'Ben', 'Ten', '214 main st.', 'admin1@email.com', 4, TRUE),
-('guest1', 'password4', 'Jane', 'Doe', '678 another st.', 'user3@email.com', 1, FALSE),
-('user2', 'password5', 'John', 'Smith', '910 another ave', 'user4@email.com', 2, TRUE),
-('admin2', 'password6', 'Alice', 'Johnson', '1011 admin rd.', 'admin2@email.com', 4, FALSE),
-('user3', 'password7', 'Emily', 'Brown', '111 Sunset Blvd', 'user5@email.com', 2, TRUE),
-('agent2', 'password8', 'Michael', 'Green', '222 Sunrise Ave', 'user6@email.com', 3, FALSE),
-('guest2', 'password9', 'Sarah', 'White', '333 Moon St', 'user7@email.com', 1, TRUE),
-('agent3', 'password10', 'David', 'Black', '444 Star Rd', 'user8@email.com', 2, FALSE),
-('admin3', 'password11', 'Laura', 'Gray', '555 Comet Ln', 'user9@email.com', 4, TRUE);
+('user1', 'user1', 'Apple', 'Banana', '123 main st.', 'user1@email.com', 2, TRUE),
+('agent1', 'agent1', 'Ice', 'Spice', '345 main st.', 'user2@email.com', 3, FALSE),
+('admin1', 'admin1', 'Ben', 'Ten', '214 main st.', 'admin1@email.com', 4, TRUE),
+('guest1', 'guest1', 'Jane', 'Doe', '678 another st.', 'user3@email.com', 1, FALSE),
+('user2', 'user2', 'John', 'Smith', '910 another ave', 'user4@email.com', 2, TRUE),
+('admin2', 'admin2', 'Alice', 'Johnson', '1011 admin rd.', 'admin2@email.com', 4, FALSE),
+('user3', 'user3', 'Emily', 'Brown', '111 Sunset Blvd', 'user5@email.com', 2, TRUE),
+('agent2', 'agent2', 'Michael', 'Green', '222 Sunrise Ave', 'user6@email.com', 3, FALSE),
+('guest2', 'guest2', 'Sarah', 'White', '333 Moon St', 'user7@email.com', 1, TRUE),
+('agent3', 'agent3', 'David', 'Black', '444 Star Rd', 'user8@email.com', 2, FALSE),
+('admin3', 'admin3', 'Laura', 'Gray', '555 Comet Ln', 'user9@email.com', 4, TRUE);
 
 -- Insert data into 'locations'
 INSERT INTO locations (city, state, country, code) VALUES
