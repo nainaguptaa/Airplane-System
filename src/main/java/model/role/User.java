@@ -1,5 +1,8 @@
 package model.role;
 
+import java.util.ArrayList;
+import model.flight.Booking;
+
 
 public class User {
     // mayve add field for access level/role
@@ -11,6 +14,7 @@ public class User {
     private String firstName;
     private String lastName;
     private String address;
+    private ArrayList<Booking> bookings;
 
     public User() {
         this.username = "";
@@ -121,5 +125,13 @@ public class User {
         } else {
             return 0;
         }
+    }
+
+    public void setBookings(ArrayList<Booking> bookings) {
+        this.bookings = bookings;
+    }
+
+    public ArrayList<Booking> getBookings() {
+        return bookings;
     }
 }

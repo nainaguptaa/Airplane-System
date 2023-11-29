@@ -47,7 +47,7 @@ CREATE TABLE locations (
 -- Create 'aircraftTypes' table
 CREATE TABLE aircraftTypes (
     model VARCHAR(100) PRIMARY KEY,
-    capacity INT NOT NULL
+    capacity INT DEFAULT 66 NOT NULL
 );
 -- Create 'aircrafts' table
 CREATE TABLE aircrafts (
