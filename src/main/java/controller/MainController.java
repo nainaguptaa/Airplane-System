@@ -27,6 +27,7 @@ public class MainController {
     private BookingsController bookingsController;
     private ManageFlightsController manageFlightsController;
     private ManageAircraftsController manageAircraftsController;
+    private ManageLocationsController manageLocationsController;
     private AdminFlightController adminFlightController;
     private CrewController crewController;
     private AllUsersController allUsersController;
@@ -135,6 +136,14 @@ public class MainController {
                 buttonFont,
                 e -> switchToView(e.getActionCommand()));
 
+        JButton btnManageLocationsView = Buttons.createStyledButton(
+                "Manage Locations",
+                "ManageLocationsView", // create manage locations view for admin
+                buttonSize,
+                buttonColor,
+                buttonFont,
+                e -> switchToView(e.getActionCommand()));
+
         JButton btnAdminFlightView = Buttons.createStyledButton(
                 "Flights",
                 "AdminFlightView", // create manage crews view for admin
@@ -164,6 +173,8 @@ public class MainController {
         navPanel.add(btnManageFlightView);
         navPanel.add(Box.createRigidArea(spacerSize));
         navPanel.add(btnManageAircraftView);
+        navPanel.add(Box.createRigidArea(spacerSize));
+        navPanel.add(btnManageLocationsView);
         navPanel.add(Box.createRigidArea(spacerSize));
         navPanel.add(btnAdminFlightView);
         navPanel.add(Box.createRigidArea(spacerSize));
@@ -398,6 +409,11 @@ public class MainController {
             case "AdminPromotionView":
                 adminPromotionController = new AdminPromotionController(db, this);
                 mainFrame.getContentPane().add(adminPromotionController.getView());
+                break;
+
+            case "ManageLocationsView":
+                manageLocationsController = new ManageLocationsController(db, this);
+                mainFrame.getContentPane().add(manageLocationsController.getView());
                 break;
 
             default:
