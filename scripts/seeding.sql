@@ -3,7 +3,7 @@ USE airline;
 
 -- Insert data into 'users'
 INSERT INTO users (username, password, first_name, last_name, address, email, role, member) VALUES
-('user1', 'user1', 'Apple', 'Banana', '123 main st.', 'user1@email.com', 2, TRUE),
+('user1', 'user1', 'Apple', 'Banana', '123 main st.', 'ensf480proj@gmail.com', 2, TRUE),
 ('agent1', 'agent1', 'Ice', 'Spice', '345 main st.', 'user2@email.com', 3, FALSE),
 ('admin1', 'admin1', 'Ben', 'Ten', '214 main st.', 'admin1@email.com', 4, TRUE),
 ('guest1', 'guest1', 'Jane', 'Doe', '678 another st.', 'user3@email.com', 1, FALSE),

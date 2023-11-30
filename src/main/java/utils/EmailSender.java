@@ -10,8 +10,10 @@ import java.util.Properties;
 public class EmailSender {
 
     public static void sendEmail(String to, String subject, String body) {
-        final String from = ""; // Your email address
-        final String password = ""; // Your email APP password (Not your regular password as it won't work with 2FA)
+        final String from = "ensf480proj@gmail.com"; // Your email address
+        final String password = "zjyh vfek tqxm plhj"; // Your email APP password (Not your regular password as it won't
+                                                       // work
+        // with 2FA)
 
         // Set properties for the mail session
         Properties props = new Properties();
