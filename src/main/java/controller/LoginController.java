@@ -19,6 +19,9 @@ public class LoginController implements ActionListener {
         this.mainController = mc;
         this.model = mainController.getUser();
         this.view = new LoginView();
+        if (model.getRole() == 2) {
+            view.addRegisterButton();
+        }
         this.db = db;
         addListeners();
     }
@@ -70,12 +73,6 @@ public class LoginController implements ActionListener {
         }
     }
 
-    public void logout() {
-        setUsername("");
-        setPassword("");
-        updateView();
-    }
-
     public void getAndSetUserInfo() {
         String query = "SELECT * FROM users WHERE username = '" + model.getUsername() + "' AND password = '"
                 + model.getPassword() + "' AND role >= " + model.getRole();
@@ -111,9 +108,5 @@ public class LoginController implements ActionListener {
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
         }
-    }
-
-    public void updateView() {
-        view.display();
     }
 }

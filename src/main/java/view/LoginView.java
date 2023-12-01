@@ -12,6 +12,7 @@ public class LoginView extends JPanel {
     private JButton registerBtn;
     private JButton backBtn;
     private JLabel messageLabel; // Label to display messages
+    private JPanel btnPanel;
 
     public LoginView() {
         // setTitle("Login");
@@ -19,9 +20,10 @@ public class LoginView extends JPanel {
         setBackground(new Color(230, 230, 250));
 
         // Using BorderLayout for overall layout
+        btnPanel = createButtonPanel();
         setLayout(new BorderLayout(10, 10));
         add(createFormPanel(), BorderLayout.CENTER);
-        add(createButtonPanel(), BorderLayout.SOUTH);
+        add(btnPanel, BorderLayout.SOUTH);
         add(createMessagePanel(), BorderLayout.NORTH); // Add message panel at the top
     }
 
@@ -59,7 +61,6 @@ public class LoginView extends JPanel {
 
         // Register Button
         registerBtn = new JButton("Register");
-        buttonPanel.add(registerBtn);
 
         // Back Button
         backBtn = new JButton("Back");
@@ -106,8 +107,8 @@ public class LoginView extends JPanel {
         backBtn.addActionListener(al);
     }
 
-    public void display() {
-        System.out.println("Login Form:");
-        // Code to display login form (username and password fields)
+    public void addRegisterButton() {
+        btnPanel.add(registerBtn);
     }
+
 }
