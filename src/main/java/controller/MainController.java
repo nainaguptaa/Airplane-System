@@ -61,9 +61,13 @@ public class MainController {
         mainFrame.setVisible(true);
     }
 
-    /*
+    /**
         * Gets a singleton instance of the MainController class.
-     */
+        * @param Url The database URL.
+        * @param username The database username.
+        * @param password The database password.
+        * @return The MainController instance.
+     **/
     public static MainController getInstance(String Url, String username, String password) {
         if (instance == null) {
             instance = new MainController(Url, username, password);
