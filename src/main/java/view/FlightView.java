@@ -10,6 +10,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * The FlightView class represents a view for displaying a list of flights.
+ */
 public class FlightView extends JPanel {
 
     private JTable flightTable;
@@ -18,8 +21,12 @@ public class FlightView extends JPanel {
     private ActionListener flightSelectionListener;
     private FlightViewModel flightViewModel[];
 
+    /**
+     * Creates a new FlightView with the provided flight view models.
+     *
+     * @param fvm An array of FlightViewModel objects representing flight data.
+     */
     public FlightView(FlightViewModel fvm[]) {
-        // setTitle("Flights");
         flightViewModel = fvm;
 
         setSize(600, 400);
@@ -29,7 +36,7 @@ public class FlightView extends JPanel {
         lbl.setBounds(250, 10, 100, 30);
         add(lbl);
 
-        // Define column names
+        // Define column names for the flight table
         String[] columnNames = { "Flight Number", "Departure Time", "Arrival Time", "Price", "Departure", "Destination" };
 
         // Initialize the table model and set column names
@@ -61,10 +68,18 @@ public class FlightView extends JPanel {
         add(scrollPane);
     }
 
+    /**
+     * Sets an ActionListener to handle flight selection events.
+     *
+     * @param listener The ActionListener to be added for flight selection events.
+     */
     public void addFlightSelectionListener(ActionListener listener) {
         this.flightSelectionListener = listener;
     }
 
+    /**
+     * Loads flight data into the table model.
+     */
     private void loadFlights() {
         for (FlightViewModel viewModel : flightViewModel) {
             tableModel.addRow(new Object[]{viewModel.FlightNumber, viewModel.DepartureTime,

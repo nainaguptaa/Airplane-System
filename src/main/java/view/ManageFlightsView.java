@@ -5,12 +5,18 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import utils.Buttons;
 
+/**
+ * The ManageFlightsView class represents the view for managing flights.
+ */
 public class ManageFlightsView extends JPanel {
     private JButton addFlightButton;
     private JButton removeFlightButton;
     private JButton changeFlightButton;
     private JComboBox<String> flightIDComboBox; // Changed to JComboBox
 
+    /**
+     * Constructs a new ManageFlightsView.
+     */
     public ManageFlightsView() {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -64,36 +70,73 @@ public class ManageFlightsView extends JPanel {
             new Font("Arial", Font.BOLD, 14));
     }
 
+    /**
+     * Adds an ActionListener for the "Add Flight" button.
+     *
+     * @param al The ActionListener to be added for the "Add Flight" button.
+     */
     public void addAddFlightButtonListener(ActionListener al) {
         addFlightButton.addActionListener(al);
     }
 
+    /**
+     * Adds an ActionListener for the "Remove Flight" button.
+     *
+     * @param al The ActionListener to be added for the "Remove Flight" button.
+     */
     public void addRemoveFlightButtonListener(ActionListener al) {
         removeFlightButton.addActionListener(al);
     }
 
+    /**
+     * Adds an ActionListener for the "Change Flight" button.
+     *
+     * @param al The ActionListener to be added for the "Change Flight" button.
+     */
     public void addChangeFlightButtonListener(ActionListener al) {
         changeFlightButton.addActionListener(al);
     }
 
+    /**
+     * Gets the selected flight ID from the JComboBox.
+     *
+     * @return The selected flight ID.
+     */
     public String getFlightID() {
         return (String) flightIDComboBox.getSelectedItem();
     }
 
+    /**
+     * Adds a flight ID item to the JComboBox.
+     *
+     * @param flightID The flight ID to be added to the JComboBox.
+     */
     public void addFlightDropdownItem(String flightID) {
         flightIDComboBox.addItem(flightID);
     }
 
+    /**
+     * Displays an error message dialog.
+     *
+     * @param message The error message to be displayed.
+     */
     public void addErrorMessage(String message){
         JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
+    /**
+     * Displays a success message dialog.
+     *
+     * @param message The success message to be displayed.
+     */
     public void addSuccessMessage(String message){
         JOptionPane.showMessageDialog(this, message, "Success", JOptionPane.INFORMATION_MESSAGE);
     }
 
+    /**
+     * Clears the flight ID dropdown by removing all items.
+     */
     public void clearFlightDropdown() {
         flightIDComboBox.removeAllItems();
     }
 }
-

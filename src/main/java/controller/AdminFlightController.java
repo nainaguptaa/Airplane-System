@@ -13,6 +13,10 @@ import java.util.List;
 import java.util.Map;
 import java.time.LocalDate;
 
+/**
+ * The AdminFlightController class manages the interaction between the database,
+ * the AdminFlightView, and other controllers. It handles actions related to flight data.
+ */
 public class AdminFlightController implements ActionListener {
     private Database db;
     private MainController mainController;
@@ -21,21 +25,38 @@ public class AdminFlightController implements ActionListener {
     private AdminFlightView flightView;
     private CrewView crewView;
 
+    /**
+     * Constructs an AdminFlightController.
+     *
+     * @param db The database instance to access flight data.
+     * @param mc The MainController for managing the application's main views.
+     */
     public AdminFlightController(Database db, MainController mc) {
         this.db = db;
         this.mainController = mc;
 
+        // Initialize AdminFlightView and add event listeners
         flightView = new AdminFlightView(getFlightViewModels());
         flightView.addFlightSelectionListener(this);
         flightView.addSearchButtonListener(this);
     }
 
+    /**
+     * Gets the AdminFlightView associated with this controller.
+     *
+     * @return The AdminFlightView instance.
+     */
     public AdminFlightView getView() {
         return flightView;
     }
 
+    /**
+     * Retrieves flight data from the database and populates FlightViewModel[].
+     *
+     * @return An array of FlightViewModel objects representing flight data.
+     */
     public FlightViewModel[] getFlightViewModels() {
-
+        // SQL query to fetch flight data from the database
         String query = "SELECT " 
                 + "flight_id, "
                 + "departure_time, "
@@ -56,6 +77,7 @@ public class AdminFlightController implements ActionListener {
                 String departureAirportId = res.getString("departure_airport_id");
                 String arrivalAirportId = res.getString("arrival_airport_id");
 
+                // Create FlightViewModel objects and add them to the list
                 flightList.add(new FlightViewModel(flightId, arrivalAirportId, departureAirportId, departureTime, arrivalTime, price, flightId + ""));
             }
             flightViewModel = flightList.toArray(new FlightViewModel[0]);
@@ -66,7 +88,13 @@ public class AdminFlightController implements ActionListener {
         return flightViewModel;
     }
 
-    private void getFlightViewModels(LocalDate date){
+    /**
+     * Retrieves flight data for a specific date and updates the view.
+     *
+     * @param date The date for which flight data should be retrieved.
+     */
+    private void getFlightViewModels(LocalDate date) {
+        // SQL query to fetch flight data for a specific date range
         String query = "SELECT " 
                 + "flight_id, "
                 + "departure_time, "
@@ -89,10 +117,11 @@ public class AdminFlightController implements ActionListener {
                 String departureAirportId = res.getString("departure_airport_id");
                 String arrivalAirportId = res.getString("arrival_airport_id");
 
+                // Create FlightViewModel objects and add them to the list
                 flightList.add(new FlightViewModel(flightId, arrivalAirportId, departureAirportId, departureTime, arrivalTime, price, flightId + ""));
             }
             flightViewModel = flightList.toArray(new FlightViewModel[0]);
-            flightView.updateTable(flightViewModel);
+            flightView.updateTable(flightViewModel); // Update the view with the filtered data
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -107,10 +136,8 @@ public class AdminFlightController implements ActionListener {
             FlightViewModel flight = flightViewModel[Integer.parseInt(cmd)];
             Map<String, Object> args = new HashMap<>();
             args.put("flightNo", flight.FlightId);
-            mainController.switchToViewWithArgs("CrewView", args);
+            mainController.switchToViewWithArgs("CrewView", args); // Switch to CrewView with arguments
         }
     }
-
-
+    
 }
-

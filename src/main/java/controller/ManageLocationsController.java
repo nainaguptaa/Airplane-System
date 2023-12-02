@@ -5,11 +5,20 @@ import view.ManageLocationsView;
 import java.awt.event.ActionEvent;
 import java.util.regex.Pattern;
 
+/**
+ * Controller class for managing locations-related views and functionality.
+ */
 public class ManageLocationsController implements ActionListener {
     Database db;
     MainController mc;
     ManageLocationsView mlv;
 
+    /**
+     * Constructs a new ManageLocationsController with the given database and MainController.
+     *
+     * @param db The database instance to interact with.
+     * @param mc The MainController for switching views.
+     */
     public ManageLocationsController(Database db, MainController mc) {
         this.db = db;
         this.mc = mc;
@@ -17,6 +26,9 @@ public class ManageLocationsController implements ActionListener {
         addListeners();
     }
 
+    /**
+     * Adds action listeners to the relevant buttons in the view.
+     */
     private void addListeners() {
         mlv.addAddLocationButtonListener(this);
         mlv.addRemoveLocationButtonListener(this);
@@ -32,10 +44,19 @@ public class ManageLocationsController implements ActionListener {
         }
     }
 
+    /**
+     * Checks if a location code is in a valid format (e.g., 'XXX' with uppercase letters).
+     *
+     * @param code The location code to validate.
+     * @return true if the code is valid, false otherwise.
+     */
     private boolean isValidCode(String code) {
         return Pattern.matches("^[A-Z]{3}$", code);
     }
 
+    /**
+     * Handles the addition of a new location to the database.
+     */
     private void addLocation() {
         String code = mlv.getCode();
         if (!isValidCode(code)) {
@@ -61,6 +82,9 @@ public class ManageLocationsController implements ActionListener {
         }
     }
 
+    /**
+     * Handles the removal of a location from the database.
+     */
     private void removeLocation() {
         String code = mlv.getCode();
         if (code.equals("")) {
@@ -80,8 +104,12 @@ public class ManageLocationsController implements ActionListener {
         }
     }
 
+    /**
+     * Gets the ManageLocationsView associated with this controller.
+     *
+     * @return The ManageLocationsView.
+     */
     public ManageLocationsView getView() {
         return mlv;
     }
-
 }

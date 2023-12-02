@@ -5,6 +5,9 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import utils.Buttons;
 
+/**
+ * The ManageLocationsView class represents the view for managing location details.
+ */
 public class ManageLocationsView extends JPanel {
     private JButton addLocationButton;
     private JButton removeLocationButton;
@@ -13,6 +16,9 @@ public class ManageLocationsView extends JPanel {
     private JTextField stateTextField;
     private JTextField countryTextField;
 
+    /**
+     * Constructs a new ManageLocationsView.
+     */
     public ManageLocationsView() {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -66,6 +72,12 @@ public class ManageLocationsView extends JPanel {
         add(buttonsPanel, gbc);
     }
 
+    /**
+     * Creates a styled button with the given text.
+     *
+     * @param text The text to be displayed on the button.
+     * @return The styled JButton.
+     */
     private JButton createStyledButton(String text) {
         return Buttons.createStyledButton(
             text,
@@ -75,45 +87,85 @@ public class ManageLocationsView extends JPanel {
             new Font("Arial", Font.BOLD, 14));
     }
 
-
+    /**
+     * Gets the code entered in the text field.
+     *
+     * @return The entered code.
+     */
     public String getCode() {
         return codeTextField.getText();
     }
 
+    /**
+     * Gets the city entered in the text field.
+     *
+     * @return The entered city.
+     */
     public String getCity() {
         return cityTextField.getText();
     }
 
+    /**
+     * Gets the state entered in the text field.
+     *
+     * @return The entered state.
+     */
     public String getState() {
         return stateTextField.getText();
     }
 
+    /**
+     * Gets the country entered in the text field.
+     *
+     * @return The entered country.
+     */
     public String getCountry() {
         return countryTextField.getText();
     }
 
+    /**
+     * Adds an ActionListener for the "Add Location" button.
+     *
+     * @param al The ActionListener to be added.
+     */
     public void addAddLocationButtonListener(ActionListener al) {
         addLocationButton.addActionListener(al);
     }
 
+    /**
+     * Adds an ActionListener for the "Remove Location" button.
+     *
+     * @param al The ActionListener to be added.
+     */
     public void addRemoveLocationButtonListener(ActionListener al) {
         removeLocationButton.addActionListener(al);
     }
 
+    /**
+     * Displays an error message dialog.
+     *
+     * @param message The error message to be displayed.
+     */
     public void addErrorMessage(String message) {
         JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
+    /**
+     * Displays a success message dialog.
+     *
+     * @param message The success message to be displayed.
+     */
     public void addSuccessMessage(String message) {
         JOptionPane.showMessageDialog(this, message, "Success", JOptionPane.INFORMATION_MESSAGE);
-    }   
+    }
 
-    public void clearTextFields(){
+    /**
+     * Clears the text fields for location details.
+     */
+    public void clearTextFields() {
         codeTextField.setText("");
         cityTextField.setText("");
         stateTextField.setText("");
-        countryTextField.setText("");   
+        countryTextField.setText("");
     }
-
-
 }

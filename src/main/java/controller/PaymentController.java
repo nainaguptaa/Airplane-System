@@ -14,6 +14,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Map;
 
+/**
+ * Controller class for managing payments and confirming flight bookings.
+ */
 public class PaymentController implements ActionListener {
     private PaymentView paymentView;
     private PaymentViewModel paymentModel;
@@ -21,19 +24,31 @@ public class PaymentController implements ActionListener {
     private Database db;
     private Booking booking;
 
+    /**
+     * Constructs a PaymentController with the given database, MainController, and arguments.
+     *
+     * @param db   The database instance to interact with.
+     * @param mc   The MainController for switching views.
+     * @param args A map of arguments, typically containing the booking to be paid.
+     */
     public PaymentController(Database db, MainController mc, Map<String, Object> args) {
         this.mainController = mc;
         this.db = db;
         this.booking = (Booking) args.get("booking");
+
         if (booking == null) {
             System.err.println("The object retrieved from 'args' is not a Booking");
         }
+
         this.paymentView = new PaymentView(updateModel());
-
         paymentView.addConfirmPaymentListener(this);
-
     }
 
+    /**
+     * Updates the payment model with pricing and discount information.
+     *
+     * @return The updated PaymentViewModel.
+     */
     private PaymentViewModel updateModel() {
         double flightPrice = booking.getPrice();
         try {
@@ -47,13 +62,13 @@ public class PaymentController implements ActionListener {
                 paymentModel = new PaymentViewModel(0, booking.getPrice(), 0.05 * booking.getPrice(),
                         mainController.getUser().getMember(), discount);
             }
+
             String query2 = "SELECT class FROM seats where seat_id = " + booking.getSeatId();
             ResultSet rs2 = db.executeQuery(query2);
             if (rs2 != null && rs2.next()) {
                 String seatClass = rs2.getString("class");
                 paymentModel.setSeatPrice(SeatType.getPriceByType(seatClass));
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -67,12 +82,14 @@ public class PaymentController implements ActionListener {
             sendConfirmationEmail();
             JOptionPane.showMessageDialog(paymentView, "Congratulations! Your booking has been confirmed!");
             mainController.switchToView("UserView");
-
         } else {
             JOptionPane.showMessageDialog(paymentView, "Please enter all information.");
         }
     }
 
+    /**
+     * Sends a confirmation email to the user after a successful payment.
+     */
     private void sendConfirmationEmail() {
         String emailContent = "Your payment has been confirmed.\n" +
                 "Flight Details: " + booking.getFlightId() + "\n" +
@@ -82,6 +99,9 @@ public class PaymentController implements ActionListener {
         EmailSender.sendEmail(mainController.getUser().getEmail(), "Payment Confirmation - " + mainController.getUser().getUsername(), emailContent);
     }
 
+    /**
+     * Updates the database with the confirmed booking and payment information.
+     */
     private void updateDatabase() {
         String username = mainController.getUser().getUsername();
         int flightId = booking.getFlightId();
@@ -130,8 +150,12 @@ public class PaymentController implements ActionListener {
         }
     }
 
+    /**
+     * Gets the PaymentView associated with this controller.
+     *
+     * @return The PaymentView.
+     */
     public PaymentView getView() {
         return paymentView;
     }
-
 }

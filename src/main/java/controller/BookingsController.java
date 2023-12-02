@@ -8,13 +8,23 @@ import java.util.ArrayList;
 import model.flight.Booking;
 import utils.EmailSender;
 
+/**
+ * The BookingsController class manages the interaction between the database, the BookingsView,
+ * and other controllers for handling user bookings.
+ */
 public class BookingsController implements ActionListener {
-    BookingsView view;
-    MainController mainController;
-    Database db;
-    ArrayList<Booking> bookings;
-    ArrayList<String[]> bookingsData;
+    private BookingsView view;
+    private MainController mainController;
+    private Database db;
+    private ArrayList<Booking> bookings;
+    private ArrayList<String[]> bookingsData;
 
+    /**
+     * Constructs a BookingsController.
+     *
+     * @param db The database instance to access booking data.
+     * @param mc The MainController for managing the application's main views.
+     */
     public BookingsController(Database db, MainController mc) {
         this.mainController = mc;
         this.db = db;
@@ -25,13 +35,19 @@ public class BookingsController implements ActionListener {
         addListeners();
     }
 
+    /**
+     * Adds action listeners to buttons in the BookingsView.
+     */
     private void addListeners() {
         view.addCancelButtonListener(this);
         view.addTableListener(e -> view.updateButtons());
     }
 
+    /**
+     * Retrieves booking data from the database and populates the BookingsView with the data.
+     */
     private void getBookings() {
-        // Get bookings from database
+        // Get bookings from the database
         String query = "SELECT * FROM bookings WHERE username = '" + mainController.getUser().getUsername() + "'";
         ResultSet rs = db.executeQuery(query);
         try {
@@ -52,6 +68,11 @@ public class BookingsController implements ActionListener {
         }
     }
 
+    /**
+     * Handles button actions in the BookingsView.
+     *
+     * @param e The ActionEvent triggered by button actions.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("Cancel")) {
@@ -100,6 +121,11 @@ public class BookingsController implements ActionListener {
         }
     }
 
+    /**
+     * Gets the BookingsView associated with this controller.
+     *
+     * @return The BookingsView instance.
+     */
     public BookingsView getView() {
         return view;
     }

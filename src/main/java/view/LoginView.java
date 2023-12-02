@@ -4,7 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-// Setup Decorator Pattern
+/**
+ * The LoginView class represents the view for user login.
+ */
 public class LoginView extends JPanel {
     private JTextField username;
     private JPasswordField password;
@@ -14,8 +16,10 @@ public class LoginView extends JPanel {
     private JLabel messageLabel; // Label to display messages
     private JPanel btnPanel;
 
+    /**
+     * Constructs a new LoginView.
+     */
     public LoginView() {
-        // setTitle("Login");
         setSize(450, 300);
         setBackground(new Color(230, 230, 250));
 
@@ -76,39 +80,65 @@ public class LoginView extends JPanel {
         return messagePanel;
     }
 
+    /**
+     * Gets the entered username from the text field.
+     *
+     * @return The username entered by the user.
+     */
     public String getUsername() {
         try {
             return username.getText();
         } catch (NullPointerException e) {
-            messageLabel.setText("Please fill in password field");
+            messageLabel.setText("Please fill in the username field");
             return null;
         }
     }
 
+    /**
+     * Gets the entered password from the password field.
+     *
+     * @return The password entered by the user.
+     */
     public String getPassword() {
         try {
-            System.out.println(password.getPassword());
             return new String(password.getPassword());
         } catch (NullPointerException e) {
-            messageLabel.setText("Please fill in password field");
+            messageLabel.setText("Please fill in the password field");
             return null;
         }
     }
 
+    /**
+     * Adds an ActionListener for the login button.
+     *
+     * @param al The ActionListener to be added for the login button.
+     */
     public void addLoginListener(ActionListener al) {
         loginBtn.addActionListener(al);
     }
 
+    /**
+     * Adds an ActionListener for the register button.
+     *
+     * @param al The ActionListener to be added for the register button.
+     */
     public void addRegisterListener(ActionListener al) {
         registerBtn.addActionListener(al);
     }
 
+    /**
+     * Adds an ActionListener for the back button.
+     *
+     * @param al The ActionListener to be added for the back button.
+     */
     public void addBackListener(ActionListener al) {
         backBtn.addActionListener(al);
     }
 
+    /**
+     * Adds the register button to the view.
+     */
     public void addRegisterButton() {
         btnPanel.add(registerBtn);
     }
-
 }

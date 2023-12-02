@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+/**
+ * The RegisterView class represents the view for user registration.
+ */
 public class RegisterView extends JPanel {
     private JTextField emailField;
     private JTextField usernameField;
@@ -14,6 +17,9 @@ public class RegisterView extends JPanel {
     private JButton registerBtn;
     private JButton cancelBtn;
 
+    /**
+     * Constructs a new RegisterView.
+     */
     public RegisterView() {
         setSize(450, 350);
         setBackground(new Color(230, 230, 250));
@@ -24,6 +30,11 @@ public class RegisterView extends JPanel {
         add(createButtonPanel(), BorderLayout.SOUTH);
     }
 
+    /**
+     * Creates the form panel for user registration.
+     *
+     * @return The form panel containing user registration fields.
+     */
     private JPanel createFormPanel() {
         JPanel formPanel = new JPanel();
         formPanel.setLayout(new GridBagLayout());
@@ -78,9 +89,15 @@ public class RegisterView extends JPanel {
         gbc.gridx = 1;
         formPanel.add(passwordField, gbc);
 
+
         return formPanel;
     }
 
+    /**
+     * Creates the button panel for user registration.
+     *
+     * @return The button panel containing registration and cancellation buttons.
+     */
     private JPanel createButtonPanel() {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
@@ -95,6 +112,11 @@ public class RegisterView extends JPanel {
         return buttonPanel;
     }
 
+    /**
+     * Gets the user's email input.
+     *
+     * @return The email entered by the user.
+     */
     public String getEmail() { // need to check if email is valid
         try {
             return emailField.getText();
@@ -103,6 +125,11 @@ public class RegisterView extends JPanel {
         }
     }
 
+    /**
+     * Gets the user's username input.
+     *
+     * @return The username entered by the user.
+     */
     public String getUsername() {
         try {
             return usernameField.getText();
@@ -111,6 +138,11 @@ public class RegisterView extends JPanel {
         }
     }
 
+    /**
+     * Gets the user's password input.
+     *
+     * @return The password entered by the user.
+     */
     public String getPassword() {
         try {
             return new String(passwordField.getPassword());
@@ -119,6 +151,7 @@ public class RegisterView extends JPanel {
         }
     }
 
+    
     public String getFirstName() {
         try {
             return firstNameField.getText();
@@ -126,6 +159,7 @@ public class RegisterView extends JPanel {
             return null;
         }
     }
+
 
     public String getLastName() {
         try {
@@ -143,20 +177,41 @@ public class RegisterView extends JPanel {
         }
     }
 
+
+
+    /**
+     * Adds an ActionListener for the registration button.
+     *
+     * @param al The ActionListener to be added for the registration button.
+     */
     public void addRegisterListener(ActionListener al) {
         registerBtn.addActionListener(al);
     }
 
+    /**
+     * Adds an ActionListener for the cancel button.
+     *
+     * @param al The ActionListener to be added for the cancel button.
+     */
     public void addCancelListener(ActionListener al) {
         cancelBtn.addActionListener(al);
     }
 
+    /**
+     * Displays an error message dialog.
+     *
+     * @param error The error message to be displayed.
+     */
     public void addError(String error) {
         JOptionPane.showMessageDialog(this, error, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
+    /**
+     * Displays a success message dialog.
+     *
+     * @param success The success message to be displayed.
+     */
     public void addSuccess(String success) {
         JOptionPane.showMessageDialog(this, success, "Success", JOptionPane.INFORMATION_MESSAGE);
     }
-
 }
