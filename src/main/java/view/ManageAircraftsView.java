@@ -5,11 +5,17 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import utils.Buttons;
 
+/**
+ * The ManageAircraftsView class represents the view for managing aircrafts.
+ */
 public class ManageAircraftsView extends JPanel {
     private JButton addAircraftButton;
     private JButton removeAircraftButton;
     private JComboBox<String> aircraftIDComboBox; // Changed to JComboBox
 
+    /**
+     * Constructs a new ManageAircraftsView.
+     */
     public ManageAircraftsView() {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -56,33 +62,64 @@ public class ManageAircraftsView extends JPanel {
             new Font("Arial", Font.BOLD, 14));
     }
 
+    /**
+     * Adds an ActionListener for the "Add Aircraft" button.
+     *
+     * @param al The ActionListener to be added for the "Add Aircraft" button.
+     */
     public void addAddAircraftButtonListener(ActionListener al) {
         addAircraftButton.addActionListener(al);
     }
 
+    /**
+     * Adds an ActionListener for the "Remove Aircraft" button.
+     *
+     * @param al The ActionListener to be added for the "Remove Aircraft" button.
+     */
     public void addRemoveAircraftButtonListener(ActionListener al) {
         removeAircraftButton.addActionListener(al);
     }
 
+    /**
+     * Gets the selected aircraft ID from the JComboBox.
+     *
+     * @return The selected aircraft ID.
+     */
     public String getAircraftID() {
         return (String) aircraftIDComboBox.getSelectedItem();
     }
 
-    public void addAircraftDropdownItem(String AircraftID) {
-        aircraftIDComboBox.addItem(AircraftID);
+    /**
+     * Adds an aircraft ID item to the JComboBox.
+     *
+     * @param aircraftID The aircraft ID to be added to the JComboBox.
+     */
+    public void addAircraftDropdownItem(String aircraftID) {
+        aircraftIDComboBox.addItem(aircraftID);
     }
 
+    /**
+     * Displays an error message dialog.
+     *
+     * @param message The error message to be displayed.
+     */
     public void addErrorMessage(String message) {
         JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
+    /**
+     * Displays a success message dialog.
+     *
+     * @param message The success message to be displayed.
+     */
     public void addSuccessMessage(String message) {
         JOptionPane.showMessageDialog(this, message, "Success", JOptionPane.INFORMATION_MESSAGE);
     }
     
+    /**
+     * Clears the aircraft ID dropdown by removing all items.
+     */
     public void clearAircraftDropdown() {
         aircraftIDComboBox.removeAllItems();
     }
-    
 }
-

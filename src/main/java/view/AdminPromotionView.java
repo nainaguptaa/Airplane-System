@@ -7,6 +7,9 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/**
+ * The AdminPromotionView class represents the view for displaying promotions in an admin interface.
+ */
 public class AdminPromotionView extends JPanel {
     private JTable promotionsTable;
     private DefaultTableModel tableModel;
@@ -14,9 +17,10 @@ public class AdminPromotionView extends JPanel {
     private JScrollPane scrollPane;
     private JButton createButton;
 
-
-
-
+    /**
+     * Creates a new AdminPromotionView with the provided array of Promotion objects.
+     * @param promotions An array of Promotion objects representing promotions data.
+     */
     public AdminPromotionView(Promotion[] promotions) {
         this.promotions = promotions;
         setSize(600, 400);
@@ -26,15 +30,16 @@ public class AdminPromotionView extends JPanel {
         lbl.setBounds(250, 10, 100, 30);
         add(lbl);
 
-
         createButton = new JButton("Create New Promotion");
         createButton.setBounds(50, 10, 200, 30);
         add(createButton);
 
-
         initTable();
     }
 
+    /**
+     * Initializes the promotions table with column names and data.
+     */
     private void initTable() {
         // Define column names
         String[] columnNames = { "PromotionId", "Discount", "Price After Discount" };
@@ -71,7 +76,9 @@ public class AdminPromotionView extends JPanel {
         add(scrollPane);
     }
 
-
+    /**
+     * Loads promotion data into the table.
+     */
     private void loadPromotions() {
         for (Promotion promotion : promotions) {
             tableModel.addRow(new Object[]{promotion.getPromotionId(), promotion.getDiscount(),
@@ -79,11 +86,18 @@ public class AdminPromotionView extends JPanel {
         }
     }
 
+    /**
+     * Gets the create button.
+     * @return The create button.
+     */
     public JButton getCreateButton() {
         return createButton;
     }
 
-    // Method to update table data
+    /**
+     * Updates the table data with new Promotion objects.
+     * @param newPromotions An array of Promotion objects to update the table with.
+     */
     public void updateTableData(Promotion[] newPromotions) {
         promotions = newPromotions;
         tableModel.setRowCount(0);

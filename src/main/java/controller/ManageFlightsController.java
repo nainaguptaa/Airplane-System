@@ -11,6 +11,9 @@ import model.flight.Flight;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
+/**
+ * Controller class for managing flights-related views and functionality.
+ */
 public class ManageFlightsController implements ActionListener {
     private ManageFlightsView view;
     private ManageFlightView mfView;
@@ -18,6 +21,12 @@ public class ManageFlightsController implements ActionListener {
     private MainController mainController;
     private Flight model;
 
+    /**
+     * Constructs a new ManageFlightsController with the given database and MainController.
+     *
+     * @param db The database instance to interact with.
+     * @param mc The MainController for switching views.
+     */
     public ManageFlightsController(Database db, MainController mc) {
         this.mainController = mc;
         this.view = new ManageFlightsView();
@@ -28,6 +37,9 @@ public class ManageFlightsController implements ActionListener {
         addListeners();
     }
 
+    /**
+     * Adds action listeners to the relevant buttons in the view.
+     */
     private void addListeners() {
         view.addAddFlightButtonListener(this);
         view.addRemoveFlightButtonListener(this);
@@ -54,14 +66,19 @@ public class ManageFlightsController implements ActionListener {
         } else if (e.getActionCommand().equals("Submit")) {
             saveFlight();
         }
-
     }
 
+    /**
+     * Populates dropdowns in the ManageFlightView.
+     */
     private void getDropdowns() {
         getAircraftDropdown();
         getLocationDropdown();
     }
 
+    /**
+     * Retrieves aircraft data and populates the aircraft dropdown in the ManageFlightView.
+     */
     private void getAircraftDropdown() {
         String query = "SELECT * FROM aircrafts";
         ResultSet rs = db.executeQuery(query);
@@ -74,6 +91,9 @@ public class ManageFlightsController implements ActionListener {
         }
     }
 
+    /**
+     * Retrieves location data and populates the origin and destination dropdowns in the ManageFlightView.
+     */
     private void getLocationDropdown() {
         String query = "SELECT * FROM locations";
         ResultSet rs = db.executeQuery(query);
@@ -87,18 +107,9 @@ public class ManageFlightsController implements ActionListener {
         }
     }
 
-    private void getFlightDropdown() {
-        String query = "SELECT * FROM flights";
-        ResultSet rs = db.executeQuery(query);
-        try {
-            while (rs.next()) {
-                view.addFlightDropdownItem(rs.getString("flight_id"));
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-
+    /**
+     * Retrieves flight data based on the selected flight ID.
+     */
     private void getFlightData() {
         String query = "SELECT * FROM flights WHERE flight_id = '" + view.getFlightID() + "'";
         ResultSet rs = db.executeQuery(query);
@@ -120,9 +131,11 @@ public class ManageFlightsController implements ActionListener {
         } catch (Exception e) {
             System.out.println(e);
         }
-
     }
 
+    /**
+     * Removes a flight based on the selected flight ID.
+     */
     private void removeFlight() {
         String query = "DELETE FROM flights WHERE flight_id = '" + view.getFlightID() + "'";
         int res = db.executeUpdate(query);
@@ -135,16 +148,37 @@ public class ManageFlightsController implements ActionListener {
         getFlightDropdown();
     }
 
+    /**
+     * Retrieves flight IDs from the database and adds them to the view's dropdown.
+     */
+    private void getFlightDropdown() {
+        String query = "SELECT * FROM flights";
+        ResultSet rs = db.executeQuery(query);
+        try {
+            while (rs.next()) {
+                view.addFlightDropdownItem(rs.getString("flight_id"));
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+
+
+    /**
+     * Saves flight data to the database.
+     */
     private void saveFlight() {
         try {
-            //retrieve all data from view
+            // Retrieve all data from the view
             model.setAircraftId(Integer.parseInt(mfView.getAircraft()));
             model.setOriginId(mfView.getOrigin());
             model.setDestinationId(mfView.getDestination());
             model.setDepartureTime(Date.from(mfView.getDepartureTime().atZone(ZoneId.systemDefault()).toInstant()));
             model.setArrivalTime(Date.from(mfView.getArrivalTime().atZone(ZoneId.systemDefault()).toInstant()));
             model.setPrice(Double.parseDouble(mfView.getPrice()));
-            //check validity of data
+
+            // Check validity of data
             if (model.getOriginId().equals(model.getDestinationId())) {
                 mfView.addErrorMessage("Origin and destination cannot be the same");
                 return;
@@ -162,20 +196,20 @@ public class ManageFlightsController implements ActionListener {
                 mfView.addErrorMessage("Please fill out all fields");
                 return;
             }
+
             String query = new String();
-            if (model.getFlightId() == 0){ //new flight
+            if (model.getFlightId() == 0) { // New flight
                 query = "INSERT INTO flights (aircraft_id, departure_airport_id, arrival_airport_id, departure_time, arrival_time, price) VALUES ('"
-                    + model.getAircraftId() + "', '"
-                    + model.getOriginId() + "', '" + model.getDestinationId() + "', '" 
-                    + model.getDepartureString() + "', '" + model.getArrivalString() + "', '" 
-                    + model.getPrice() + "')";
-            }
-            else{
+                        + model.getAircraftId() + "', '"
+                        + model.getOriginId() + "', '" + model.getDestinationId() + "', '"
+                        + model.getDepartureString() + "', '" + model.getArrivalString() + "', '"
+                        + model.getPrice() + "')";
+            } else {
                 query = "UPDATE flights SET aircraft_id = '" + model.getAircraftId() + "', departure_airport_id = '"
-                    + model.getOriginId() + "', arrival_airport_id = '" + model.getDestinationId()
-                    + "', departure_time = '" + model.getDepartureString() + "', arrival_time = '"
-                    + model.getArrivalString()
-                    + "', price = '" + model.getPrice() + "' WHERE flight_id = " + model.getFlightId();
+                        + model.getOriginId() + "', arrival_airport_id = '" + model.getDestinationId()
+                        + "', departure_time = '" + model.getDepartureString() + "', arrival_time = '"
+                        + model.getArrivalString()
+                        + "', price = '" + model.getPrice() + "' WHERE flight_id = " + model.getFlightId();
             }
             int res = db.executeUpdate(query);
             if (res == 1) {
@@ -189,16 +223,28 @@ public class ManageFlightsController implements ActionListener {
         }
     }
 
+    /**
+     * Updates the ManageFlightView with flight data.
+     */
     public void updateMFView() {
         mfView.updateView(model);
     }
 
+    /**
+     * Gets the ManageFlightsView associated with this controller.
+     *
+     * @return The ManageFlightsView.
+     */
     public ManageFlightsView getView() {
         return view;
     }
 
+    /**
+     * Gets the ManageFlightView associated with this controller.
+     *
+     * @return The ManageFlightView.
+     */
     public ManageFlightView getMFView() {
         return mfView;
     }
-
 }

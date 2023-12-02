@@ -5,9 +5,11 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
-
 import java.awt.event.ActionListener;
 
+/**
+ * The CrewView class represents a view for displaying and managing crew members for a specific flight.
+ */
 public class CrewView extends JPanel {
 
     private JTable crewTable;
@@ -18,6 +20,11 @@ public class CrewView extends JPanel {
     private JComboBox<String> crewMemberComboBox;
     private String flightNo;
 
+    /**
+     * Creates a new CrewView for a specific flight.
+     *
+     * @param flightNo The flight number associated with this crew view.
+     */
     public CrewView(String flightNo) {
         this.flightNo = flightNo;
 
@@ -58,7 +65,8 @@ public class CrewView extends JPanel {
         crewMemberComboBox.setBounds(150, 310, 300, 30);
         add(crewMemberComboBox);
 
-                crewTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+        // ListSelectionListener for crewTable to update the state of the remove button
+        crewTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) { // This check is necessary to prevent double events
@@ -68,10 +76,18 @@ public class CrewView extends JPanel {
         });
     }
 
+    /**
+     * Adds a crew member to the table.
+     *
+     * @param rowData An array of crew member data.
+     */
     public void addCrewMember(Object[] rowData) {
         tableModel.addRow(rowData);
     }
 
+    /**
+     * Removes the selected crew member from the table.
+     */
     public void removeSelectedCrewMember() {
         int selectedRow = crewTable.getSelectedRow();
         if (selectedRow != -1) {
@@ -79,33 +95,66 @@ public class CrewView extends JPanel {
         }
     }
 
+    /**
+     * Adds an ActionListener to the Add Crew Member button.
+     *
+     * @param listener The ActionListener to be added.
+     */
     public void addAddButtonListener(ActionListener listener) {
         addButton.addActionListener(listener);
     }
 
+    /**
+     * Adds an ActionListener to the Remove Selected Crew Member button.
+     *
+     * @param listener The ActionListener to be added.
+     */
     public void addRemoveButtonListener(ActionListener listener) {
         removeButton.addActionListener(listener);
     }
 
-    public void updateTable(ArrayList<String[]> crewMembers){
+    /**
+     * Updates the table with new crew member data.
+     *
+     * @param crewMembers An ArrayList of String arrays representing crew member data.
+     */
+    public void updateTable(ArrayList<String[]> crewMembers) {
         tableModel.setRowCount(0);
         for (String[] crewMember : crewMembers) {
             tableModel.addRow(crewMember);
         }
     }
 
+    /**
+     * Clears the crew member dropdown.
+     */
     public void clearDropdown() {
         crewMemberComboBox.removeAllItems();
     }
 
+    /**
+     * Adds an item to the crew member dropdown.
+     *
+     * @param crewMember The name of a crew member to be added to the dropdown.
+     */
     public void addCrewMemberDropdownItem(String crewMember) {
         crewMemberComboBox.addItem(crewMember);
     }
 
+    /**
+     * Gets the selected crew member from the dropdown.
+     *
+     * @return The selected crew member as a String.
+     */
     public String getSelectedCrewMemberFromDropdown() {
         return (String) crewMemberComboBox.getSelectedItem();
     }
-    
+
+    /**
+     * Gets the selected crew member from the table.
+     *
+     * @return The selected crew member name as a String.
+     */
     public String getSelectedCrewMemberFromTable() {
         int selectedRow = crewTable.getSelectedRow();
         if (selectedRow != -1) {
@@ -114,15 +163,28 @@ public class CrewView extends JPanel {
         return null;
     }
 
+    /**
+     * Updates the state of the remove button based on the selected row in the table.
+     */
     private void updateRemoveButtonState() {
         // Enable the remove button if a row is selected, disable it otherwise
         removeButton.setEnabled(crewTable.getSelectedRow() != -1);
     }
 
+    /**
+     * Displays a success message in a dialog box.
+     *
+     * @param message The success message to be displayed.
+     */
     public void addSuccessMessage(String message) {
         JOptionPane.showMessageDialog(this, message, "Success", JOptionPane.INFORMATION_MESSAGE);
     }
 
+    /**
+     * Displays an error message in a dialog box.
+     *
+     * @param message The error message to be displayed.
+     */
     public void addErrorMessage(String message) {
         JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
     }

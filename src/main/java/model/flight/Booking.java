@@ -1,19 +1,32 @@
 package model.flight;
 
-import java.sql.Time;
 import java.util.Date;
 
+/**
+ * Represents a booking made by a user for a flight.
+ */
 public class Booking {
     private int bookingId;
     private String username;
     private int flightId;
     private int seatId;
     private double price;
-    private Date bookingTime; // Make time object
+    private Date bookingTime;
     private Boolean insurance;
 
+    /**
+     * Constructs a Booking object with the provided attributes.
+     *
+     * @param bookingId   The unique identifier for the booking.
+     * @param flightId    The ID of the flight associated with the booking.
+     * @param username    The username of the user making the booking.
+     * @param seatId      The ID of the seat booked.
+     * @param insurance   Whether insurance is included in the booking.
+     * @param price       The total price of the booking.
+     * @param bookingTime The timestamp when the booking was made.
+     */
     public Booking(int bookingId, int flightId, String username, int seatId, Boolean insurance, double price,
-            Date bookingTime) {
+                   Date bookingTime) {
         this.bookingId = bookingId;
         this.username = username;
         this.flightId = flightId;
@@ -23,6 +36,11 @@ public class Booking {
         this.insurance = insurance;
     }
 
+    /**
+     * Gets the booking data as an array of strings.
+     *
+     * @return An array of strings containing booking data.
+     */
     public String[] getBookingData() {
         String[] data = new String[6];
         data[0] = Integer.toString(bookingId);

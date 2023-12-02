@@ -7,8 +7,18 @@ import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;
 import java.util.Properties;
 
+/**
+ * A utility class for sending emails using JavaMail and Gmail's SMTP server.
+ */
 public class EmailSender {
 
+    /**
+     * Sends an email with the specified recipient, subject, and body.
+     *
+     * @param to      The recipient's email address.
+     * @param subject The subject of the email.
+     * @param body    The body content of the email.
+     */
     public static void sendEmail(String to, String subject, String body) {
         final String from = "ensf480proj@gmail.com"; // Your email address
         final String password = "zjyh vfek tqxm plhj"; // Your email APP password (Not your regular password as it won't

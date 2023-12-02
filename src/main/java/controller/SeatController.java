@@ -11,7 +11,10 @@ import java.util.Map;
 import java.util.HashMap;
 import java.awt.event.ActionListener;
 
-public class SeatController implements ActionListener{
+/**
+ * Controller class for managing seat selection in a flight booking process.
+ */
+public class SeatController implements ActionListener {
 
     private Database db;
     private MainController mc;
@@ -20,13 +23,20 @@ public class SeatController implements ActionListener{
 
     private SeatView seatView;
 
+    /**
+     * Constructs a SeatController with the provided database, main controller, and arguments.
+     *
+     * @param db    The database instance to interact with.
+     * @param mc    The main controller for switching views.
+     * @param args  A map of arguments, which should contain a "booking" object.
+     */
     public SeatController(Database db, MainController mc, Map<String, Object> args) {
         this.db = db;
         this.mc = mc;
         this.seatViewModels = new ArrayList<>();
         try {
             this.booking = (Booking) args.get("booking");
-            // Use the retrievedBooking object as needed
+            // Use the retrieved Booking object as needed
         } catch (ClassCastException e) {
             // Handle the case where the object is not of type Booking
             System.err.println("The object retrieved from 'args' is not a Booking");
@@ -37,10 +47,18 @@ public class SeatController implements ActionListener{
         addListeners();
     }
 
-    private void addListeners(){
+    /**
+     * Adds action listeners to the SeatView components.
+     */
+    private void addListeners() {
         seatView.addConfirmListener(this);
     }
 
+    /**
+     * Retrieves and populates a list of SeatViewModels based on the aircraft and seat data.
+     *
+     * @return An ArrayList of SeatViewModel objects.
+     */
     public ArrayList<SeatViewModel> getSeatViewModels() {
         int aircraftId = getAircraftID(booking);
 
@@ -49,7 +67,7 @@ public class SeatController implements ActionListener{
         }
 
         String query = "SELECT seat_id, seat_number, is_available, class FROM seats WHERE aircraft_id = '" + aircraftId + "';";
-        try (ResultSet rs = db.executeQuery(query);) {
+        try (ResultSet rs = db.executeQuery(query)) {
             while (rs.next()) {
                 String seatNumber = rs.getString("seat_number");
                 boolean isAvailable = rs.getBoolean("is_available");
@@ -68,6 +86,12 @@ public class SeatController implements ActionListener{
         return seatViewModels;
     }
 
+    /**
+     * Retrieves the aircraft ID associated with the booking.
+     *
+     * @param booking The Booking object for which to retrieve the aircraft ID.
+     * @return The aircraft ID or -1 if not found.
+     */
     public int getAircraftID(Booking booking) {
         int aircraftId = 0;
         String query = "SELECT aircraft_id FROM flights WHERE flight_id = '" + booking.getFlightId() + "';";
@@ -83,15 +107,25 @@ public class SeatController implements ActionListener{
         return aircraftId;
     }
 
+    /**
+     * Handles actionPerformed events, typically triggered by seat selection confirmation.
+     *
+     * @param e The ActionEvent object.
+     */
     @Override
     public void actionPerformed(java.awt.event.ActionEvent e) {
         int seatNumber = seatView.getSelectedSeatId();
         booking.setSeatId(seatNumber);
         HashMap<String, Object> args = new HashMap<>();
-        args.put("booking", booking);   
+        args.put("booking", booking);
         mc.switchToViewWithArgs("PaymentView", args);
     }
 
+    /**
+     * Gets the SeatView associated with this controller.
+     *
+     * @return The SeatView.
+     */
     public SeatView getView() {
         return seatView;
     }

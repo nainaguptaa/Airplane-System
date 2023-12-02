@@ -8,6 +8,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+/**
+ * The PassengerView class represents the view for displaying a list of passengers.
+ */
 public class PassengerView extends JPanel {
     private JTable passengerTable;
     private JScrollPane scrollPane;
@@ -15,8 +18,12 @@ public class PassengerView extends JPanel {
 
     private PassengerViewModel[] passengerViewModels;
 
+    /**
+     * Constructs a new PassengerView with an array of PassengerViewModels.
+     *
+     * @param pvm An array of PassengerViewModels to display in the view.
+     */
     public PassengerView(PassengerViewModel[] pvm) {
-
         this.passengerViewModels = pvm;
 
         setSize(600, 400);
@@ -46,6 +53,9 @@ public class PassengerView extends JPanel {
         add(scrollPane);
     }
 
+    /**
+     * Loads passenger data from PassengerViewModel objects into the table model.
+     */
     private void loadPassengers() {
         for (PassengerViewModel entry : passengerViewModels) {
             tableModel.addRow(new Object[] { entry.getUserName(),

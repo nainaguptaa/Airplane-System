@@ -12,6 +12,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * The FlightController class manages user interactions with the flight view,
+ * allowing users to select a flight and proceed with booking.
+ */
 public class FlightController implements ActionListener {
     private Database db;
     private MainController mainController;
@@ -19,6 +23,12 @@ public class FlightController implements ActionListener {
 
     private FlightView flightView;
 
+    /**
+     * Constructs a FlightController.
+     *
+     * @param db           The database instance for data retrieval.
+     * @param mainController The main controller for managing views and navigation.
+     */
     public FlightController(Database db, MainController mc) {
         this.db = db;
         this.mainController = mc;
@@ -27,10 +37,20 @@ public class FlightController implements ActionListener {
         flightView.addFlightSelectionListener(this);
     }
 
+    /**
+     * Gets the FlightView associated with this controller.
+     *
+     * @return The FlightView instance.
+     */
     public FlightView getView() {
         return flightView;
     }
 
+    /**
+     * Retrieves flight view models from the database.
+     *
+     * @return An array of FlightViewModel objects representing flights.
+     */
     public FlightViewModel[] getFlightViewModels() {
 
         String query = "SELECT "
@@ -64,6 +84,11 @@ public class FlightController implements ActionListener {
         return flightViewModel;
     }
 
+    /**
+     * Handles user actions when a flight is selected for booking.
+     *
+     * @param e The ActionEvent representing the flight selection.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         String selectedRow = e.getActionCommand();

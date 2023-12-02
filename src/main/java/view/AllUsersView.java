@@ -4,11 +4,17 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 
+/**
+ * The AllUsersView class represents a view for displaying a list of all registered users.
+ */
 public class AllUsersView extends JPanel {
 
     private JTable usersTable;
     private DefaultTableModel tableModel;
 
+    /**
+     * Creates a new AllUsersView panel.
+     */
     public AllUsersView() {
         // Setting up the panel
         setSize(600, 400);
@@ -32,6 +38,11 @@ public class AllUsersView extends JPanel {
         add(scrollPane);
     }
 
+    /**
+     * Updates the table with a list of users' data.
+     *
+     * @param usersData An ArrayList of String arrays representing user data.
+     */
     public void updateTable(ArrayList<String[]> usersData) {
         // Clear the table
         tableModel.setRowCount(0);
@@ -42,9 +53,13 @@ public class AllUsersView extends JPanel {
         }
     }
 
+    /**
+     * Adds a new user to the table.
+     *
+     * @param userData A String array representing user data.
+     */
     public void addUser(String[] userData) {
         tableModel.addRow(userData);
     }
 
-    // Additional methods can be added as needed, e.g., to refresh user list, handle errors, etc.
 }

@@ -11,8 +11,11 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The AgentController class manages the interaction between the database,
+ * FlightView, PassengerView, and other controllers for agents.
+ */
 public class AgentController implements ActionListener {
-    // include method for browsing passengers in a flight
     private Database db;
     private MainController mc;
     private PassengerView passengerView;
@@ -21,6 +24,12 @@ public class AgentController implements ActionListener {
     private FlightViewModel[] flightViewModels;
     private PassengerViewModel[] passengerViewModels;
 
+    /**
+     * Constructs an AgentController.
+     *
+     * @param db The database instance to access flight and passenger data.
+     * @param mc The MainController for managing the application's main views.
+     */
     public AgentController(Database db, MainController mc) {
         this.db = db;
         this.mc = mc;
@@ -28,11 +37,15 @@ public class AgentController implements ActionListener {
         this.flightView.addFlightSelectionListener(this);
     }
 
+    /**
+     * Retrieves flight data from the database based on the agent's username.
+     *
+     * @return An array of FlightViewModel objects representing flight data.
+     */
     public FlightViewModel[] getFlightViewModels() {
-
         String query = "SELECT * FROM flights WHERE flight_id IN (SELECT flight_id FROM crew WHERE username = '"
                 + mc.getUser().getUsername() + "');";
-        try (ResultSet rs = db.executeQuery(query);) {
+        try (ResultSet rs = db.executeQuery(query)) {
             List<FlightViewModel> flightList = new ArrayList<>();
             while (rs.next()) {
                 int flightId = rs.getInt("flight_id");
@@ -51,19 +64,16 @@ public class AgentController implements ActionListener {
         return flightViewModels;
     }
 
-    public PassengerView getPassengerView() {
-        return passengerView;
-    }
-
-    public FlightView getFlightView() {
-        return flightView;
-    }
-
+    /**
+     * Retrieves and displays passenger information for the selected flight.
+     *
+     * @param e The ActionEvent triggered by selecting a flight in the view.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         String selectedRow = e.getActionCommand();
         FlightViewModel flight = flightViewModels[Integer.parseInt(selectedRow)];
-        int flight_id = flight.FlightId; // Grab selected flights id
+        int flight_id = flight.FlightId; // Grab selected flight's id
 
         // Grab usernames and seat ids of all passengers on the selected flight
         String selectUsernamesQuery = "SELECT username, seat_id FROM bookings WHERE flight_id = '" + flight_id + "';";
@@ -102,6 +112,12 @@ public class AgentController implements ActionListener {
         mc.switchToView("PassengerTableView");
     }
 
+    /**
+     * Retrieves the seat number for a given seat ID.
+     *
+     * @param seat_id The ID of the seat.
+     * @return The seat number as a string.
+     */
     public String getSeatNumber(int seat_id) {
         String seat_number = "";
         String seatQuery = "SELECT seat_number FROM seats WHERE seat_id = '" + seat_id + "';";
@@ -114,5 +130,24 @@ public class AgentController implements ActionListener {
         }
         return seat_number;
     }
+
+    /**
+     * Gets the PassengerView associated with this controller.
+     *
+     * @return The PassengerView instance.
+     */
+    public PassengerView getPassengerView() {
+        return passengerView;
+    }
+
+    /**
+     * Gets the FlightView associated with this controller.
+     *
+     * @return The FlightView instance.
+     */
+    public FlightView getFlightView() {
+        return flightView;
+    }
+
 
 }
