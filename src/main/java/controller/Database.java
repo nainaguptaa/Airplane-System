@@ -15,14 +15,9 @@ public class Database {
     private Connection connection;
 
     /**
-     * Constructs a Database instance and establishes a connection to the database.
-     *
-     * @param url      The URL of the database.
-     * @param username The username for database access.
-     * @param password The password for database access.
+     * Constructs a Database object.
      */
-    private Database() {
-    }
+    private Database() {}
 
     /**
      * Gets a singleton instance of the Database class.

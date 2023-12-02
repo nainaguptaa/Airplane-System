@@ -47,7 +47,7 @@ public class MainController {
      * Private constructor to enforce singleton pattern.
      * Initializes the database connection, sets up the main frame, and switches to the EntryView.
      */
-    public MainController(String Url, String username, String password) {
+    private MainController(String Url, String username, String password) {
         this.db = Database.getInstance();
         this.db.connect(Url, username, password);
 
@@ -59,6 +59,16 @@ public class MainController {
         this.user = new User();
         this.switchToView("EntryView");
         mainFrame.setVisible(true);
+    }
+
+    /*
+        * Gets a singleton instance of the MainController class.
+     */
+    public static MainController getInstance(String Url, String username, String password) {
+        if (instance == null) {
+            instance = new MainController(Url, username, password);
+        }
+        return instance;
     }
 
     /**

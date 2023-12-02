@@ -21,6 +21,6 @@ public class App {
         String dbUser = args[1];
         String dbPassword = args[2];
 
-        new MainController(dbUrl, dbUser, dbPassword);
+        MainController.getInstance(dbUrl, dbUser, dbPassword);
     }
 }
