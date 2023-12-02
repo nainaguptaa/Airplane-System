@@ -144,6 +144,24 @@ public class ManageFlightsController implements ActionListener {
             model.setDepartureTime(Date.from(mfView.getDepartureTime().atZone(ZoneId.systemDefault()).toInstant()));
             model.setArrivalTime(Date.from(mfView.getArrivalTime().atZone(ZoneId.systemDefault()).toInstant()));
             model.setPrice(Double.parseDouble(mfView.getPrice()));
+            //check validity of data
+            if (model.getOriginId().equals(model.getDestinationId())) {
+                mfView.addErrorMessage("Origin and destination cannot be the same");
+                return;
+            }
+            if (model.getDepartureTime().after(model.getArrivalTime())) {
+                mfView.addErrorMessage("Departure time cannot be after arrival time");
+                return;
+            }
+            if (model.getPrice() < 0) {
+                mfView.addErrorMessage("Price cannot be negative");
+                return;
+            }
+            if (model.getAircraftId() == 0 || model.getOriginId().equals("") || model.getDestinationId().equals("")
+                    || model.getDepartureTime() == null || model.getArrivalTime() == null) {
+                mfView.addErrorMessage("Please fill out all fields");
+                return;
+            }
             String query = new String();
             if (model.getFlightId() == 0){ //new flight
                 query = "INSERT INTO flights (aircraft_id, departure_airport_id, arrival_airport_id, departure_time, arrival_time, price) VALUES ('"
