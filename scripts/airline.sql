@@ -89,7 +89,7 @@ CREATE TABLE bookings (
     status VARCHAR(50) NOT NULL,
     FOREIGN KEY (username) REFERENCES users(username),
     FOREIGN KEY (flight_id) REFERENCES flights(flight_id) ON DELETE CASCADE,
-    FOREIGN KEY (seat_id) REFERENCES seats(seat_id)
+    FOREIGN KEY (seat_id) REFERENCES seats(seat_id) ON DELETE CASCADE
 );
 -- Create 'crew' table
 CREATE TABLE crew (
