@@ -47,8 +47,9 @@ public class MainController {
      * Private constructor to enforce singleton pattern.
      * Initializes the database connection, sets up the main frame, and switches to the EntryView.
      */
-    private MainController() {
-        this.db = Database.getInstance("jdbc:mysql://localhost:3306/airline", "root", "SagittariusA5290$");
+    public MainController(String Url, String username, String password) {
+        this.db = Database.getInstance();
+        this.db.connect(Url, username, password);
 
         mainFrame = new JFrame("Airline Management System");
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -58,18 +59,6 @@ public class MainController {
         this.user = new User();
         this.switchToView("EntryView");
         mainFrame.setVisible(true);
-    }
-
-    /**
-     * Returns the singleton instance of MainController.
-     *
-     * @return The MainController instance.
-     */
-    public static MainController getInstance() {
-        if (instance == null) {
-            instance = new MainController();
-        }
-        return instance;
     }
 
     /**
