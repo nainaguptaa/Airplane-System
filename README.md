@@ -1,6 +1,6 @@
 # Airplane-System
 
-The repo to store the ENSF 480 Final Project
+This flight reservation application caters to a diverse range of users, including administrators, passengers, and flight attendants. Users can seamlessly log in to browse available flights, make selections, book reservations, and cancel bookings as needed.
 
 # Running the application run:
 
